@@ -6,39 +6,81 @@ import type {
 
 import { HTML_FONT_SIZE } from '@constant';
 
-/* Custom px to rem function */
-const typographyUtil: TypographyUtils = {
-    /**
-     * Converts a pixel value to rem units.
-     * @param px - The pixel value to convert.
-     * @returns The equivalent value in rem units as a string.
-     */
-    pxToRem: (px: number) => `${px / HTML_FONT_SIZE}` + 'rem',
+export const typographyUtil: TypographyUtils = {
+    pxToRem: (px: number) => `${px / HTML_FONT_SIZE}rem`,
 };
 
-// TODO: Add the necessary typographies here.
-/**
- * Creates a typography block with various styles
- * @param theme - Theme object to access the breakpoints.
- * @returns The function returns a TypographyOptions object, which includes various typography settings,
- */
-const typographyStyle = (theme: Theme): TypographyOptions => ({
-    fontFamily: 'Inter',
+export const typographyStyle = (theme: Theme): TypographyOptions => ({
+    fontFamily: "'Inter', sans-serif",
     htmlFontSize: HTML_FONT_SIZE,
 
     fontWeightLight: 400,
     fontWeightRegular: 500,
     fontWeightMedium: 600,
+    fontWeightBold: 700,
 
     h1: {
-        fontSize: typographyUtil.pxToRem(30),
+        fontSize: typographyUtil.pxToRem(36),
         fontWeight: 700,
-        lineHeight: typographyUtil.pxToRem(45),
-
+        lineHeight: 1.2,
         [theme.breakpoints.up('md')]: {
             fontSize: typographyUtil.pxToRem(48),
-            lineHeight: typographyUtil.pxToRem(62.5),
         },
+    },
+    h2: {
+        fontSize: typographyUtil.pxToRem(28),
+        fontWeight: 700,
+        lineHeight: 1.3,
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(36),
+        },
+    },
+    h3: {
+        fontSize: typographyUtil.pxToRem(24),
+        fontWeight: 600,
+        lineHeight: 1.4,
+    },
+    h4: {
+        fontSize: typographyUtil.pxToRem(20),
+        fontWeight: 600,
+        lineHeight: 1.4,
+    },
+    h5: {
+        fontSize: typographyUtil.pxToRem(18),
+        fontWeight: 600,
+        lineHeight: 1.5,
+    },
+    h6: {
+        fontSize: typographyUtil.pxToRem(16),
+        fontWeight: 600,
+        lineHeight: 1.5,
+    },
+
+    body1: {
+        fontSize: typographyUtil.pxToRem(16),
+        fontWeight: 400,
+        lineHeight: 1.5,
+    },
+    body2: {
+        fontSize: typographyUtil.pxToRem(14),
+        fontWeight: 400,
+        lineHeight: 1.43,
+        color: theme.palette.text.secondary,
+    },
+
+    subtitle1: { fontSize: typographyUtil.pxToRem(14), fontWeight: 500 },
+    subtitle2: { fontSize: typographyUtil.pxToRem(12), fontWeight: 500 },
+
+    button: {
+        fontSize: typographyUtil.pxToRem(16),
+        fontWeight: 600,
+        textTransform: 'none',
+    },
+    caption: {
+        fontSize: typographyUtil.pxToRem(12),
+        fontWeight: 500,
+        letterSpacing: '0.5px',
+        color: theme.palette.text.secondary,
     },
 });
 
