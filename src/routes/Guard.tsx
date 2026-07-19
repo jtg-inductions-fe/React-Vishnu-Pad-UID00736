@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
-const ProtectedRoute = () => {
+const Guard = () => {
     // for now its hardcoded true..... later i will update with actuall state
     const isAuthenticated = true;
 
@@ -11,4 +11,4 @@ const ProtectedRoute = () => {
     return <Outlet />;
 };
 
-export default ProtectedRoute;
+export default Guard;
