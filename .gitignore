@@ -1,25 +1,25 @@
-# Logs
+# Log files
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Dependencies & Build
+# Dependencies and build outputs
 node_modules/
 dist/
 dist-ssr/
 
-# Environment Variables (Security)
+# Environment files
 .env
 .env.*.local
 *.local
 
-# Caching (Fast builds)
+# Cache files
 .eslintcache
-tsconfig.tsbuildinfo
+*.tsbuildinfo
 
-# Editor / OS Files
+# Editor settings and OS files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store

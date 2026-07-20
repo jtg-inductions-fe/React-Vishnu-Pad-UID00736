@@ -4,84 +4,118 @@ import type {
     TypographyUtils,
 } from '@mui/material/styles/createTypography';
 
-import { HTML_FONT_SIZE } from '@constant';
+import { FONT_WEIGHT, HTML_FONT_SIZE, TYPOGRAPHY } from '@constant';
 
+/**
+ * A handy utility for text sizing.
+ * It converts standard pixel (px) sizes into 'rem' units.
+ * Using 'rem' instead of 'px' is a best practice because it scales better across
+ * different devices and respects the user's browser font size settings.
+ */
 export const typographyUtil: TypographyUtils = {
     pxToRem: (px: number) => `${px / HTML_FONT_SIZE}rem`,
 };
 
+/**
+ * This function defines exactly how all the text in our app should look.
+ * It sets the main font (Inter) and specific sizes/weights for everything
+ * from giant headings down to tiny captions.
+ */
 export const typographyStyle = (theme: Theme): TypographyOptions => ({
     fontFamily: "'Inter', sans-serif",
     htmlFontSize: HTML_FONT_SIZE,
 
-    fontWeightLight: 400,
-    fontWeightRegular: 500,
-    fontWeightMedium: 600,
-    fontWeightBold: 700,
+    fontWeightLight: FONT_WEIGHT.LIGHT,
+    fontWeightRegular: FONT_WEIGHT.REGULAR,
+    fontWeightMedium: FONT_WEIGHT.MEDIUM,
+    fontWeightBold: FONT_WEIGHT.BOLD,
 
     h1: {
-        fontSize: typographyUtil.pxToRem(36),
-        fontWeight: 700,
-        lineHeight: 1.2,
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.H1.MOBILE),
+        fontWeight: FONT_WEIGHT.BOLD,
+        lineHeight: TYPOGRAPHY.H1.LINE_HEIGHT,
+        // Automatically make this heading bigger on desktop screens (medium sizes and up)
         [theme.breakpoints.up('md')]: {
-            fontSize: typographyUtil.pxToRem(48),
+            fontSize: typographyUtil.pxToRem(TYPOGRAPHY.H1.DESKTOP),
         },
     },
+
     h2: {
-        fontSize: typographyUtil.pxToRem(28),
-        fontWeight: 700,
-        lineHeight: 1.3,
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.H2.MOBILE),
+        fontWeight: FONT_WEIGHT.BOLD,
+        lineHeight: TYPOGRAPHY.H2.LINE_HEIGHT,
+        // Automatically make this heading bigger on desktop screens
         [theme.breakpoints.up('md')]: {
-            fontSize: typographyUtil.pxToRem(36),
+            fontSize: typographyUtil.pxToRem(TYPOGRAPHY.H2.DESKTOP),
         },
     },
+
     h3: {
-        fontSize: typographyUtil.pxToRem(24),
-        fontWeight: 600,
-        lineHeight: 1.4,
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.H3.SIZE),
+        fontWeight: FONT_WEIGHT.MEDIUM,
+        lineHeight: TYPOGRAPHY.H3.LINE_HEIGHT,
     },
+
     h4: {
-        fontSize: typographyUtil.pxToRem(20),
-        fontWeight: 600,
-        lineHeight: 1.4,
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.H4.SIZE),
+        fontWeight: FONT_WEIGHT.MEDIUM,
+        lineHeight: TYPOGRAPHY.H4.LINE_HEIGHT,
     },
+
     h5: {
-        fontSize: typographyUtil.pxToRem(18),
-        fontWeight: 600,
-        lineHeight: 1.5,
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.H5.SIZE),
+        fontWeight: FONT_WEIGHT.MEDIUM,
+        lineHeight: TYPOGRAPHY.H5.LINE_HEIGHT,
     },
+
     h6: {
-        fontSize: typographyUtil.pxToRem(16),
-        fontWeight: 600,
-        lineHeight: 1.5,
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.H6.SIZE),
+        fontWeight: FONT_WEIGHT.MEDIUM,
+        lineHeight: TYPOGRAPHY.H6.LINE_HEIGHT,
     },
 
     body1: {
-        fontSize: typographyUtil.pxToRem(16),
-        fontWeight: 400,
-        lineHeight: 1.5,
-    },
-    body2: {
-        fontSize: typographyUtil.pxToRem(14),
-        fontWeight: 400,
-        lineHeight: 1.43,
-        color: theme.palette.text.secondary,
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.BODY1.SIZE),
+        fontWeight: FONT_WEIGHT.LIGHT,
+        lineHeight: TYPOGRAPHY.BODY1.LINE_HEIGHT,
     },
 
-    subtitle1: { fontSize: typographyUtil.pxToRem(14), fontWeight: 500 },
-    subtitle2: { fontSize: typographyUtil.pxToRem(12), fontWeight: 500 },
+    body2: {
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.BODY2.SIZE),
+        fontWeight: FONT_WEIGHT.LIGHT,
+        lineHeight: TYPOGRAPHY.BODY2.LINE_HEIGHT,
+        color: theme.palette.text.secondary, // Uses a softer color for secondary text
+    },
+
+    subtitle1: {
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.SUBTITLE1.SIZE),
+        fontWeight: FONT_WEIGHT.REGULAR,
+    },
+
+    subtitle2: {
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.SUBTITLE2.SIZE),
+        fontWeight: FONT_WEIGHT.REGULAR,
+    },
 
     button: {
-        fontSize: typographyUtil.pxToRem(16),
-        fontWeight: 600,
-        textTransform: 'none',
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.BUTTON.SIZE),
+        fontWeight: FONT_WEIGHT.MEDIUM,
+        textTransform: 'none', // Prevents buttons from automatically making text ALL CAPS
     },
+
     caption: {
-        fontSize: typographyUtil.pxToRem(12),
-        fontWeight: 500,
-        letterSpacing: '0.5px',
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.CAPTION.SIZE),
+        fontWeight: FONT_WEIGHT.REGULAR,
+        letterSpacing: TYPOGRAPHY.CAPTION.LETTER_SPACING,
         color: theme.palette.text.secondary,
     },
 });
 
-export const typography = { typographyStyle, typographyUtil };
+/**
+ * We bundle the utility and the styles together here so they can be
+ * easily imported into our main theme setup file.
+ */
+export const typography = {
+    typographyStyle,
+    typographyUtil,
+};

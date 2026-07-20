@@ -5,20 +5,30 @@ import InterRegularTTF from '@assets/fonts/inter/inter-regular.ttf';
 import InterRegularWOFF2 from '@assets/fonts/inter/inter-regular.woff2';
 import { COLORS } from '@constant';
 
-const fontFaceDeclarations = `
-    @font-face {
-        font-display: swap;
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 400;
-        src: url(${InterRegularWOFF2}) format('woff2'),
-             url(${InterRegularTTF}) format('truetype');
-    };
-`;
-
+/**
+ * This holds the custom design rules for our Material UI components.
+ * Setting these up here means every button, card, or text field in the app
+ * will automatically match our exact style without having to repeat code.
+ */
 export const components: Components<Theme> = {
+    /**
+     * MuiCssBaseline acts like our global CSS.
+     * It loads our custom 'Inter' font, sets up easy sizing, and sets the default background color for the whole app.
+     */
     MuiCssBaseline: {
         styleOverrides: {
+            '@font-face': [
+                {
+                    fontDisplay: 'swap',
+                    fontFamily: 'Inter',
+                    fontStyle: 'normal',
+                    fontWeight: 400,
+                    src: `
+                    url(${InterRegularWOFF2}) format('woff2'),
+                    url(${InterRegularTTF}) format('truetype')
+                `,
+                },
+            ],
             html: {
                 fontSize: '62.5%',
                 scrollBehavior: 'smooth',
@@ -28,9 +38,12 @@ export const components: Components<Theme> = {
                 MozOsxFontSmoothing: 'grayscale',
                 backgroundColor: COLORS.NEUTRAL[50],
             },
-            fontFaceDeclarations,
         },
     },
+
+    /**
+     * Makes all buttons have rounded corners and a soft colored shadow when you hover over them.
+     */
     MuiButton: {
         styleOverrides: {
             root: {
@@ -44,6 +57,10 @@ export const components: Components<Theme> = {
             },
         },
     },
+
+    /**
+     * Gives cards a clean border, rounded corners, and a slight "lift up" effect when hovered.
+     */
     MuiCard: {
         styleOverrides: {
             root: {
@@ -57,6 +74,10 @@ export const components: Components<Theme> = {
             },
         },
     },
+
+    /**
+     * Automatically makes text inputs stretch to full width and gives them smooth, rounded borders.
+     */
     MuiTextField: {
         defaultProps: {
             variant: 'outlined',
@@ -70,6 +91,10 @@ export const components: Components<Theme> = {
             },
         },
     },
+
+    /**
+     * Adds spacing inside lists, puts a subtle line between items, and highlights the row slightly on hover.
+     */
     MuiListItem: {
         styleOverrides: {
             root: {

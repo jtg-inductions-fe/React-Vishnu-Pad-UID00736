@@ -8,7 +8,7 @@
         "dev": "vite",
         "build": "tsc -b && vite build",
         "build:dev": "tsc -b && vite build --mode development",
-        "lint": "eslint --fix .",
+        "lint": "eslint .",
         "lint:fix": "eslint --fix .",
         "preview": "vite preview",
         "prettier": "npx prettier --write ./",
