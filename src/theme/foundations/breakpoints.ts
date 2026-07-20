@@ -1,9 +1,7 @@
 import type { BreakpointsOptions } from '@mui/material/styles';
 
 /**
- * These are our custom screen size breakpoints for responsive design.
- * They tell the app exactly when to change its layout based on the screen width (in pixels).
- * For example: 'xs' is for mobile screens, 'md' is for tablets, and 'lg' is for desktops.
+ * Defines the application's responsive breakpoints.
  */
 export const breakpoints: BreakpointsOptions = {
     values: {

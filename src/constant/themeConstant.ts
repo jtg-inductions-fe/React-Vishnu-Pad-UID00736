@@ -1,5 +1,15 @@
 /**
- * All the colors used across the app, including our custom Deep Space theme colors.
+ * Defines the application's font weights.
+ */
+export const FONT_WEIGHT = {
+    LIGHT: 400,
+    REGULAR: 500,
+    MEDIUM: 600,
+    BOLD: 700,
+    EXTRA_BOLD: 800,
+} as const;
+/**
+ * Defines the application's color palette.
  */
 export const COLORS = {
     PRIMARY: {
@@ -34,38 +44,114 @@ export const COLORS = {
 };
 
 /**
- * Standard font thicknesses used in the app.
- */
-export const FONT_WEIGHT = {
-    LIGHT: 400,
-    REGULAR: 500,
-    MEDIUM: 600,
-    BOLD: 700,
-} as const;
-
-/**
- * Standard font sizes and line heights for headings, body text, and buttons.
+ * Defines the application's typography scale.
  */
 export const TYPOGRAPHY = {
-    H1: { MOBILE: 36, DESKTOP: 48, LINE_HEIGHT: 1.2 },
-    H2: { MOBILE: 28, DESKTOP: 36, LINE_HEIGHT: 1.3 },
-    H3: { SIZE: 24, LINE_HEIGHT: 1.4 },
-    H4: { SIZE: 20, LINE_HEIGHT: 1.4 },
-    H5: { SIZE: 18, LINE_HEIGHT: 1.5 },
-    H6: { SIZE: 16, LINE_HEIGHT: 1.5 },
-    BODY1: { SIZE: 16, LINE_HEIGHT: 1.5 },
-    BODY2: { SIZE: 14, LINE_HEIGHT: 1.43 },
-    SUBTITLE1: { SIZE: 14 },
-    SUBTITLE2: { SIZE: 12 },
-    BUTTON: { SIZE: 16 },
+    DISPLAY_LARGE: {
+        MOBILE: 60,
+        DESKTOP: 100,
+        LINE_HEIGHT: 1,
+        LETTER_SPACING: '-1.5px',
+    },
+
+    DISPLAY_MEDIUM: {
+        MOBILE: 48,
+        DESKTOP: 72,
+        LINE_HEIGHT: 1.1,
+        LETTER_SPACING: '-1px',
+    },
+
+    DISPLAY_SMALL: {
+        MOBILE: 40,
+        DESKTOP: 56,
+        LINE_HEIGHT: 1.2,
+        LETTER_SPACING: '-0.5px',
+    },
+
+    HEADING_1: {
+        MOBILE: 36,
+        DESKTOP: 48,
+        LINE_HEIGHT: 1.2,
+        LETTER_SPACING: '-0.5px',
+    },
+
+    HEADING_2: {
+        MOBILE: 28,
+        DESKTOP: 36,
+        LINE_HEIGHT: 1.3,
+        LETTER_SPACING: '-0.25px',
+    },
+
+    HEADING_3: {
+        MOBILE: 24,
+        DESKTOP: 24,
+        LINE_HEIGHT: 1.4,
+        LETTER_SPACING: '0px',
+    },
+
+    HEADING_4: {
+        MOBILE: 20,
+        DESKTOP: 20,
+        LINE_HEIGHT: 1.4,
+        LETTER_SPACING: '0px',
+    },
+
+    HEADING_5: {
+        MOBILE: 18,
+        DESKTOP: 18,
+        LINE_HEIGHT: 1.5,
+        LETTER_SPACING: '0px',
+    },
+
+    HEADING_6: {
+        MOBILE: 16,
+        DESKTOP: 16,
+        LINE_HEIGHT: 1.5,
+        LETTER_SPACING: '0px',
+    },
+
+    BODY_LARGE: {
+        MOBILE: 16,
+        DESKTOP: 16,
+        LINE_HEIGHT: 1.5,
+        LETTER_SPACING: '0.15px',
+    },
+
+    BODY_MEDIUM: {
+        MOBILE: 14,
+        DESKTOP: 14,
+        LINE_HEIGHT: 1.43,
+        LETTER_SPACING: '0.1px',
+    },
+
+    LABEL_LARGE: {
+        MOBILE: 16,
+        DESKTOP: 16,
+        LINE_HEIGHT: 1.5,
+        LETTER_SPACING: '0.15px',
+    },
+
+    LABEL_SMALL: {
+        MOBILE: 14,
+        DESKTOP: 14,
+        LINE_HEIGHT: 1.43,
+        LETTER_SPACING: '0.1px',
+    },
+
     CAPTION: {
-        SIZE: 12,
-        LETTER_SPACING: '0.5px',
+        MOBILE: 12,
+        DESKTOP: 12,
+        LINE_HEIGHT: 1.66,
+        LETTER_SPACING: '0.4px',
     },
 } as const;
 
 /**
- * Base values for calculating responsive rem units and spacing.
+ * Base font size used for rem conversion.
  */
 export const HTML_FONT_SIZE = 10;
+
+/**
+ * Base spacing unit used throughout the application.
+ */
 export const SCALING_FACTOR = 4;

@@ -6,15 +6,9 @@ import InterRegularWOFF2 from '@assets/fonts/inter/inter-regular.woff2';
 import { COLORS } from '@constant';
 
 /**
- * This holds the custom design rules for our Material UI components.
- * Setting these up here means every button, card, or text field in the app
- * will automatically match our exact style without having to repeat code.
+ * Defines global Material UI component customizations.
  */
 export const components: Components<Theme> = {
-    /**
-     * MuiCssBaseline acts like our global CSS.
-     * It loads our custom 'Inter' font, sets up easy sizing, and sets the default background color for the whole app.
-     */
     MuiCssBaseline: {
         styleOverrides: {
             '@font-face': [
@@ -41,9 +35,6 @@ export const components: Components<Theme> = {
         },
     },
 
-    /**
-     * Makes all buttons have rounded corners and a soft colored shadow when you hover over them.
-     */
     MuiButton: {
         styleOverrides: {
             root: {
@@ -58,9 +49,6 @@ export const components: Components<Theme> = {
         },
     },
 
-    /**
-     * Gives cards a clean border, rounded corners, and a slight "lift up" effect when hovered.
-     */
     MuiCard: {
         styleOverrides: {
             root: {
@@ -75,9 +63,6 @@ export const components: Components<Theme> = {
         },
     },
 
-    /**
-     * Automatically makes text inputs stretch to full width and gives them smooth, rounded borders.
-     */
     MuiTextField: {
         defaultProps: {
             variant: 'outlined',
@@ -92,9 +77,6 @@ export const components: Components<Theme> = {
         },
     },
 
-    /**
-     * Adds spacing inside lists, puts a subtle line between items, and highlights the row slightly on hover.
-     */
     MuiListItem: {
         styleOverrides: {
             root: {

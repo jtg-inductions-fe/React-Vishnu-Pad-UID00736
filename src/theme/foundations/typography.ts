@@ -7,19 +7,14 @@ import type {
 import { FONT_WEIGHT, HTML_FONT_SIZE, TYPOGRAPHY } from '@constant';
 
 /**
- * A handy utility for text sizing.
- * It converts standard pixel (px) sizes into 'rem' units.
- * Using 'rem' instead of 'px' is a best practice because it scales better across
- * different devices and respects the user's browser font size settings.
+ * Converts pixel values to rem units.
  */
 export const typographyUtil: TypographyUtils = {
     pxToRem: (px: number) => `${px / HTML_FONT_SIZE}rem`,
 };
 
 /**
- * This function defines exactly how all the text in our app should look.
- * It sets the main font (Inter) and specific sizes/weights for everything
- * from giant headings down to tiny captions.
+ * Defines the application's typography scale.
  */
 export const typographyStyle = (theme: Theme): TypographyOptions => ({
     fontFamily: "'Inter', sans-serif",
@@ -29,91 +24,149 @@ export const typographyStyle = (theme: Theme): TypographyOptions => ({
     fontWeightRegular: FONT_WEIGHT.REGULAR,
     fontWeightMedium: FONT_WEIGHT.MEDIUM,
     fontWeightBold: FONT_WEIGHT.BOLD,
+    fontWeightExtraBold: FONT_WEIGHT.EXTRA_BOLD,
+
+    displayLarge: {
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.DISPLAY_LARGE.MOBILE),
+        fontWeight: FONT_WEIGHT.EXTRA_BOLD,
+        lineHeight: TYPOGRAPHY.DISPLAY_LARGE.LINE_HEIGHT,
+        letterSpacing: TYPOGRAPHY.DISPLAY_LARGE.LETTER_SPACING,
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(TYPOGRAPHY.DISPLAY_LARGE.DESKTOP),
+        },
+    },
+
+    displayMedium: {
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.DISPLAY_MEDIUM.MOBILE),
+        fontWeight: FONT_WEIGHT.EXTRA_BOLD,
+        lineHeight: TYPOGRAPHY.DISPLAY_MEDIUM.LINE_HEIGHT,
+        letterSpacing: TYPOGRAPHY.DISPLAY_MEDIUM.LETTER_SPACING,
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(TYPOGRAPHY.DISPLAY_MEDIUM.DESKTOP),
+        },
+    },
+
+    displaySmall: {
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.DISPLAY_SMALL.MOBILE),
+        fontWeight: FONT_WEIGHT.EXTRA_BOLD,
+        lineHeight: TYPOGRAPHY.DISPLAY_SMALL.LINE_HEIGHT,
+        letterSpacing: TYPOGRAPHY.DISPLAY_SMALL.LETTER_SPACING,
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(TYPOGRAPHY.DISPLAY_SMALL.DESKTOP),
+        },
+    },
 
     h1: {
-        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.H1.MOBILE),
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_1.MOBILE),
         fontWeight: FONT_WEIGHT.BOLD,
-        lineHeight: TYPOGRAPHY.H1.LINE_HEIGHT,
-        // Automatically make this heading bigger on desktop screens (medium sizes and up)
+        lineHeight: TYPOGRAPHY.HEADING_1.LINE_HEIGHT,
         [theme.breakpoints.up('md')]: {
-            fontSize: typographyUtil.pxToRem(TYPOGRAPHY.H1.DESKTOP),
+            fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_1.DESKTOP),
         },
     },
 
     h2: {
-        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.H2.MOBILE),
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_2.MOBILE),
         fontWeight: FONT_WEIGHT.BOLD,
-        lineHeight: TYPOGRAPHY.H2.LINE_HEIGHT,
-        // Automatically make this heading bigger on desktop screens
+        lineHeight: TYPOGRAPHY.HEADING_2.LINE_HEIGHT,
         [theme.breakpoints.up('md')]: {
-            fontSize: typographyUtil.pxToRem(TYPOGRAPHY.H2.DESKTOP),
+            fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_2.DESKTOP),
         },
     },
 
     h3: {
-        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.H3.SIZE),
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_3.MOBILE),
         fontWeight: FONT_WEIGHT.MEDIUM,
-        lineHeight: TYPOGRAPHY.H3.LINE_HEIGHT,
+        lineHeight: TYPOGRAPHY.HEADING_3.LINE_HEIGHT,
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_3.DESKTOP),
+        },
     },
 
     h4: {
-        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.H4.SIZE),
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_4.MOBILE),
         fontWeight: FONT_WEIGHT.MEDIUM,
-        lineHeight: TYPOGRAPHY.H4.LINE_HEIGHT,
+        lineHeight: TYPOGRAPHY.HEADING_4.LINE_HEIGHT,
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_4.DESKTOP),
+        },
     },
 
     h5: {
-        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.H5.SIZE),
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_5.MOBILE),
         fontWeight: FONT_WEIGHT.MEDIUM,
-        lineHeight: TYPOGRAPHY.H5.LINE_HEIGHT,
+        lineHeight: TYPOGRAPHY.HEADING_5.LINE_HEIGHT,
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_5.DESKTOP),
+        },
     },
 
     h6: {
-        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.H6.SIZE),
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_6.MOBILE),
         fontWeight: FONT_WEIGHT.MEDIUM,
-        lineHeight: TYPOGRAPHY.H6.LINE_HEIGHT,
+        lineHeight: TYPOGRAPHY.HEADING_6.LINE_HEIGHT,
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_6.DESKTOP),
+        },
     },
 
     body1: {
-        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.BODY1.SIZE),
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.BODY_LARGE.MOBILE),
         fontWeight: FONT_WEIGHT.LIGHT,
-        lineHeight: TYPOGRAPHY.BODY1.LINE_HEIGHT,
+        lineHeight: TYPOGRAPHY.BODY_LARGE.LINE_HEIGHT,
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(TYPOGRAPHY.BODY_LARGE.DESKTOP),
+        },
     },
 
     body2: {
-        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.BODY2.SIZE),
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.BODY_MEDIUM.MOBILE),
         fontWeight: FONT_WEIGHT.LIGHT,
-        lineHeight: TYPOGRAPHY.BODY2.LINE_HEIGHT,
-        color: theme.palette.text.secondary, // Uses a softer color for secondary text
+        lineHeight: TYPOGRAPHY.BODY_MEDIUM.LINE_HEIGHT,
+        color: theme.palette.text.secondary,
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(TYPOGRAPHY.BODY_MEDIUM.DESKTOP),
+        },
     },
 
     subtitle1: {
-        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.SUBTITLE1.SIZE),
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.LABEL_LARGE.MOBILE),
         fontWeight: FONT_WEIGHT.REGULAR,
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(TYPOGRAPHY.LABEL_LARGE.DESKTOP),
+        },
     },
 
     subtitle2: {
-        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.SUBTITLE2.SIZE),
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.LABEL_SMALL.MOBILE),
         fontWeight: FONT_WEIGHT.REGULAR,
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(TYPOGRAPHY.LABEL_SMALL.DESKTOP),
+        },
     },
 
     button: {
-        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.BUTTON.SIZE),
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.LABEL_LARGE.MOBILE),
         fontWeight: FONT_WEIGHT.MEDIUM,
-        textTransform: 'none', // Prevents buttons from automatically making text ALL CAPS
+        textTransform: 'none',
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(TYPOGRAPHY.LABEL_LARGE.DESKTOP),
+        },
     },
 
     caption: {
-        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.CAPTION.SIZE),
+        fontSize: typographyUtil.pxToRem(TYPOGRAPHY.CAPTION.MOBILE),
         fontWeight: FONT_WEIGHT.REGULAR,
         letterSpacing: TYPOGRAPHY.CAPTION.LETTER_SPACING,
         color: theme.palette.text.secondary,
+        [theme.breakpoints.up('md')]: {
+            fontSize: typographyUtil.pxToRem(TYPOGRAPHY.CAPTION.DESKTOP),
+        },
     },
 });
 
 /**
- * We bundle the utility and the styles together here so they can be
- * easily imported into our main theme setup file.
+ * Exposes typography utilities and theme configuration.
  */
 export const typography = {
     typographyStyle,

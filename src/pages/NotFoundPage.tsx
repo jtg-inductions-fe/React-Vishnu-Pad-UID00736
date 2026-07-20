@@ -1,37 +1,25 @@
-import { AppButton } from 'components/common/AppButton';
-import { CenteredPageWrapper } from 'components/common/PageStates';
+import { CenteredPageWrapper } from 'components/layout/CenteredPageWrapper';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'routes/constants';
 
-import { Typography } from '@mui/material';
-
-import { FONT_WEIGHT } from '@constant';
+import { Button, Typography } from '@mui/material';
 
 /**
- * The 404 Error page.
- * This screen shows up when a user tries to visit a URL that doesn't exist in our app.
- * It shows a "Lost in Deep Space" message and a button to go back home.
+ * Displays the application's 404 page.
  */
 const NotFound = () => {
     const navigate = useNavigate();
 
     return (
         <CenteredPageWrapper>
-            <Typography
-                variant="h1"
-                color="primary.main"
-                fontSize={{ xs: '6rem', md: '10rem' }}
-                fontWeight={FONT_WEIGHT.BOLD}
-                lineHeight={1}
-                mb={2}
-            >
+            <Typography variant="displayLarge" color="primary.main" mb={2}>
                 404
             </Typography>
 
             <Typography
                 variant="h3"
                 color="text.primary"
-                fontWeight={FONT_WEIGHT.BOLD}
+                fontWeight="bold"
                 mb={2}
             >
                 Lost in Deep Space
@@ -40,7 +28,7 @@ const NotFound = () => {
             <Typography
                 variant="body1"
                 color="text.secondary"
-                maxWidth="80%"
+                maxWidth={{ xs: '80%', sm: '40%' }}
                 mx="auto"
                 mb={4}
             >
@@ -49,14 +37,14 @@ const NotFound = () => {
                 back to familiar territory.
             </Typography>
 
-            <AppButton
+            <Button
                 variant="contained"
                 color="primary"
                 size="large"
                 onClick={() => void navigate(ROUTES.HOME)}
             >
                 Back to Home
-            </AppButton>
+            </Button>
         </CenteredPageWrapper>
     );
 };

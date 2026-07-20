@@ -3,13 +3,10 @@ import type { PaletteOptions } from '@mui/material/styles';
 import { COLORS } from '@constant';
 
 /**
- * This sets up the color scheme (palette) for our entire application.
- * It connects the custom colors we defined in our constants file to Material UI's
- * built-in categories. This way, when we use a "primary" button or an "error" alert,
- * Material UI automatically knows exactly which shades to use.
+ * Defines the application's color palette.
  */
 export const palette: PaletteOptions = {
-    mode: 'light', // Sets the default theme to light mode
+    mode: 'light',
     primary: {
         main: COLORS.PRIMARY.MAIN,
         light: COLORS.PRIMARY.LIGHT,
@@ -27,13 +24,13 @@ export const palette: PaletteOptions = {
     warning: { main: COLORS.FEEDBACK.WARNING },
     info: { main: COLORS.FEEDBACK.INFO },
     text: {
-        primary: COLORS.NEUTRAL[800], // Main text color (usually darkest)
-        secondary: COLORS.NEUTRAL[500], // Softer text for things like subtitles
+        primary: COLORS.NEUTRAL[800],
+        secondary: COLORS.NEUTRAL[500],
         disabled: COLORS.NEUTRAL[300],
     },
     background: {
-        default: COLORS.NEUTRAL[50], // The main background color for the app pages
-        paper: '#FFFFFF', // The background color for cards, modals, and menus
+        default: COLORS.NEUTRAL[50],
+        paper: '#FFFFFF',
     },
-    divider: COLORS.NEUTRAL[100], // Color for lines that separate content
+    divider: COLORS.NEUTRAL[100],
 };

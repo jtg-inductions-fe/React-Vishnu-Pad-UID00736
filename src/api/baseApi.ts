@@ -1,9 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 /**
- * Main API setup using RTK Query.
- * It sets the base URL from the env file and automatically adds the
- * auth token from localStorage to every request if it exists.
+ * Configures the application's base RTK Query API with shared request settings.
  */
 export const baseApi = createApi({
     reducerPath: 'api',

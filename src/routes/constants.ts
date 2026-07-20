@@ -1,6 +1,5 @@
 /**
- * A simple list of all the page links (routes) in our app.
- * We keep them here so if a URL ever changes, we only have to update it in one place.
+ * Centralizes application route paths.
  */
 export const ROUTES = {
     HOME: '/',
