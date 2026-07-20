@@ -1,86 +1,26 @@
-import {
-    AppBar,
-    Avatar,
-    Box,
-    Button,
-    Drawer,
-    IconButton,
-    Menu,
-    MenuItem,
-    Toolbar,
-} from '@mui/material';
+import { AppBar, Avatar, Drawer, Menu, MenuItem, Toolbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
+/** Sticky app header container with theme background and shadow. */
 export const StyledAppBar = styled(AppBar)(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
-    boxShadow: `0 0.2rem 0.8rem ${theme.palette.divider}`,
     color: theme.palette.text.primary,
+    boxShadow: `0 0.2rem 0.8rem ${theme.palette.divider}`,
     position: 'sticky',
     top: 0,
     zIndex: theme.zIndex.drawer + 1,
 }));
 
+/** Toolbar with responsive horizontal padding and spaced-out flex alignment. */
 export const StyledToolbar = styled(Toolbar)(({ theme }) => ({
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    ...theme.mixins.flexLayout('space-between', 'center'),
     padding: theme.spacing(1.5, 2),
     [theme.breakpoints.up('md')]: {
         padding: theme.spacing(1.5, 4),
     },
 }));
 
-export const LeftSection = styled(Box)(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    gap: theme.spacing(2.5),
-}));
-
-export const RightSection = styled(Box)(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    gap: theme.spacing(2),
-}));
-
-export const MenuButton = styled(Button)(({ theme }) => ({
-    color: theme.palette.text.primary,
-    fontWeight: theme.typography.fontWeightMedium,
-    '&:hover': {
-        color: theme.palette.primary.main,
-        backgroundColor: 'transparent',
-        boxShadow: 'none',
-    },
-}));
-
-export const MobileMenuIcon = styled(IconButton)(({ theme }) => ({
-    display: 'flex',
-    color: theme.palette.text.primary,
-    [theme.breakpoints.up('md')]: {
-        display: 'none',
-    },
-    '& svg': {
-        fontSize: '4rem',
-    },
-}));
-
-export const LogoImage = styled('img')({
-    height: '40px',
-    width: 'auto',
-    cursor: 'pointer',
-    objectFit: 'contain',
-});
-
-export const LogoText = styled('span')(({ theme }) => ({
-    fontSize: theme.typography.h2.fontSize,
-    fontWeight: theme.typography.fontWeightBold,
-    color: theme.palette.primary.main,
-    cursor: 'pointer',
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-        display: 'block',
-    },
-}));
-
+/** Clickable user avatar icon with subtle hover zoom effect. */
 export const StyledAvatar = styled(Avatar)(({ theme }) => ({
     cursor: 'pointer',
     backgroundColor: theme.palette.primary.main,
@@ -90,37 +30,27 @@ export const StyledAvatar = styled(Avatar)(({ theme }) => ({
     },
 }));
 
+/** Profile dropdown menu with custom border-radius and elevated shadow. */
 export const StyledMenu = styled(Menu)(({ theme }) => ({
     '& .MuiPaper-root': {
         marginTop: theme.spacing(1.5),
         overflow: 'visible',
-        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.1))',
+        filter: 'drop-shadow(0 0.2rem 0.8rem rgba(0,0,0,0.1))',
         borderRadius: '1.2rem',
-        minWidth: '200px',
+        minWidth: '20rem',
     },
 }));
 
+/** Menu item styled with theme error color specifically for logout action. */
 export const LogoutMenuItem = styled(MenuItem)(({ theme }) => ({
     color: theme.palette.error.main,
+    marginTop: theme.spacing(1),
 }));
 
+/** Side drawer navigation panel with fixed width for mobile views. */
 export const StyledDrawer = styled(Drawer)(() => ({
     '& .MuiDrawer-paper': {
-        width: 250,
+        width: '25rem',
         borderRadius: 0,
-    },
-}));
-
-export const DrawerHeader = styled('div')(({ theme }) => ({
-    padding: theme.spacing(2),
-    borderBottom: `1px solid ${theme.palette.divider}`,
-    display: 'flex',
-    alignItems: 'center',
-}));
-
-export const DesktopLoginButton = styled(Button)(({ theme }) => ({
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-        display: 'block',
     },
 }));

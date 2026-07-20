@@ -1,121 +1,141 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { Image } from 'components/Image';
+import { ROUTES } from 'routes/constants';
 
 import MenuIcon from '@mui/icons-material/Menu';
-import { Button, CircularProgress } from '@mui/material';
-
 import {
-    DesktopLoginButton,
-    LeftSection,
-    LogoImage,
-    LogoText,
-    MenuButton,
-    MobileMenuIcon,
-    RightSection,
-    StyledAppBar,
-    StyledAvatar,
-    StyledToolbar,
-} from './Header.styles';
+    Button,
+    CircularProgress,
+    IconButton,
+    Typography,
+} from '@mui/material';
+
+import { StyledAppBar, StyledAvatar, StyledToolbar } from './Header.styles';
 import { MobileDrawer } from './MobileDrawer';
 import { ProfileMenu } from './ProfileMenu';
-import { baseApi } from '../../../api/baseApi';
-import { useAppDispatch } from '../../../store/hooks';
 import { UserData } from '../../../types';
+import { FlexBox } from '../FlexBox';
 
-export const Header = () => {
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
+/** Header UI props */
+export interface HeaderProps {
+    isMobile: boolean;
+    isLoading: boolean;
+    user?: UserData;
+    /** Anchor element for MUI Profile Menu */
+    anchorEl: null | HTMLElement;
+    isMenuOpen: boolean;
+    /** Drawer visibility state */
+    mobileOpen: boolean;
+    handleProfileMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
+    handleMenuClose: () => void;
+    handleDrawerToggle: () => void;
+    handleLogout: () => void;
+    handleNavigate: (path: string) => void;
+}
 
-    // Dummy for now ......
-    const isLoading = false;
-    const user: UserData = {
-        name: 'Vishnu Pad',
-        role: 'user',
-    };
-    // const user = undefined as UserData | undefined;
+export const Header = ({
+    isMobile,
+    isLoading,
+    user,
+    anchorEl,
+    isMenuOpen,
+    mobileOpen,
+    handleProfileMenuOpen,
+    handleMenuClose,
+    handleDrawerToggle,
+    handleLogout,
+    handleNavigate,
+}: HeaderProps) => (
+    <StyledAppBar>
+        <StyledToolbar>
+            <FlexBox gap={0}>
+                {isMobile && (
+                    <IconButton
+                        onClick={handleDrawerToggle}
+                        color="primary"
+                        size="xl"
+                    >
+                        <MenuIcon fontSize="inherit" />
+                    </IconButton>
+                )}
 
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const isMenuOpen = Boolean(anchorEl);
-    const [mobileOpen, setMobileOpen] = useState(false);
+                <Image
+                    src="/logo.png"
+                    alt="Food Logo"
+                    height="4rem"
+                    width="auto"
+                    objectFit="contain"
+                    onClick={() => handleNavigate(ROUTES.HOME)}
+                />
 
-    const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) =>
-        setAnchorEl(event.currentTarget);
-    const handleMenuClose = () => setAnchorEl(null);
-    const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
+                {!isMobile && (
+                    <Typography
+                        variant="h3"
+                        color="primary"
+                        ml={2}
+                        onClick={() => handleNavigate(ROUTES.HOME)}
+                        style={{ cursor: 'pointer' }}
+                    >
+                        Food
+                    </Typography>
+                )}
+            </FlexBox>
 
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        dispatch(baseApi.util.resetApiState());
-        handleMenuClose();
-        void navigate('/login');
-    };
-
-    return (
-        <StyledAppBar>
-            <StyledToolbar>
-                <LeftSection>
-                    <MobileMenuIcon onClick={handleDrawerToggle}>
-                        <MenuIcon />
-                    </MobileMenuIcon>
-                    <LogoImage
-                        src="/logo.png"
-                        alt="Bite Logo"
-                        onClick={() => void navigate('/')}
-                    />
-                    <LogoText onClick={() => void navigate('/')}>Food</LogoText>
-                </LeftSection>
-
-                <RightSection>
-                    <MenuButton
-                        onClick={() => void navigate('/menu')}
-                        sx={{ display: { xs: 'none', md: 'block' } }}
+            <FlexBox gap={2}>
+                {!isMobile && (
+                    <Button
+                        variant="text"
+                        color="primary"
+                        onClick={() => handleNavigate(ROUTES.MENU)}
                     >
                         Menu
-                    </MenuButton>
+                    </Button>
+                )}
 
-                    {isLoading ? (
-                        <CircularProgress size={24} color="primary" />
-                    ) : user ? (
-                        <>
-                            <StyledAvatar onClick={handleProfileMenuOpen}>
-                                {user?.name
-                                    ? user.name.charAt(0).toUpperCase()
-                                    : 'U'}
-                            </StyledAvatar>
-                            <ProfileMenu
-                                anchorEl={anchorEl}
-                                isMenuOpen={isMenuOpen}
-                                handleMenuClose={handleMenuClose}
-                                handleLogout={handleLogout}
-                                user={user}
-                            />
-                        </>
-                    ) : (
-                        <>
-                            <DesktopLoginButton
+                {isLoading ? (
+                    <CircularProgress size={24} color="primary" />
+                ) : user ? (
+                    <>
+                        <StyledAvatar onClick={handleProfileMenuOpen}>
+                            {user.name.charAt(0).toUpperCase()}
+                        </StyledAvatar>
+                        <ProfileMenu
+                            anchorEl={anchorEl}
+                            isMenuOpen={isMenuOpen}
+                            handleMenuClose={handleMenuClose}
+                            handleLogout={handleLogout}
+                            user={user}
+                        />
+                    </>
+                ) : (
+                    <>
+                        {!isMobile && (
+                            <Button
                                 variant="text"
                                 color="inherit"
-                                onClick={() => void navigate('/login')}
+                                onClick={() => handleNavigate(ROUTES.LOGIN)}
                             >
                                 Login
-                            </DesktopLoginButton>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={() => void navigate('/register')}
-                            >
-                                Register
                             </Button>
-                        </>
-                    )}
-                </RightSection>
-            </StyledToolbar>
+                        )}
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={() => handleNavigate(ROUTES.REGISTER)}
+                        >
+                            Register
+                        </Button>
+                    </>
+                )}
+            </FlexBox>
+        </StyledToolbar>
 
+        {isMobile && (
             <MobileDrawer
                 mobileOpen={mobileOpen}
                 handleDrawerToggle={handleDrawerToggle}
             />
-        </StyledAppBar>
-    );
-};
+        )}
+    </StyledAppBar>
+);
