@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from 'routes/constants';
 
 import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -10,19 +11,23 @@ import {
     ListItemText,
 } from '@mui/material';
 
-import { DrawerHeader, LogoImage, StyledDrawer } from './Header.styles';
+import { StyledDrawer } from './Header.styles';
 
+/** Props for the mobile navigation drawer */
 interface MobileDrawerProps {
+    /** Controls drawer visibility */
     mobileOpen: boolean;
     handleDrawerToggle: () => void;
 }
 
+/** Renders the side navigation drawer for mobile viewports */
 export const MobileDrawer = ({
     mobileOpen,
     handleDrawerToggle,
 }: MobileDrawerProps) => {
     const navigate = useNavigate();
 
+    /** Closes the drawer before navigating to the specified route */
     const handleNavigate = (path: string) => {
         handleDrawerToggle();
         void navigate(path);
@@ -34,12 +39,9 @@ export const MobileDrawer = ({
             open={mobileOpen}
             onClose={handleDrawerToggle}
         >
-            <DrawerHeader>
-                <LogoImage src="/logo.png" alt="Food Logo" />
-            </DrawerHeader>
             <List>
                 <ListItem disablePadding>
-                    <ListItemButton onClick={() => handleNavigate('/')}>
+                    <ListItemButton onClick={() => handleNavigate(ROUTES.HOME)}>
                         <ListItemIcon>
                             <HomeIcon />
                         </ListItemIcon>
@@ -47,7 +49,7 @@ export const MobileDrawer = ({
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton onClick={() => handleNavigate('/menu')}>
+                    <ListItemButton onClick={() => handleNavigate(ROUTES.MENU)}>
                         <ListItemIcon>
                             <MenuIcon />
                         </ListItemIcon>
