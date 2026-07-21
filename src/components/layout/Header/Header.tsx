@@ -5,17 +5,21 @@ import { ROUTES } from 'routes/constants';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import {
+    AppBar,
+    Avatar,
+    Box,
     Button,
     CircularProgress,
     IconButton,
+    Stack,
+    Toolbar,
     Typography,
 } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
-import { StyledAppBar, StyledAvatar, StyledToolbar } from './Header.styles';
 import { MobileDrawer } from './MobileDrawer';
 import { ProfileMenu } from './ProfileMenu';
 import { UserData } from '../../../types';
-import { FlexBox } from '../FlexBox';
 
 /** Header UI props */
 export interface HeaderProps {
@@ -34,6 +38,10 @@ export interface HeaderProps {
     handleNavigate: (path: string) => void;
 }
 
+const CustomAppBar = styled(AppBar)(({ theme }) => ({
+    zIndex: theme.zIndex.drawer + 1,
+}));
+
 export const Header = ({
     isMobile,
     isLoading,
@@ -47,89 +55,110 @@ export const Header = ({
     handleLogout,
     handleNavigate,
 }: HeaderProps) => (
-    <StyledAppBar>
-        <StyledToolbar>
-            <FlexBox gap={0}>
-                {isMobile && (
-                    <IconButton
-                        onClick={handleDrawerToggle}
-                        color="primary"
-                        size="xl"
-                    >
-                        <MenuIcon fontSize="inherit" />
-                    </IconButton>
-                )}
-
-                <Image
-                    src="/logo.png"
-                    alt="Food Logo"
-                    height="4rem"
-                    width="auto"
-                    objectFit="contain"
-                    onClick={() => handleNavigate(ROUTES.HOME)}
-                />
-
-                {!isMobile && (
-                    <Typography
-                        variant="h3"
-                        color="primary"
-                        ml={2}
-                        onClick={() => handleNavigate(ROUTES.HOME)}
-                        style={{ cursor: 'pointer' }}
-                    >
-                        Food
-                    </Typography>
-                )}
-            </FlexBox>
-
-            <FlexBox gap={2}>
-                {!isMobile && (
-                    <Button
-                        variant="text"
-                        color="primary"
-                        onClick={() => handleNavigate(ROUTES.MENU)}
-                    >
-                        Menu
-                    </Button>
-                )}
-
-                {isLoading ? (
-                    <CircularProgress size={24} color="primary" />
-                ) : user ? (
-                    <>
-                        <StyledAvatar onClick={handleProfileMenuOpen}>
-                            {user.name.charAt(0).toUpperCase()}
-                        </StyledAvatar>
-                        <ProfileMenu
-                            anchorEl={anchorEl}
-                            isMenuOpen={isMenuOpen}
-                            handleMenuClose={handleMenuClose}
-                            handleLogout={handleLogout}
-                            user={user}
-                        />
-                    </>
-                ) : (
-                    <>
-                        {!isMobile && (
-                            <Button
-                                variant="text"
-                                color="inherit"
-                                onClick={() => handleNavigate(ROUTES.LOGIN)}
-                            >
-                                Login
-                            </Button>
-                        )}
-                        <Button
-                            variant="contained"
+    <CustomAppBar position="sticky" color="inherit" elevation={1}>
+        <Toolbar>
+            <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                width="100%"
+            >
+                <Stack direction="row" alignItems="center" spacing={1}>
+                    {isMobile && (
+                        <IconButton
+                            onClick={handleDrawerToggle}
                             color="primary"
-                            onClick={() => handleNavigate(ROUTES.REGISTER)}
+                            size="large"
                         >
-                            Register
+                            <MenuIcon fontSize="inherit" />
+                        </IconButton>
+                    )}
+
+                    <Box
+                        sx={{
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                        }}
+                        onClick={() => handleNavigate(ROUTES.HOME)}
+                    >
+                        <Image
+                            src="/logo.png"
+                            alt="Food Logo"
+                            height="4rem"
+                            width="auto"
+                            objectFit="contain"
+                        />
+                    </Box>
+
+                    {!isMobile && (
+                        <Typography
+                            variant="h3"
+                            color="primary"
+                            ml={2}
+                            onClick={() => handleNavigate(ROUTES.HOME)}
+                            sx={{ cursor: 'pointer' }}
+                        >
+                            Food
+                        </Typography>
+                    )}
+                </Stack>
+
+                <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                    {!isMobile && (
+                        <Button
+                            variant="text"
+                            color="primary"
+                            onClick={() => handleNavigate(ROUTES.MENU)}
+                        >
+                            Menu
                         </Button>
-                    </>
-                )}
-            </FlexBox>
-        </StyledToolbar>
+                    )}
+
+                    {isLoading ? (
+                        <CircularProgress size={24} color="primary" />
+                    ) : user ? (
+                        <>
+                            <Avatar
+                                onClick={handleProfileMenuOpen}
+                                sx={{
+                                    cursor: 'pointer',
+                                    bgcolor: 'primary.main',
+                                }}
+                            >
+                                {user.name.charAt(0).toUpperCase()}
+                            </Avatar>
+                            <ProfileMenu
+                                anchorEl={anchorEl}
+                                isMenuOpen={isMenuOpen}
+                                handleMenuClose={handleMenuClose}
+                                handleLogout={handleLogout}
+                                user={user}
+                            />
+                        </>
+                    ) : (
+                        <>
+                            {!isMobile && (
+                                <Button
+                                    variant="text"
+                                    color="inherit"
+                                    onClick={() => handleNavigate(ROUTES.LOGIN)}
+                                >
+                                    Login
+                                </Button>
+                            )}
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={() => handleNavigate(ROUTES.REGISTER)}
+                            >
+                                Register
+                            </Button>
+                        </>
+                    )}
+                </Box>
+            </Stack>
+        </Toolbar>
 
         {isMobile && (
             <MobileDrawer
@@ -137,5 +166,5 @@ export const Header = ({
                 handleDrawerToggle={handleDrawerToggle}
             />
         )}
-    </StyledAppBar>
+    </CustomAppBar>
 );

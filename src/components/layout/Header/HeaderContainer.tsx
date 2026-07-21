@@ -22,7 +22,7 @@ export const HeaderContainer = () => {
 
     // Mock data: Replace with actual RTK Query / Auth state later
     const isLoading = false;
-    const user: UserData | undefined = { name: 'Vishnu Pad', role: 'user' };
+    const user: UserData | undefined = { name: 'Vishnu Pad', role: 'owner' };
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const isMenuOpen = Boolean(anchorEl);

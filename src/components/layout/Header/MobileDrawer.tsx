@@ -4,46 +4,56 @@ import { ROUTES } from 'routes/constants';
 import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
+    Drawer,
     List,
     ListItem,
     ListItemButton,
     ListItemIcon,
     ListItemText,
 } from '@mui/material';
-
-import { StyledDrawer } from './Header.styles';
+import { styled } from '@mui/material/styles';
 
 /** Props for the mobile navigation drawer */
 interface MobileDrawerProps {
-    /** Controls drawer visibility */
     mobileOpen: boolean;
     handleDrawerToggle: () => void;
 }
 
-/** Renders the side navigation drawer for mobile viewports */
+const CustomDrawer = styled(Drawer)({
+    '& .MuiDrawer-paper': {
+        boxSizing: 'border-box',
+        width: '25rem',
+        top: '5.5rem',
+        height: 'calc(100% - 64px)',
+    },
+});
+
 export const MobileDrawer = ({
     mobileOpen,
     handleDrawerToggle,
 }: MobileDrawerProps) => {
     const navigate = useNavigate();
 
-    /** Closes the drawer before navigating to the specified route */
     const handleNavigate = (path: string) => {
         handleDrawerToggle();
         void navigate(path);
     };
 
     return (
-        <StyledDrawer
+        <CustomDrawer
             anchor="left"
             open={mobileOpen}
             onClose={handleDrawerToggle}
+            variant="temporary"
+            ModalProps={{
+                keepMounted: true,
+            }}
         >
             <List>
                 <ListItem disablePadding>
                     <ListItemButton onClick={() => handleNavigate(ROUTES.HOME)}>
                         <ListItemIcon>
-                            <HomeIcon />
+                            <HomeIcon color="primary" />
                         </ListItemIcon>
                         <ListItemText primary="Home" />
                     </ListItemButton>
@@ -51,12 +61,12 @@ export const MobileDrawer = ({
                 <ListItem disablePadding>
                     <ListItemButton onClick={() => handleNavigate(ROUTES.MENU)}>
                         <ListItemIcon>
-                            <MenuIcon />
+                            <MenuIcon color="primary" />
                         </ListItemIcon>
                         <ListItemText primary="Menu" />
                     </ListItemButton>
                 </ListItem>
             </List>
-        </StyledDrawer>
+        </CustomDrawer>
     );
 };
