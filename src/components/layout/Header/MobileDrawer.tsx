@@ -1,9 +1,11 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from 'routes/constants';
 
 import HomeIcon from '@mui/icons-material/Home';
-import MenuIcon from '@mui/icons-material/Menu';
+import RestaurantMenuIcon from '@mui/icons-material/Restaurant';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {
+    Divider,
     Drawer,
     List,
     ListItem,
@@ -33,6 +35,7 @@ export const MobileDrawer = ({
     handleDrawerToggle,
 }: MobileDrawerProps) => {
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleNavigate = (path: string) => {
         handleDrawerToggle();
@@ -49,21 +52,42 @@ export const MobileDrawer = ({
                 keepMounted: true,
             }}
         >
-            <List>
+            <List sx={{ pt: 2 }}>
                 <ListItem disablePadding>
-                    <ListItemButton onClick={() => handleNavigate(ROUTES.HOME)}>
+                    <ListItemButton
+                        selected={location.pathname === ROUTES.HOME}
+                        onClick={() => handleNavigate(ROUTES.HOME)}
+                    >
                         <ListItemIcon>
-                            <HomeIcon color="primary" />
+                            <HomeIcon />
                         </ListItemIcon>
                         <ListItemText primary="Home" />
                     </ListItemButton>
                 </ListItem>
+
                 <ListItem disablePadding>
-                    <ListItemButton onClick={() => handleNavigate(ROUTES.MENU)}>
+                    <ListItemButton
+                        selected={location.pathname === ROUTES.MENU}
+                        onClick={() => handleNavigate(ROUTES.MENU)}
+                    >
                         <ListItemIcon>
-                            <MenuIcon color="primary" />
+                            <RestaurantMenuIcon />
                         </ListItemIcon>
                         <ListItemText primary="Menu" />
+                    </ListItemButton>
+                </ListItem>
+
+                <Divider sx={{ my: 1 }} />
+
+                <ListItem disablePadding>
+                    <ListItemButton
+                        selected={location.pathname === ROUTES.MY_CART}
+                        onClick={() => handleNavigate(ROUTES.MY_CART)}
+                    >
+                        <ListItemIcon>
+                            <ShoppingCartIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="My Cart" />
                     </ListItemButton>
                 </ListItem>
             </List>

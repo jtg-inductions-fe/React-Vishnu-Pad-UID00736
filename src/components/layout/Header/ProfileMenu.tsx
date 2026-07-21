@@ -1,11 +1,10 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from 'routes/constants';
 
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import ReceiptIcon from '@mui/icons-material/Receipt';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import {
     Divider,
@@ -32,6 +31,7 @@ export const ProfileMenu = ({
     user,
 }: ProfileMenuProps) => {
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleNavigate = (path: string) => {
         handleMenuClose();
@@ -51,21 +51,20 @@ export const ProfileMenu = ({
                 },
             }}
         >
-            <MenuItem onClick={() => handleNavigate(ROUTES.PROFILE)}>
+            <MenuItem
+                selected={location.pathname === ROUTES.PROFILE}
+                onClick={() => handleNavigate(ROUTES.PROFILE)}
+            >
                 <ListItemIcon>
                     <PersonIcon fontSize="small" />
                 </ListItemIcon>
                 <Typography variant="body1">My Profile</Typography>
             </MenuItem>
 
-            <MenuItem onClick={() => handleNavigate(ROUTES.MY_CART)}>
-                <ListItemIcon>
-                    <ShoppingCartIcon fontSize="small" />
-                </ListItemIcon>
-                <Typography variant="body1">My Cart</Typography>
-            </MenuItem>
-
-            <MenuItem onClick={() => handleNavigate(ROUTES.MY_ORDERS)}>
+            <MenuItem
+                selected={location.pathname === ROUTES.MY_ORDERS}
+                onClick={() => handleNavigate(ROUTES.MY_ORDERS)}
+            >
                 <ListItemIcon>
                     <ReceiptIcon fontSize="small" />
                 </ListItemIcon>
@@ -76,6 +75,7 @@ export const ProfileMenu = ({
                 <Divider key="divider" />,
                 <MenuItem
                     key="restaurant"
+                    selected={location.pathname === ROUTES.MY_RESTAURANT}
                     onClick={() => handleNavigate(ROUTES.MY_RESTAURANT)}
                 >
                     <ListItemIcon>
@@ -85,6 +85,7 @@ export const ProfileMenu = ({
                 </MenuItem>,
                 <MenuItem
                     key="analytics"
+                    selected={location.pathname === ROUTES.ANALYTICS}
                     onClick={() => handleNavigate(ROUTES.ANALYTICS)}
                 >
                     <ListItemIcon>

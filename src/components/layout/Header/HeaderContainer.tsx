@@ -22,7 +22,10 @@ export const HeaderContainer = () => {
 
     // Mock data: Replace with actual RTK Query / Auth state later
     const isLoading = false;
-    const user: UserData | undefined = { name: 'Vishnu Pad', role: 'owner' };
+    const user: UserData | undefined = { name: 'Vishnu', role: 'owner' };
+
+    // dummy cart count
+    const cartItemCount = 3;
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const isMenuOpen = Boolean(anchorEl);
@@ -52,6 +55,7 @@ export const HeaderContainer = () => {
             isMobile={isMobile}
             isLoading={isLoading}
             user={user}
+            cartItemCount={cartItemCount}
             anchorEl={anchorEl}
             isMenuOpen={isMenuOpen}
             mobileOpen={mobileOpen}
