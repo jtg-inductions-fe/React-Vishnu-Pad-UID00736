@@ -4,7 +4,7 @@ import type {
     TypographyUtils,
 } from '@mui/material/styles/createTypography';
 
-import { FONT_WEIGHT, HTML_FONT_SIZE, TYPOGRAPHY } from '@constant';
+import { COLORS, FONT_WEIGHT, HTML_FONT_SIZE, TYPOGRAPHY } from '@constant';
 
 /**
  * Converts pixel values to rem units.
@@ -15,6 +15,7 @@ export const typographyUtil: TypographyUtils = {
 
 /**
  * Defines the application's typography scale.
+ *
  */
 export const typographyStyle = (theme: Theme): TypographyOptions => ({
     fontFamily: "'Inter', sans-serif",
@@ -31,6 +32,7 @@ export const typographyStyle = (theme: Theme): TypographyOptions => ({
         fontWeight: FONT_WEIGHT.EXTRA_BOLD,
         lineHeight: TYPOGRAPHY.DISPLAY_LARGE.LINE_HEIGHT,
         letterSpacing: TYPOGRAPHY.DISPLAY_LARGE.LETTER_SPACING,
+        color: COLORS.SECONDARY.DARK, // Darkest color for maximum contrast
         [theme.breakpoints.up('md')]: {
             fontSize: typographyUtil.pxToRem(TYPOGRAPHY.DISPLAY_LARGE.DESKTOP),
         },
@@ -41,6 +43,7 @@ export const typographyStyle = (theme: Theme): TypographyOptions => ({
         fontWeight: FONT_WEIGHT.EXTRA_BOLD,
         lineHeight: TYPOGRAPHY.DISPLAY_MEDIUM.LINE_HEIGHT,
         letterSpacing: TYPOGRAPHY.DISPLAY_MEDIUM.LETTER_SPACING,
+        color: COLORS.SECONDARY.DARK,
         [theme.breakpoints.up('md')]: {
             fontSize: typographyUtil.pxToRem(TYPOGRAPHY.DISPLAY_MEDIUM.DESKTOP),
         },
@@ -51,6 +54,7 @@ export const typographyStyle = (theme: Theme): TypographyOptions => ({
         fontWeight: FONT_WEIGHT.EXTRA_BOLD,
         lineHeight: TYPOGRAPHY.DISPLAY_SMALL.LINE_HEIGHT,
         letterSpacing: TYPOGRAPHY.DISPLAY_SMALL.LETTER_SPACING,
+        color: COLORS.SECONDARY.DARK,
         [theme.breakpoints.up('md')]: {
             fontSize: typographyUtil.pxToRem(TYPOGRAPHY.DISPLAY_SMALL.DESKTOP),
         },
@@ -60,6 +64,7 @@ export const typographyStyle = (theme: Theme): TypographyOptions => ({
         fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_1.MOBILE),
         fontWeight: FONT_WEIGHT.BOLD,
         lineHeight: TYPOGRAPHY.HEADING_1.LINE_HEIGHT,
+        color: COLORS.SECONDARY.MAIN,
         [theme.breakpoints.up('md')]: {
             fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_1.DESKTOP),
         },
@@ -69,6 +74,7 @@ export const typographyStyle = (theme: Theme): TypographyOptions => ({
         fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_2.MOBILE),
         fontWeight: FONT_WEIGHT.BOLD,
         lineHeight: TYPOGRAPHY.HEADING_2.LINE_HEIGHT,
+        color: COLORS.SECONDARY.MAIN,
         [theme.breakpoints.up('md')]: {
             fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_2.DESKTOP),
         },
@@ -78,6 +84,7 @@ export const typographyStyle = (theme: Theme): TypographyOptions => ({
         fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_3.MOBILE),
         fontWeight: FONT_WEIGHT.MEDIUM,
         lineHeight: TYPOGRAPHY.HEADING_3.LINE_HEIGHT,
+        color: COLORS.SECONDARY.MAIN,
         [theme.breakpoints.up('md')]: {
             fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_3.DESKTOP),
         },
@@ -87,6 +94,7 @@ export const typographyStyle = (theme: Theme): TypographyOptions => ({
         fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_4.MOBILE),
         fontWeight: FONT_WEIGHT.MEDIUM,
         lineHeight: TYPOGRAPHY.HEADING_4.LINE_HEIGHT,
+        color: COLORS.SECONDARY.MAIN,
         [theme.breakpoints.up('md')]: {
             fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_4.DESKTOP),
         },
@@ -96,6 +104,7 @@ export const typographyStyle = (theme: Theme): TypographyOptions => ({
         fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_5.MOBILE),
         fontWeight: FONT_WEIGHT.MEDIUM,
         lineHeight: TYPOGRAPHY.HEADING_5.LINE_HEIGHT,
+        color: COLORS.SECONDARY.MAIN,
         [theme.breakpoints.up('md')]: {
             fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_5.DESKTOP),
         },
@@ -105,6 +114,7 @@ export const typographyStyle = (theme: Theme): TypographyOptions => ({
         fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_6.MOBILE),
         fontWeight: FONT_WEIGHT.MEDIUM,
         lineHeight: TYPOGRAPHY.HEADING_6.LINE_HEIGHT,
+        color: COLORS.SECONDARY.MAIN,
         [theme.breakpoints.up('md')]: {
             fontSize: typographyUtil.pxToRem(TYPOGRAPHY.HEADING_6.DESKTOP),
         },
@@ -112,8 +122,9 @@ export const typographyStyle = (theme: Theme): TypographyOptions => ({
 
     body1: {
         fontSize: typographyUtil.pxToRem(TYPOGRAPHY.BODY_LARGE.MOBILE),
-        fontWeight: FONT_WEIGHT.LIGHT,
+        fontWeight: FONT_WEIGHT.LIGHT, // Ya Regular agar reading me dikkat ho
         lineHeight: TYPOGRAPHY.BODY_LARGE.LINE_HEIGHT,
+        color: COLORS.NEUTRAL[800],
         [theme.breakpoints.up('md')]: {
             fontSize: typographyUtil.pxToRem(TYPOGRAPHY.BODY_LARGE.DESKTOP),
         },
@@ -123,7 +134,7 @@ export const typographyStyle = (theme: Theme): TypographyOptions => ({
         fontSize: typographyUtil.pxToRem(TYPOGRAPHY.BODY_MEDIUM.MOBILE),
         fontWeight: FONT_WEIGHT.LIGHT,
         lineHeight: TYPOGRAPHY.BODY_MEDIUM.LINE_HEIGHT,
-        color: theme.palette.text.secondary,
+        color: COLORS.NEUTRAL[500],
         [theme.breakpoints.up('md')]: {
             fontSize: typographyUtil.pxToRem(TYPOGRAPHY.BODY_MEDIUM.DESKTOP),
         },
@@ -132,6 +143,7 @@ export const typographyStyle = (theme: Theme): TypographyOptions => ({
     subtitle1: {
         fontSize: typographyUtil.pxToRem(TYPOGRAPHY.LABEL_LARGE.MOBILE),
         fontWeight: FONT_WEIGHT.REGULAR,
+        color: COLORS.SECONDARY.MAIN,
         [theme.breakpoints.up('md')]: {
             fontSize: typographyUtil.pxToRem(TYPOGRAPHY.LABEL_LARGE.DESKTOP),
         },
@@ -140,6 +152,7 @@ export const typographyStyle = (theme: Theme): TypographyOptions => ({
     subtitle2: {
         fontSize: typographyUtil.pxToRem(TYPOGRAPHY.LABEL_SMALL.MOBILE),
         fontWeight: FONT_WEIGHT.REGULAR,
+        color: COLORS.SECONDARY.MAIN,
         [theme.breakpoints.up('md')]: {
             fontSize: typographyUtil.pxToRem(TYPOGRAPHY.LABEL_SMALL.DESKTOP),
         },
@@ -148,7 +161,6 @@ export const typographyStyle = (theme: Theme): TypographyOptions => ({
     button: {
         fontSize: typographyUtil.pxToRem(TYPOGRAPHY.LABEL_LARGE.MOBILE),
         fontWeight: FONT_WEIGHT.MEDIUM,
-        textTransform: 'none',
         [theme.breakpoints.up('md')]: {
             fontSize: typographyUtil.pxToRem(TYPOGRAPHY.LABEL_LARGE.DESKTOP),
         },
@@ -158,16 +170,21 @@ export const typographyStyle = (theme: Theme): TypographyOptions => ({
         fontSize: typographyUtil.pxToRem(TYPOGRAPHY.CAPTION.MOBILE),
         fontWeight: FONT_WEIGHT.REGULAR,
         letterSpacing: TYPOGRAPHY.CAPTION.LETTER_SPACING,
-        color: theme.palette.text.secondary,
+        color: COLORS.NEUTRAL[500],
         [theme.breakpoints.up('md')]: {
             fontSize: typographyUtil.pxToRem(TYPOGRAPHY.CAPTION.DESKTOP),
         },
     },
+
+    overline: {
+        fontSize: typographyUtil.pxToRem(10),
+        fontWeight: FONT_WEIGHT.BOLD,
+        letterSpacing: '1px',
+        textTransform: 'uppercase',
+        color: COLORS.PRIMARY.MAIN,
+    },
 });
 
-/**
- * Exposes typography utilities and theme configuration.
- */
 export const typography = {
     typographyStyle,
     typographyUtil,

@@ -16,18 +16,12 @@ const NotFound = () => {
                 404
             </Typography>
 
-            <Typography
-                variant="h3"
-                color="text.primary"
-                fontWeight="bold"
-                mb={2}
-            >
+            <Typography variant="h3" mb={2}>
                 Lost in Deep Space
             </Typography>
 
             <Typography
-                variant="body1"
-                color="text.secondary"
+                variant="body2"
                 maxWidth={{ xs: '80%', sm: '40%' }}
                 mx="auto"
                 mb={4}
@@ -39,7 +33,6 @@ const NotFound = () => {
 
             <Button
                 variant="contained"
-                color="primary"
                 size="large"
                 onClick={() => void navigate(ROUTES.HOME)}
             >
