@@ -57,10 +57,21 @@ export const components: Components<Theme> = {
         },
         styleOverrides: {
             root: {
-                borderRadius: '1.2rem',
                 backgroundImage: 'none',
-                border: `1px solid ${COLORS.NEUTRAL[100]}`,
             },
+        },
+    },
+
+    MuiAppBar: {
+        defaultProps: {
+            elevation: 0,
+        },
+        styleOverrides: {
+            root: ({ theme }) => ({
+                zIndex: theme.zIndex.drawer + 1,
+                backgroundColor: theme.palette.background.paper,
+                borderBottom: `1px solid ${COLORS.NEUTRAL[100]}`,
+            }),
         },
     },
 
@@ -118,6 +129,13 @@ export const components: Components<Theme> = {
                     backgroundColor: alpha(COLORS.PRIMARY.MAIN, 0.08),
                 },
             },
+            textInherit: {
+                color: COLORS.NEUTRAL[800],
+                '&:hover': {
+                    backgroundColor: COLORS.NEUTRAL[100],
+                    color: COLORS.NEUTRAL[800],
+                },
+            },
         },
     },
 
@@ -166,13 +184,48 @@ export const components: Components<Theme> = {
             {
                 props: { size: 'xl' },
                 style: {
-                    padding: '1.2rem',
+                    padding: '0.5rem',
                     '& .MuiSvgIcon-root': {
-                        fontSize: '3.2rem',
+                        fontSize: '3.5rem',
                     },
                 },
             },
         ],
+    },
+
+    MuiListItemIcon: {
+        styleOverrides: {
+            root: {
+                color: COLORS.NEUTRAL[500],
+                minWidth: '4.0rem',
+            },
+        },
+    },
+
+    MuiListItemButton: {
+        styleOverrides: {
+            root: {
+                padding: '1.2rem 1.6rem',
+                borderRadius: '0.8rem',
+                marginBottom: '0.4rem',
+                color: COLORS.NEUTRAL[800],
+                transition: 'all 0.2s ease',
+                '&:hover': {
+                    backgroundColor: COLORS.NEUTRAL[100],
+                },
+                '&.Mui-selected': {
+                    backgroundColor: alpha(COLORS.PRIMARY.MAIN, 0.08),
+                    color: COLORS.PRIMARY.MAIN,
+                    fontWeight: FONT_WEIGHT.MEDIUM,
+                    '&:hover': {
+                        backgroundColor: alpha(COLORS.PRIMARY.MAIN, 0.12),
+                    },
+                    '& .MuiListItemIcon-root': {
+                        color: COLORS.PRIMARY.MAIN,
+                    },
+                },
+            },
+        },
     },
 
     MuiListItem: {
@@ -182,8 +235,27 @@ export const components: Components<Theme> = {
                 borderRadius: '0.8rem',
                 marginBottom: '0.4rem',
                 transition: 'all 0.2s ease',
-                '&:hover': {
-                    backgroundColor: COLORS.NEUTRAL[100],
+            },
+        },
+    },
+
+    MuiMenuItem: {
+        styleOverrides: {
+            root: {
+                '&.Mui-selected': {
+                    backgroundColor: alpha(COLORS.PRIMARY.MAIN, 0.08),
+                    color: COLORS.PRIMARY.MAIN,
+                    fontWeight: 600,
+                    '&:hover': {
+                        backgroundColor: alpha(COLORS.PRIMARY.MAIN, 0.12),
+                    },
+                    '& .MuiListItemIcon-root': {
+                        color: COLORS.PRIMARY.MAIN,
+                    },
+                    '& .MuiTypography-root': {
+                        color: COLORS.PRIMARY.MAIN,
+                        fontWeight: 600,
+                    },
                 },
             },
         },
