@@ -1,5 +1,5 @@
-import { LoginPage } from 'pages/Login';
-import { RegisterPage } from 'pages/Register';
+import { LoginPage } from 'pages/LoginPage';
+import { RegisterPage } from 'pages/RegisterPage';
 import { RouteObject } from 'react-router-dom';
 
 import { ROUTES } from './constants';

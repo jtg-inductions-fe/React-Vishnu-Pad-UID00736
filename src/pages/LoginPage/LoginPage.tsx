@@ -1,10 +1,10 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { Link as RouterLink } from 'react-router-dom';
 import { ROUTES } from 'routes/constants';
 
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, Link, TextField, Typography } from '@mui/material';
 
 import { AuthLayout } from '../../components/auth/AuthLayout';
-import { AuthSwitch } from '../../components/auth/AuthSwitch';
 import { LoginFormData } from '../../validations/auth.schema';
 
 interface LoginFormProps {
@@ -41,19 +41,20 @@ export const LoginPage = ({
             helperText={errors.password?.message || ''}
         />
 
-        <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            disabled={isLoading}
-        >
+        <Button type="submit" variant="contained" disabled={isLoading}>
             {isLoading ? 'Signing In...' : 'Sign In'}
         </Button>
 
-        <AuthSwitch
-            text="Don't have an account?"
-            linkText="Register here"
-            route={ROUTES.REGISTER}
-        />
+        <Typography variant="body2" align="center" mt={2}>
+            Don&apos;t have an account?{' '}
+            <Link
+                component={RouterLink}
+                to={ROUTES.REGISTER}
+                variant="subtitle2"
+                underline="hover"
+            >
+                Register here
+            </Link>
+        </Typography>
     </AuthLayout>
 );
