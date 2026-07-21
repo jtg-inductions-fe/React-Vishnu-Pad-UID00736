@@ -8,7 +8,21 @@ import '@mui/material/Typography';
  */
 declare module '@mui/material/styles/createMixins' {
     interface Mixins {
-        lineClamp: (lines: number) => CSSProperties;
+        lineClamp: (lines?: number) => CSSProperties;
+        flexLayout: (
+            justify?: React.CSSProperties['justifyContent'],
+            align?: React.CSSProperties['alignItems'],
+            direction?: React.CSSProperties['flexDirection'],
+        ) => CSSProperties;
+    }
+}
+
+/**
+ * Updates the `<IconButton />` component's props to accept the custom 'xl' size.
+ */
+declare module '@mui/material/IconButton' {
+    interface IconButtonPropsSizeOverrides {
+        xl: true;
     }
 }
 

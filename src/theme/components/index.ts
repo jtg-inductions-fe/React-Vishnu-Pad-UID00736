@@ -35,6 +35,20 @@ export const components: Components<Theme> = {
         },
     },
 
+    MuiIconButton: {
+        variants: [
+            {
+                props: { size: 'xl' },
+                style: {
+                    padding: '0.5rem',
+                    '& .MuiSvgIcon-root': {
+                        fontSize: '4.0rem',
+                    },
+                },
+            },
+        ],
+    },
+
     MuiButton: {
         styleOverrides: {
             root: {
