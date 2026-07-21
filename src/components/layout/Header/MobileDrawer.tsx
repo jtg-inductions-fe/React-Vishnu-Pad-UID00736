@@ -15,7 +15,6 @@ import { StyledDrawer } from './Header.styles';
 
 /** Props for the mobile navigation drawer */
 interface MobileDrawerProps {
-    /** Controls drawer visibility */
     mobileOpen: boolean;
     handleDrawerToggle: () => void;
 }
@@ -27,7 +26,6 @@ export const MobileDrawer = ({
 }: MobileDrawerProps) => {
     const navigate = useNavigate();
 
-    /** Closes the drawer before navigating to the specified route */
     const handleNavigate = (path: string) => {
         handleDrawerToggle();
         void navigate(path);

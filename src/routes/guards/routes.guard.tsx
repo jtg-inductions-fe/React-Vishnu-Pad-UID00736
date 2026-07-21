@@ -1,11 +1,11 @@
+import { useAuth } from 'hooks/useAuth';
 import { Navigate, Outlet } from 'react-router-dom';
 
 /**
  * Restricts access to authenticated routes.
  */
 const ProtectedRoute = () => {
-    /** TODO: Replace with the actual authentication state. */
-    const isAuthenticated = true;
+    const { isAuthenticated } = useAuth();
 
     if (!isAuthenticated) {
         return <Navigate to="/login" replace />;

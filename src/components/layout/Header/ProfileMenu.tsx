@@ -13,26 +13,22 @@ import { LogoutMenuItem, StyledMenu } from './Header.styles';
 
 /** Props for the user profile dropdown menu */
 interface ProfileMenuProps {
-    /** Element to anchor the dropdown menu to */
     anchorEl: null | HTMLElement;
-    /** Visibility state of the menu */
     isMenuOpen: boolean;
     handleMenuClose: () => void;
     handleLogout: () => void;
-    user?: { name: string; role: string };
+    isOwner: boolean;
 }
 
-/** Renders the profile dropdown menu with role-based navigation links */
 export const ProfileMenu = ({
     anchorEl,
     isMenuOpen,
     handleMenuClose,
     handleLogout,
-    user,
+    isOwner,
 }: ProfileMenuProps) => {
     const navigate = useNavigate();
 
-    /** Closes the menu before navigating to the specified route */
     const handleNavigate = (path: string) => {
         handleMenuClose();
         void navigate(path);
@@ -66,8 +62,7 @@ export const ProfileMenu = ({
                 My Orders
             </MenuItem>
 
-            {/* Additional menu items exclusively for restaurant owners */}
-            {user?.role === 'owner' && [
+            {isOwner && [
                 <Divider key="divider" />,
                 <MenuItem
                     key="restaurant"

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
+import { useAuth } from 'hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { UserData } from 'types';
+import { User } from 'types';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -32,6 +33,7 @@ export const Header = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const location = useLocation();
+    const { user } = useAuth;()
     const theme = useTheme();
 
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));

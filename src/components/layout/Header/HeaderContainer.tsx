@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from 'routes/constants';
 
 import { useMediaQuery, useTheme } from '@mui/material';
 
 import { Header } from './Header';
 import { baseApi } from '../../../api/baseApi';
+import { useAuth } from '../../../hooks/useAuth';
+import { logout } from '../../../store/authSlice';
 import { useAppDispatch } from '../../../store/hooks';
-import { UserData } from '../../../types';
 
-/**
- * Container component for Header.
- * Manages state, Redux actions, and routing logic separately from UI.
- */
 export const HeaderContainer = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -35,22 +33,23 @@ export const HeaderContainer = () => {
 
     const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
-    /** Clears user session, resets RTK Query cache, and redirects to login */
     const handleLogout = () => {
-        localStorage.removeItem('token');
+        dispatch(logout());
         dispatch(baseApi.util.resetApiState());
         handleMenuClose();
-        void navigate('/login');
+        void navigate(ROUTES.LOGIN);
     };
 
     const handleNavigate = (path: string) => {
         void navigate(path);
+        if (isMobile) {
+            setMobileOpen(false);
+        }
     };
 
     return (
         <Header
             isMobile={isMobile}
-            isLoading={isLoading}
             user={user}
             anchorEl={anchorEl}
             isMenuOpen={isMenuOpen}

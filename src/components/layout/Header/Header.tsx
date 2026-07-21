@@ -4,12 +4,7 @@ import { Image } from 'components/Image';
 import { ROUTES } from 'routes/constants';
 
 import MenuIcon from '@mui/icons-material/Menu';
-import {
-    Button,
-    CircularProgress,
-    IconButton,
-    Typography,
-} from '@mui/material';
+import { Button, IconButton, Typography } from '@mui/material';
 
 import { StyledAppBar, StyledAvatar, StyledToolbar } from './Header.styles';
 import { MobileDrawer } from './MobileDrawer';
@@ -36,7 +31,6 @@ export interface HeaderProps {
 
 export const Header = ({
     isMobile,
-    isLoading,
     user,
     anchorEl,
     isMenuOpen,
