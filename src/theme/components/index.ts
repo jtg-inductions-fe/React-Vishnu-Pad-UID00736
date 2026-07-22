@@ -84,7 +84,6 @@ export const components: Components<Theme> = {
                 transition:
                     'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
                 '&:hover': {
-                    transform: 'translateY(-0.4rem)',
                     boxShadow: `0 0.8rem 2.4rem ${alpha(COLORS.SECONDARY.DARK, 0.08)}`,
                 },
             },
@@ -186,7 +185,7 @@ export const components: Components<Theme> = {
                 style: {
                     padding: '0.5rem',
                     '& .MuiSvgIcon-root': {
-                        fontSize: '3.5rem',
+                        fontSize: '4rem',
                     },
                 },
             },
@@ -207,7 +206,6 @@ export const components: Components<Theme> = {
             root: {
                 padding: '1.2rem 1.6rem',
                 borderRadius: '0.8rem',
-                marginBottom: '0.4rem',
                 color: COLORS.NEUTRAL[800],
                 transition: 'all 0.2s ease',
                 '&:hover': {
@@ -245,7 +243,7 @@ export const components: Components<Theme> = {
                 '&.Mui-selected': {
                     backgroundColor: alpha(COLORS.PRIMARY.MAIN, 0.08),
                     color: COLORS.PRIMARY.MAIN,
-                    fontWeight: 600,
+                    fontWeight: FONT_WEIGHT.MEDIUM,
                     '&:hover': {
                         backgroundColor: alpha(COLORS.PRIMARY.MAIN, 0.12),
                     },

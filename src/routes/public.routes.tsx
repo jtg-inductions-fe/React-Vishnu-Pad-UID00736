@@ -1,7 +1,7 @@
 import AppLayout from 'layouts/AppLayout';
 import type { RouteObject } from 'react-router-dom';
 
-import { ROUTES } from './constants';
+import { ROUTES } from './routes.constants';
 
 /**
  * Defines the application's public routes.

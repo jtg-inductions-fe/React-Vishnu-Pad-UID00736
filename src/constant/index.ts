@@ -4,4 +4,4 @@ export {
     HTML_FONT_SIZE,
     SCALING_FACTOR,
     TYPOGRAPHY,
-} from './themeConstant';
+} from './theme.constants';

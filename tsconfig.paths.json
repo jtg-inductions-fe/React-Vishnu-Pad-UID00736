@@ -2,9 +2,17 @@
     "compilerOptions": {
         "baseUrl": "./src",
         "paths": {
+            "@api/*": ["api/*"],
             "@assets/*": ["assets/*"],
+            "@components/*": ["components/*"],
             "@constant": ["constant/index"],
-            "@theme": ["theme/index"]
+            "@constant/*": ["constant/*"],
+            "@layouts/*": ["layouts/*"],
+            "@pages/*": ["pages/*"],
+            "@routes/*": ["routes/*"],
+            "@store/*": ["store/*"],
+            "@theme": ["theme/index"],
+            "@theme/*": ["theme/*"]
         }
     }
 }

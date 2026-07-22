@@ -6,7 +6,6 @@ export const FONT_WEIGHT = {
     REGULAR: 500,
     MEDIUM: 600,
     BOLD: 700,
-    EXTRA_BOLD: 800,
 } as const;
 /**
  * Defines the application's color palette.
@@ -47,91 +46,70 @@ export const COLORS = {
  * Defines the application's typography scale.
  */
 export const TYPOGRAPHY = {
-    DISPLAY_LARGE: {
-        MOBILE: 60,
-        DESKTOP: 100,
-        LINE_HEIGHT: 1,
-        LETTER_SPACING: '-1.5px',
-    },
-
-    DISPLAY_MEDIUM: {
-        MOBILE: 48,
-        DESKTOP: 72,
-        LINE_HEIGHT: 1.1,
-        LETTER_SPACING: '-1px',
-    },
-
-    DISPLAY_SMALL: {
-        MOBILE: 40,
-        DESKTOP: 56,
-        LINE_HEIGHT: 1.2,
-        LETTER_SPACING: '-0.5px',
-    },
-
-    HEADING_1: {
+    H1: {
         MOBILE: 36,
         DESKTOP: 48,
         LINE_HEIGHT: 1.2,
         LETTER_SPACING: '-0.5px',
     },
 
-    HEADING_2: {
+    H2: {
         MOBILE: 28,
         DESKTOP: 36,
         LINE_HEIGHT: 1.3,
         LETTER_SPACING: '-0.25px',
     },
 
-    HEADING_3: {
+    H3: {
         MOBILE: 24,
         DESKTOP: 24,
         LINE_HEIGHT: 1.4,
         LETTER_SPACING: '0px',
     },
 
-    HEADING_4: {
+    H4: {
         MOBILE: 20,
         DESKTOP: 20,
         LINE_HEIGHT: 1.4,
         LETTER_SPACING: '0px',
     },
 
-    HEADING_5: {
+    H5: {
         MOBILE: 18,
         DESKTOP: 18,
         LINE_HEIGHT: 1.5,
         LETTER_SPACING: '0px',
     },
 
-    HEADING_6: {
+    H6: {
         MOBILE: 16,
         DESKTOP: 16,
         LINE_HEIGHT: 1.5,
         LETTER_SPACING: '0px',
     },
 
-    BODY_LARGE: {
+    BODY1: {
         MOBILE: 16,
         DESKTOP: 16,
         LINE_HEIGHT: 1.5,
         LETTER_SPACING: '0.15px',
     },
 
-    BODY_MEDIUM: {
+    BODY2: {
         MOBILE: 14,
         DESKTOP: 14,
         LINE_HEIGHT: 1.43,
         LETTER_SPACING: '0.1px',
     },
 
-    LABEL_LARGE: {
+    SUBTITLE1: {
         MOBILE: 16,
         DESKTOP: 16,
         LINE_HEIGHT: 1.5,
         LETTER_SPACING: '0.15px',
     },
 
-    LABEL_SMALL: {
+    SUBTITLE2: {
         MOBILE: 14,
         DESKTOP: 14,
         LINE_HEIGHT: 1.43,

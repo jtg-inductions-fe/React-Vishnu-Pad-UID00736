@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { ROUTES } from 'routes/constants';
 
 import { Button, Stack, Typography } from '@mui/material';
+
+import { ROUTES } from '@routes/routes.constants';
 
 const NotFound = () => {
     const navigate = useNavigate();
@@ -19,7 +20,14 @@ const NotFound = () => {
                 p: 3,
             }}
         >
-            <Typography variant="displayLarge" color="primary.main">
+            <Typography
+                variant="h1"
+                color="primary.main"
+                sx={{
+                    fontSize: { xs: '6rem', md: '10rem' },
+                    mb: 2,
+                }}
+            >
                 404
             </Typography>
 
@@ -28,7 +36,7 @@ const NotFound = () => {
             <Typography
                 variant="body2"
                 maxWidth={{ xs: '80%', sm: '40%' }}
-                sx={{ mb: 2 }}
+                sx={{ mb: 3, mt: 1 }}
             >
                 The page you are looking for might have been removed, had its
                 name changed, or is temporarily unavailable. Let&apos;s get you
