@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { useMediaQuery, useTheme } from '@mui/material';
 
 import { Header } from './Header';
-import { baseApi } from '../../../api/baseApi';
-import { useAppDispatch } from '../../../store/hooks';
-import { UserData } from '../../../types';
+import { baseApi } from '../../api/base.api';
+import { useAppDispatch } from '../../store/hooks';
+import { UserData } from '../../types';
 
 /**
  * Container component for Header.

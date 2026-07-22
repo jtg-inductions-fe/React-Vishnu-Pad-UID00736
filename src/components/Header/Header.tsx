@@ -20,7 +20,7 @@ import {
 
 import { MobileDrawer } from './MobileDrawer';
 import { ProfileMenu } from './ProfileMenu';
-import { UserData } from '../../../types';
+import { UserData } from '../../types';
 
 export interface HeaderProps {
     isMobile: boolean;
