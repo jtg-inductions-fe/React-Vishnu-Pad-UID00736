@@ -6,7 +6,7 @@ import { ROUTES } from 'routes/constants';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { RegisterPage } from './RegisterPage';
-import { useRegisterMutation } from '../../api/authApi';
+import { useRegisterMutation } from '../../api/auth.api';
 import { getErrorMessage } from '../../utils/errorHandler';
 import {
     RegisterFormData,

@@ -27,7 +27,18 @@ import { FONT_WEIGHT } from '@constant';
 import { ROUTES } from '@routes/routes.constants';
 import { useAppDispatch } from '@store/hooks';
 
-import { MobileDrawer, ProfileMenu } from './subComponents';
+
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from 'routes/constants';
+
+import { useMediaQuery, useTheme } from '@mui/material';
+
+import { Header } from './Header';
+import { baseApi } from '../../api/base.api';
+import { useAuth } from '../../hooks/useAuth';
+import { logout } from '../../store/authSlice';
+import { useAppDispatch } from '../../store/hooks';
+
 
 export const Header = () => {
     const dispatch = useAppDispatch();
@@ -39,7 +50,7 @@ export const Header = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const currentPath = location.pathname;
 
-    // TODO: Dynamic values mapping from state later
+
     const isLoading = false;
     const user: UserData | undefined = { name: 'Vishnu Pad', role: 'owner' };
     const cartItemCount = 1;
@@ -54,7 +65,7 @@ export const Header = () => {
     const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
+        dispatch(logout());
         dispatch(baseApi.util.resetApiState());
         handleMenuClose();
         void navigate(ROUTES.LOGIN || '/login');
@@ -62,6 +73,9 @@ export const Header = () => {
 
     const handleNavigate = (path: string) => {
         void navigate(path);
+        if (isMobile) {
+            setMobileOpen(false);
+        }
     };
 
     const handleMobileNavigate = (path: string) => {

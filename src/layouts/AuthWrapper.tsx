@@ -1,6 +1,6 @@
 import { CircularProgress, Stack, Typography } from '@mui/material';
 
-import { useGetUserProfileQuery } from '../api/userApi';
+import { useGetUserProfileQuery } from '../api/user.api';
 import { useAuth } from '../hooks/useAuth';
 
 interface AuthWrapperProps {

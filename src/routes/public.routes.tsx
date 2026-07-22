@@ -1,4 +1,6 @@
 import AppLayout from 'layouts/AppLayout';
+import { LoginPage } from 'pages/LoginPage';
+import { RegisterPage } from 'pages/RegisterPage';
 import type { RouteObject } from 'react-router-dom';
 
 import { ROUTES } from './routes.constants';
@@ -13,7 +15,15 @@ export const publicRoutes: RouteObject[] = [
         children: [
             {
                 path: ROUTES.HOME,
-                element: <h1>Home</h1>,
+                element: <h1>Home Page</h1>,
+            },
+            {
+                path: ROUTES.LOGIN,
+                element: <LoginPage />,
+            },
+            {
+                path: ROUTES.REGISTER,
+                element: <RegisterPage />,
             },
         ],
     },

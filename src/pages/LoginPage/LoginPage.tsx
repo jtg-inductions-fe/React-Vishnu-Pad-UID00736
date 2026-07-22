@@ -4,7 +4,7 @@ import { ROUTES } from 'routes/constants';
 
 import { Button, Link, TextField, Typography } from '@mui/material';
 
-import { AuthLayout } from '../../components/auth/AuthLayout';
+import { AuthLayout } from '../../layouts/AuthLayout';
 import { LoginFormData } from '../../validations/auth.schema';
 
 interface LoginFormProps {

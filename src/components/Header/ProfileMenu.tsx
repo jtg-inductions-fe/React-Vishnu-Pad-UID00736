@@ -1,15 +1,18 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from 'routes/constants';
 
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import ReceiptIcon from '@mui/icons-material/Receipt';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import StorefrontIcon from '@mui/icons-material/Storefront';
-import { Divider, ListItemIcon, MenuItem } from '@mui/material';
-
-import { LogoutMenuItem, StyledMenu } from './Header.styles';
+import {
+    Divider,
+    ListItemIcon,
+    Menu,
+    MenuItem,
+    Typography,
+} from '@mui/material';
 
 /** Props for the user profile dropdown menu */
 interface ProfileMenuProps {
@@ -28,6 +31,7 @@ export const ProfileMenu = ({
     isOwner,
 }: ProfileMenuProps) => {
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleNavigate = (path: string) => {
         handleMenuClose();
@@ -35,62 +39,72 @@ export const ProfileMenu = ({
     };
 
     return (
-        <StyledMenu
+        <Menu
             anchorEl={anchorEl}
             open={isMenuOpen}
             onClose={handleMenuClose}
             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-            slotProps={{ paper: { elevation: 0 } }}
+            slotProps={{
+                paper: {
+                    elevation: 3,
+                },
+            }}
         >
-            <MenuItem onClick={() => handleNavigate(ROUTES.PROFILE)}>
+            <MenuItem
+                selected={location.pathname === ROUTES.PROFILE}
+                onClick={() => handleNavigate(ROUTES.PROFILE)}
+            >
                 <ListItemIcon>
                     <PersonIcon fontSize="small" />
                 </ListItemIcon>
-                My Profile
+                <Typography variant="body1">My Profile</Typography>
             </MenuItem>
-            <MenuItem onClick={() => handleNavigate(ROUTES.MY_CART)}>
-                <ListItemIcon>
-                    <ShoppingCartIcon fontSize="small" />
-                </ListItemIcon>
-                My Cart
-            </MenuItem>
-            <MenuItem onClick={() => handleNavigate(ROUTES.MY_ORDERS)}>
+
+            <MenuItem
+                selected={location.pathname === ROUTES.MY_ORDERS}
+                onClick={() => handleNavigate(ROUTES.MY_ORDERS)}
+            >
                 <ListItemIcon>
                     <ReceiptIcon fontSize="small" />
                 </ListItemIcon>
-                My Orders
+                <Typography variant="body1">My Orders</Typography>
             </MenuItem>
 
             {isOwner && [
                 <Divider key="divider" />,
                 <MenuItem
                     key="restaurant"
+                    selected={location.pathname === ROUTES.MY_RESTAURANT}
                     onClick={() => handleNavigate(ROUTES.MY_RESTAURANT)}
                 >
                     <ListItemIcon>
                         <StorefrontIcon fontSize="small" />
                     </ListItemIcon>
-                    My Restaurant
+                    <Typography variant="body1">My Restaurant</Typography>
                 </MenuItem>,
                 <MenuItem
                     key="analytics"
+                    selected={location.pathname === ROUTES.ANALYTICS}
                     onClick={() => handleNavigate(ROUTES.ANALYTICS)}
                 >
                     <ListItemIcon>
                         <AnalyticsIcon fontSize="small" />
                     </ListItemIcon>
-                    Analytics
+                    <Typography variant="body1">Analytics</Typography>
                 </MenuItem>,
             ]}
 
             <Divider />
-            <LogoutMenuItem onClick={handleLogout}>
+
+            <MenuItem onClick={handleLogout}>
                 <ListItemIcon>
                     <LogoutIcon fontSize="small" color="error" />
                 </ListItemIcon>
-                Logout
-            </LogoutMenuItem>
-        </StyledMenu>
+                <Typography variant="body1" color="error">
+                    Logout
+                </Typography>
+            </MenuItem>
+        </Menu>
     );
 };

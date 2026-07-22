@@ -6,7 +6,7 @@ import { ROUTES } from 'routes/constants';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { LoginPage } from './LoginPage';
-import { useLoginMutation } from '../../api/authApi';
+import { useLoginMutation } from '../../api/auth.api';
 import { setCredentials } from '../../store/authSlice';
 import { useAppDispatch } from '../../store/hooks';
 import { getErrorMessage } from '../../utils/errorHandler';
