@@ -1,11 +1,5 @@
-import { Container } from '@mui/material';
-
 import AppRoutes from './routes';
 
-const App = () => (
-    <Container maxWidth="xl">
-        <AppRoutes />
-    </Container>
-);
+const App = () => <AppRoutes />;
 
 export default App;

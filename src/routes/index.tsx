@@ -1,7 +1,7 @@
 import { useRoutes } from 'react-router-dom';
 
-import { protectedRoutes } from './protectedRoutes';
-import { publicRoutes } from './publicRoutes';
+import { protectedRoutes } from './protected.routes';
+import { publicRoutes } from './public.routes';
 import NotFoundPage from '../pages/NotFoundPage';
 
 /**

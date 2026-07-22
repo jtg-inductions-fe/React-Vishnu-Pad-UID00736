@@ -23,3 +23,6 @@ dist-ssr/
 !.vscode/extensions.json
 .idea/
 .DS_Store
+
+# Netlify builds and cache
+.netlify/
