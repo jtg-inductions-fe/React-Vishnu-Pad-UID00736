@@ -33,6 +33,7 @@ export const LoginContainer = () => {
         try {
             const response = await loginUser(data).unwrap();
             dispatch(setCredentials({ user: response, token: response.token }));
+
             toast.success('Login Successful! Welcome back.');
             void navigate(ROUTES.HOME);
         } catch (error) {
