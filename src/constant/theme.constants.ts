@@ -50,14 +50,14 @@ export const TYPOGRAPHY = {
         MOBILE: 36,
         DESKTOP: 48,
         LINE_HEIGHT: 1.2,
-        LETTER_SPACING: '-0.5px',
+        LETTER_SPACING: '0px',
     },
 
     H2: {
         MOBILE: 28,
         DESKTOP: 36,
         LINE_HEIGHT: 1.3,
-        LETTER_SPACING: '-0.25px',
+        LETTER_SPACING: '0px',
     },
 
     H3: {

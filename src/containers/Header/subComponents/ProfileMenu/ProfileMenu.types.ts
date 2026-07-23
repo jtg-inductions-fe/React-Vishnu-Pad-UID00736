@@ -4,6 +4,5 @@ export interface ProfileMenuProps {
     handleMenuClose: () => void;
     handleLogout: () => void;
     isOwner: boolean;
-    currentPath: string;
-    handleNavigate: (path: string) => void;
+    handleNavigate: (path: string) => () => void;
 }

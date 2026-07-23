@@ -21,7 +21,6 @@ export const ProfileMenu = ({
     handleMenuClose,
     handleLogout,
     isOwner,
-    currentPath,
     handleNavigate,
 }: ProfileMenuProps) => (
     <Menu
@@ -32,55 +31,48 @@ export const ProfileMenu = ({
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         slotProps={{ paper: { elevation: 3 } }}
     >
-        <MenuItem
-            selected={currentPath === ROUTES.PROFILE}
-            onClick={() => handleNavigate(ROUTES.PROFILE)}
-        >
+        <MenuItem onClick={handleNavigate(ROUTES.PROFILE)}>
             <ListItemIcon>
-                <PersonIcon fontSize="small" />
+                <PersonIcon fontSize='small' />
             </ListItemIcon>
-            <Typography variant="body1">My Profile</Typography>
+            <Typography variant='body1'>My Profile</Typography>
         </MenuItem>
-        <MenuItem
-            selected={currentPath === ROUTES.MY_ORDERS}
-            onClick={() => handleNavigate(ROUTES.MY_ORDERS)}
-        >
+
+        <MenuItem onClick={handleNavigate(ROUTES.MY_ORDERS)}>
             <ListItemIcon>
-                <ReceiptIcon fontSize="small" />
+                <ReceiptIcon fontSize='small' />
             </ListItemIcon>
-            <Typography variant="body1">My Orders</Typography>
+            <Typography variant='body1'>My Orders</Typography>
         </MenuItem>
 
         {isOwner && [
-            <Divider key="divider" />,
+            <Divider key='divider' />,
             <MenuItem
-                key="restaurant"
-                selected={currentPath === ROUTES.MY_RESTAURANT}
-                onClick={() => handleNavigate(ROUTES.MY_RESTAURANT)}
+                key='restaurant'
+                onClick={handleNavigate(ROUTES.MY_RESTAURANT)}
             >
                 <ListItemIcon>
-                    <StorefrontIcon fontSize="small" />
+                    <StorefrontIcon fontSize='small' />
                 </ListItemIcon>
-                <Typography variant="body1">My Restaurant</Typography>
+                <Typography variant='body1'>My Restaurant</Typography>
             </MenuItem>,
             <MenuItem
-                key="analytics"
-                selected={currentPath === ROUTES.ANALYTICS}
-                onClick={() => handleNavigate(ROUTES.ANALYTICS)}
+                key='analytics'
+                onClick={handleNavigate(ROUTES.ANALYTICS)}
             >
                 <ListItemIcon>
-                    <AnalyticsIcon fontSize="small" />
+                    <AnalyticsIcon fontSize='small' />
                 </ListItemIcon>
-                <Typography variant="body1">Analytics</Typography>
+                <Typography variant='body1'>Analytics</Typography>
             </MenuItem>,
         ]}
 
         <Divider />
         <MenuItem onClick={handleLogout}>
             <ListItemIcon>
-                <LogoutIcon fontSize="small" color="error" />
+                <LogoutIcon fontSize='small' color='error' />
             </ListItemIcon>
-            <Typography variant="body1" color="error">
+            <Typography variant='body1' color='error'>
                 Logout
             </Typography>
         </MenuItem>

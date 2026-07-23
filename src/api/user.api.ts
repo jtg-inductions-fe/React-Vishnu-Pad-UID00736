@@ -2,10 +2,10 @@ import toast from 'react-hot-toast';
 
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { logout, setCredentials } from '@store/slices';
+import { User } from '@type';
+import { getErrorMessage } from '@utils';
 
 import { baseApi } from './base.api';
-import { User } from '../types';
-import { getErrorMessage } from '../utils/errorHandler';
 
 export const userApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({

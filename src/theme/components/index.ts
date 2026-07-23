@@ -1,27 +1,62 @@
 import type { Components, Theme } from '@mui/material/styles';
 import { alpha } from '@mui/material/styles';
 
-import InterRegularTTF from '@assets/fonts/inter/inter-regular.ttf';
-import InterRegularWOFF2 from '@assets/fonts/inter/inter-regular.woff2';
+import InterBoldTTF from '@assets/fonts/inter/InterBoldTTF.ttf';
+import InterBoldWOFF2 from '@assets/fonts/inter/InterBoldWOFF2.woff2';
+import InterLightTTF from '@assets/fonts/inter/InterLightTTF.ttf';
+import InterLightWOFF2 from '@assets/fonts/inter/InterLightWOFF2.woff2';
+import InterMediumTTF from '@assets/fonts/inter/InterMediumTTF.ttf';
+import InterMediumWOFF2 from '@assets/fonts/inter/InterMediumWOFF2.woff2';
+import InterRegularTTF from '@assets/fonts/inter/InterRegularTTF.ttf';
+import InterRegularWOFF2 from '@assets/fonts/inter/InterRegularWOFF2.woff2';
 import { COLORS, FONT_WEIGHT } from '@constant';
 
 /**
  * Defines global Material UI component customizations.
- *
  */
 export const components: Components<Theme> = {
     MuiCssBaseline: {
-        styleOverrides: {
+        styleOverrides: (theme) => ({
             '@font-face': [
                 {
                     fontDisplay: 'swap',
                     fontFamily: 'Inter',
                     fontStyle: 'normal',
-                    fontWeight: 400,
+                    fontWeight: FONT_WEIGHT.LIGHT,
                     src: `
-                    url(${InterRegularWOFF2}) format('woff2'),
-                    url(${InterRegularTTF}) format('truetype')
-                `,
+                        url(${InterLightWOFF2}) format('woff2'),
+                        url(${InterLightTTF}) format('truetype')
+                    `,
+                },
+                {
+                    fontDisplay: 'swap',
+                    fontFamily: 'Inter',
+                    fontStyle: 'normal',
+                    fontWeight: FONT_WEIGHT.REGULAR,
+                    src: `
+                        url(${InterRegularWOFF2}) format('woff2'),
+                        url(${InterRegularTTF}) format('truetype')
+                    `,
+                },
+                {
+                    fontDisplay: 'swap',
+                    fontFamily: 'Inter',
+                    fontStyle: 'normal',
+                    fontWeight: FONT_WEIGHT.MEDIUM,
+                    src: `
+                        url(${InterMediumWOFF2}) format('woff2'),
+                        url(${InterMediumTTF}) format('truetype')
+                    `,
+                },
+                {
+                    fontDisplay: 'swap',
+                    fontFamily: 'Inter',
+                    fontStyle: 'normal',
+                    fontWeight: FONT_WEIGHT.BOLD,
+                    src: `
+                        url(${InterBoldWOFF2}) format('woff2'),
+                        url(${InterBoldTTF}) format('truetype')
+                    `,
                 },
             ],
             html: {
@@ -35,20 +70,20 @@ export const components: Components<Theme> = {
                 color: COLORS.NEUTRAL[800],
             },
             '*::-webkit-scrollbar': {
-                width: '0.8rem',
-                height: '0.8rem',
+                width: theme.spacing(2),
+                height: theme.spacing(2),
             },
             '*::-webkit-scrollbar-track': {
                 backgroundColor: 'transparent',
             },
             '*::-webkit-scrollbar-thumb': {
                 backgroundColor: COLORS.NEUTRAL[300],
-                borderRadius: '0.4rem',
+                borderRadius: theme.spacing(1),
             },
             '*::-webkit-scrollbar-thumb:hover': {
                 backgroundColor: COLORS.NEUTRAL[500],
             },
-        },
+        }),
     },
 
     MuiPaper: {
@@ -77,16 +112,16 @@ export const components: Components<Theme> = {
 
     MuiCard: {
         styleOverrides: {
-            root: {
-                borderRadius: '1.6rem',
-                boxShadow: `0 0.4rem 1.6rem ${alpha(COLORS.SECONDARY.DARK, 0.04)}`,
+            root: ({ theme }) => ({
+                borderRadius: theme.spacing(4),
+                boxShadow: `0 ${theme.spacing(1)} ${theme.spacing(4)} ${alpha(COLORS.SECONDARY.DARK, 0.04)}`,
                 border: `1px solid ${COLORS.NEUTRAL[100]}`,
                 transition:
                     'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
                 '&:hover': {
-                    boxShadow: `0 0.8rem 2.4rem ${alpha(COLORS.SECONDARY.DARK, 0.08)}`,
+                    boxShadow: `0 ${theme.spacing(2)} ${theme.spacing(6)} ${alpha(COLORS.SECONDARY.DARK, 0.08)}`,
                 },
-            },
+            }),
         },
     },
 
@@ -95,9 +130,9 @@ export const components: Components<Theme> = {
             disableElevation: true,
         },
         styleOverrides: {
-            root: {
-                borderRadius: '0.8rem',
-                padding: '1rem 2.4rem',
+            root: ({ theme }) => ({
+                borderRadius: theme.spacing(2),
+                padding: theme.spacing(2.5, 6),
                 textTransform: 'none',
                 fontWeight: FONT_WEIGHT.MEDIUM,
                 transition: 'all 0.2s ease-in-out',
@@ -105,15 +140,15 @@ export const components: Components<Theme> = {
                     backgroundColor: COLORS.NEUTRAL[100],
                     color: COLORS.NEUTRAL[300],
                 },
-            },
-            containedPrimary: {
+            }),
+            containedPrimary: ({ theme }) => ({
                 backgroundColor: COLORS.PRIMARY.MAIN,
                 color: COLORS.PRIMARY.CONTRAST,
                 '&:hover': {
                     backgroundColor: COLORS.PRIMARY.DARK,
-                    boxShadow: `0 0.4rem 1.2rem ${alpha(COLORS.PRIMARY.MAIN, 0.25)}`,
+                    boxShadow: `0 ${theme.spacing(1)} ${theme.spacing(3)} ${alpha(COLORS.PRIMARY.MAIN, 0.25)}`,
                 },
-            },
+            }),
             outlinedPrimary: {
                 color: COLORS.PRIMARY.MAIN,
                 borderColor: COLORS.PRIMARY.MAIN,
@@ -148,8 +183,8 @@ export const components: Components<Theme> = {
 
     MuiOutlinedInput: {
         styleOverrides: {
-            root: {
-                borderRadius: '0.8rem',
+            root: ({ theme }) => ({
+                borderRadius: theme.spacing(2),
                 backgroundColor: COLORS.PRIMARY.CONTRAST,
                 transition: 'all 0.2s ease',
                 '& .MuiOutlinedInput-notchedOutline': {
@@ -161,51 +196,47 @@ export const components: Components<Theme> = {
                 '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
                     borderColor: COLORS.PRIMARY.MAIN,
                     borderWidth: '1px',
-                    boxShadow: `0 0 0 0.3rem ${alpha(COLORS.PRIMARY.MAIN, 0.1)}`,
+                    boxShadow: `0 0 0 ${theme.spacing(0.75)} ${alpha(COLORS.PRIMARY.MAIN, 0.1)}`,
                 },
                 '&.Mui-disabled': {
                     backgroundColor: COLORS.NEUTRAL[50],
                 },
-            },
+            }),
         },
     },
 
     MuiIconButton: {
         styleOverrides: {
-            root: {
+            root: ({ ownerState, theme }) => ({
                 transition: 'all 0.2s ease',
                 '&:hover': {
                     backgroundColor: alpha(COLORS.SECONDARY.MAIN, 0.04),
                 },
-            },
-        },
-        variants: [
-            {
-                props: { size: 'xl' },
-                style: {
-                    padding: '0.5rem',
+                ...(ownerState.size === 'xl' && {
+                    padding: theme.spacing(1.25),
                     '& .MuiSvgIcon-root': {
-                        fontSize: '4rem',
+                        fontSize: theme.spacing(10),
                     },
-                },
-            },
-        ],
+                }),
+            }),
+        },
     },
+
     MuiListItemIcon: {
         styleOverrides: {
-            root: {
+            root: ({ theme }) => ({
                 color: COLORS.NEUTRAL[500],
-                minWidth: '4.0rem',
+                minWidth: theme.spacing(10),
                 transition: 'color 0.2s ease',
-            },
+            }),
         },
     },
 
     MuiListItemButton: {
         styleOverrides: {
-            root: {
-                padding: '0.8rem 1.6rem',
-                borderRadius: '0.8rem',
+            root: ({ theme }) => ({
+                padding: theme.spacing(2, 4),
+                borderRadius: theme.spacing(2),
                 color: COLORS.NEUTRAL[800],
                 transition: 'all 0.2s ease',
 
@@ -228,24 +259,24 @@ export const components: Components<Theme> = {
                         color: COLORS.PRIMARY.MAIN,
                     },
                 },
-            },
+            }),
         },
     },
 
     MuiListItem: {
         styleOverrides: {
-            root: {
+            root: ({ theme }) => ({
                 padding: 0,
-                marginBottom: '0.2rem',
-            },
+                marginBottom: theme.spacing(0.5),
+            }),
         },
     },
 
     MuiMenuItem: {
         styleOverrides: {
-            root: {
-                padding: '0.8rem 1.6rem',
-                borderRadius: '0.4rem',
+            root: ({ theme }) => ({
+                padding: theme.spacing(2, 4),
+                borderRadius: theme.spacing(1),
                 transition: 'all 0.2s ease',
 
                 '&:hover': {
@@ -271,7 +302,7 @@ export const components: Components<Theme> = {
                         fontWeight: 600,
                     },
                 },
-            },
+            }),
         },
     },
 };

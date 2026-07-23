@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom';
+
 import HomeIcon from '@mui/icons-material/Home';
 import RestaurantMenuIcon from '@mui/icons-material/Restaurant';
 import StorefrontIcon from '@mui/icons-material/Storefront';
@@ -9,72 +11,77 @@ import {
     ListItemText,
 } from '@mui/material';
 import { Drawer } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { alpha, styled, Theme } from '@mui/material/styles';
 
+import { FONT_WEIGHT } from '@constant';
 import { ROUTES } from '@routes/routes.constants';
 
 import { MobileDrawerProps } from './MobileDrawer.types';
 
-export const CustomDrawer = styled(Drawer)({
+const CustomDrawer = styled(Drawer)(({ theme }) => ({
     '& .MuiDrawer-paper': {
         boxSizing: 'border-box',
-        width: '25rem',
-        top: '5.5rem',
-        height: 'calc(100% - 64px)',
+        width: theme.spacing(62.5),
+        top: theme.spacing(13.75),
+        height: `calc(100% - ${theme.spacing(16)})`,
     },
-});
+}));
+const DRAWER_ITEMS = [
+    { label: 'Home', path: ROUTES.HOME, icon: <HomeIcon /> },
+    { label: 'Menu', path: ROUTES.MENU, icon: <RestaurantMenuIcon /> },
+    {
+        label: 'Restaurants',
+        path: ROUTES.RESTAURANTS,
+        icon: <StorefrontIcon />,
+    },
+];
 
 export const MobileDrawer = ({
     mobileOpen,
     handleDrawerToggle,
-    currentPath,
     handleNavigate,
-}: MobileDrawerProps) => (
-    <CustomDrawer
-        anchor="left"
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-        variant="temporary"
-        ModalProps={{
-            keepMounted: true,
-        }}
-    >
-        <List sx={{ pt: 2 }}>
-            <ListItem disablePadding>
-                <ListItemButton
-                    selected={currentPath === ROUTES.HOME}
-                    onClick={() => handleNavigate(ROUTES.HOME)}
-                >
-                    <ListItemIcon>
-                        <HomeIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Home" />
-                </ListItemButton>
-            </ListItem>
+}: MobileDrawerProps) => {
+    const activeLinkStyles = {
+        '&.active': {
+            backgroundColor: (theme: Theme) =>
+                alpha(theme.palette.primary.main, 0.08),
+            color: 'primary.main',
+            fontWeight: FONT_WEIGHT.REGULAR,
+            '&:hover': {
+                backgroundColor: (theme: Theme) =>
+                    alpha(theme.palette.primary.main, 0.12),
+            },
+            '& .MuiListItemIcon-root': {
+                color: 'primary.main',
+            },
+        },
+    };
 
-            <ListItem disablePadding>
-                <ListItemButton
-                    selected={currentPath === ROUTES.MENU}
-                    onClick={() => handleNavigate(ROUTES.MENU)}
-                >
-                    <ListItemIcon>
-                        <RestaurantMenuIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Menu" />
-                </ListItemButton>
-            </ListItem>
-
-            <ListItem disablePadding>
-                <ListItemButton
-                    selected={currentPath === ROUTES.RESTAURANTS}
-                    onClick={() => handleNavigate(ROUTES.RESTAURANTS)}
-                >
-                    <ListItemIcon>
-                        <StorefrontIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Restaurants" />
-                </ListItemButton>
-            </ListItem>
-        </List>
-    </CustomDrawer>
-);
+    return (
+        <CustomDrawer
+            anchor='left'
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            variant='temporary'
+            ModalProps={{
+                keepMounted: true,
+            }}
+        >
+            <List sx={{ pt: 2 }}>
+                {DRAWER_ITEMS.map(({ label, path, icon }) => (
+                    <ListItem disablePadding key={path}>
+                        <ListItemButton
+                            component={NavLink}
+                            to={path}
+                            onClick={handleNavigate(path)}
+                            sx={activeLinkStyles}
+                        >
+                            <ListItemIcon>{icon}</ListItemIcon>
+                            <ListItemText primary={label} />
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+        </CustomDrawer>
+    );
+};

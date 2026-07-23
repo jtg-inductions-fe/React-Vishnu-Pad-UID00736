@@ -9,11 +9,11 @@ const NotFound = () => {
 
     return (
         <Stack
-            component="main"
-            minHeight="100vh"
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
+            component='main'
+            minHeight='100vh'
+            direction='column'
+            justifyContent='center'
+            alignItems='center'
             gap={1}
             sx={{
                 textAlign: 'center',
@@ -21,8 +21,8 @@ const NotFound = () => {
             }}
         >
             <Typography
-                variant="h1"
-                color="primary.main"
+                variant='h1'
+                color='primary.main'
                 sx={{
                     fontSize: { xs: 70, md: 80 },
                     mb: 2,
@@ -31,10 +31,10 @@ const NotFound = () => {
                 404
             </Typography>
 
-            <Typography variant="h3">Lost in Deep Space</Typography>
+            <Typography variant='h3'>Lost in Deep Space</Typography>
 
             <Typography
-                variant="body2"
+                variant='body2'
                 maxWidth={{ xs: '80%', sm: '40%' }}
                 sx={{ mb: 8, mt: 1 }}
             >
@@ -44,8 +44,8 @@ const NotFound = () => {
             </Typography>
 
             <Button
-                variant="contained"
-                size="large"
+                variant='contained'
+                size='large'
                 onClick={() => void navigate(ROUTES.HOME)}
             >
                 Back to Home

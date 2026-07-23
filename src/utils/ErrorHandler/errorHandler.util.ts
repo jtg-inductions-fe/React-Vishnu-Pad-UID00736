@@ -1,20 +1,6 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
-interface ValidationErrorDetail {
-    type: string;
-    loc: (string | number)[];
-    msg: string;
-    input?: unknown;
-    ctx?: Record<string, unknown>;
-}
-
-interface ApiErrorResponse {
-    success?: boolean;
-    error?: string;
-    message?: string;
-    detail?: string;
-    details?: ValidationErrorDetail[];
-}
+import { ApiErrorResponse } from './errorHandler.types';
 
 export const getErrorMessage = (err: unknown): string => {
     if (err && typeof err === 'object' && 'status' in err) {

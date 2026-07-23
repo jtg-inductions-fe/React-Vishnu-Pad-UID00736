@@ -17,14 +17,14 @@ const AppLayout = () => {
     if (isAuthenticated && isFetching) {
         return (
             <Stack
-                height="100vh"
-                justifyContent="center"
-                alignItems="center"
-                spacing={2}
-                bgcolor="background.default"
+                height='100vh'
+                justifyContent='center'
+                alignItems='center'
+                gap={2}
+                bgcolor='background.default'
             >
-                <CircularProgress color="primary" />
-                <Typography variant="h6" color="text.secondary">
+                <CircularProgress color='primary' />
+                <Typography variant='h6' color='text.secondary'>
                     Verifying Session...
                 </Typography>
             </Stack>
@@ -34,7 +34,7 @@ const AppLayout = () => {
     return (
         <>
             <Header />
-            <Container maxWidth="lg">
+            <Container maxWidth='lg'>
                 <Outlet />
             </Container>
         </>

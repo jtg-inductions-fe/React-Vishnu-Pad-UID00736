@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { getErrorMessage } from 'utils/errorHandler';
 import { LoginFormData, loginSchema } from 'validations/auth.schema';
 
 import { Button, Link, Stack, TextField, Typography } from '@mui/material';
@@ -12,6 +11,7 @@ import { AuthLayout } from '@layouts/Auth.layout';
 import { ROUTES } from '@routes/routes.constants';
 import { useAppDispatch } from '@store/hooks';
 import { setCredentials } from '@store/slices';
+import { getErrorMessage } from '@utils';
 
 export const LoginPage = () => {
     const navigate = useNavigate();
@@ -47,15 +47,15 @@ export const LoginPage = () => {
     };
 
     return (
-        <AuthLayout onSubmit={onSubmitHandler} maxWidth="50rem">
-            <Typography variant="h3" align="center" mb={4} p={4}>
+        <AuthLayout onSubmit={onSubmitHandler} maxWidth={125}>
+            <Typography variant='h3' align='center' mb={4} p={4}>
                 Login
             </Typography>
 
-            <Stack spacing={4}>
+            <Stack gap={4}>
                 <TextField
-                    label="Email"
-                    type="email"
+                    label='Email'
+                    type='email'
                     fullWidth
                     {...register('email')}
                     error={!!errors.email}
@@ -63,8 +63,8 @@ export const LoginPage = () => {
                 />
 
                 <TextField
-                    label="Password"
-                    type="password"
+                    label='Password'
+                    type='password'
                     fullWidth
                     {...register('password')}
                     error={!!errors.password}
@@ -72,9 +72,9 @@ export const LoginPage = () => {
                 />
 
                 <Button
-                    type="submit"
-                    variant="contained"
-                    size="large"
+                    type='submit'
+                    variant='contained'
+                    size='large'
                     fullWidth
                     disabled={isLoading}
                     sx={{ mt: 4 }}
@@ -83,13 +83,13 @@ export const LoginPage = () => {
                 </Button>
             </Stack>
 
-            <Typography variant="body2" align="center" mt={6}>
+            <Typography variant='body2' align='center' mt={6}>
                 Don&apos;t have an account?{' '}
                 <Link
                     component={RouterLink}
                     to={ROUTES.REGISTER}
-                    variant="subtitle2"
-                    underline="hover"
+                    variant='subtitle2'
+                    underline='hover'
                 >
                     Register here
                 </Link>

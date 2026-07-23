@@ -14,7 +14,9 @@
             "@theme": ["theme/index"],
             "@theme/*": ["theme/*"],
             "@type": ["types/index", "types"],
-            "@type/*": ["types/*"]
+            "@type/*": ["types/*"],
+            "@utils": ["utils/index", "utils"],
+            "@utils/*": ["utils/*"]
         }
     }
 }
