@@ -191,12 +191,12 @@ export const components: Components<Theme> = {
             },
         ],
     },
-
     MuiListItemIcon: {
         styleOverrides: {
             root: {
                 color: COLORS.NEUTRAL[500],
                 minWidth: '4.0rem',
+                transition: 'color 0.2s ease',
             },
         },
     },
@@ -204,13 +204,19 @@ export const components: Components<Theme> = {
     MuiListItemButton: {
         styleOverrides: {
             root: {
-                padding: '1.2rem 1.6rem',
+                padding: '0.8rem 1.6rem',
                 borderRadius: '0.8rem',
                 color: COLORS.NEUTRAL[800],
                 transition: 'all 0.2s ease',
+
                 '&:hover': {
-                    backgroundColor: COLORS.NEUTRAL[100],
+                    backgroundColor: alpha(COLORS.PRIMARY.MAIN, 0.04),
+                    color: COLORS.PRIMARY.MAIN,
+                    '& .MuiListItemIcon-root': {
+                        color: COLORS.PRIMARY.MAIN,
+                    },
                 },
+
                 '&.Mui-selected': {
                     backgroundColor: alpha(COLORS.PRIMARY.MAIN, 0.08),
                     color: COLORS.PRIMARY.MAIN,
@@ -229,10 +235,8 @@ export const components: Components<Theme> = {
     MuiListItem: {
         styleOverrides: {
             root: {
-                padding: '1.2rem 1.6rem',
-                borderRadius: '0.8rem',
-                marginBottom: '0.4rem',
-                transition: 'all 0.2s ease',
+                padding: 0,
+                marginBottom: '0.2rem',
             },
         },
     },
@@ -240,6 +244,18 @@ export const components: Components<Theme> = {
     MuiMenuItem: {
         styleOverrides: {
             root: {
+                padding: '0.8rem 1.6rem',
+                borderRadius: '0.4rem',
+                transition: 'all 0.2s ease',
+
+                '&:hover': {
+                    backgroundColor: alpha(COLORS.PRIMARY.MAIN, 0.04),
+                    color: COLORS.PRIMARY.MAIN,
+                    '& .MuiListItemIcon-root': {
+                        color: COLORS.PRIMARY.MAIN,
+                    },
+                },
+
                 '&.Mui-selected': {
                     backgroundColor: alpha(COLORS.PRIMARY.MAIN, 0.08),
                     color: COLORS.PRIMARY.MAIN,

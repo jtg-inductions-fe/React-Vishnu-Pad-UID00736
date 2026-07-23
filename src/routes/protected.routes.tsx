@@ -1,7 +1,7 @@
 import AppLayout from 'layouts/AppLayout';
 import type { RouteObject } from 'react-router-dom';
 
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from './guards/routes.guard';
 import { ROUTES } from './routes.constants';
 
 /**

@@ -1,31 +1,27 @@
 import React, { useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { UserData } from 'types';
 
 import { useMediaQuery, useTheme } from '@mui/material';
 
-import { Header } from './Header';
-import { baseApi } from '../../api/base.api';
-import { useAppDispatch } from '../../store/hooks';
-import { UserData } from '../../types';
+import { baseApi } from '@api/base.api';
+import { useAppDispatch } from '@store/hooks';
 
-/**
- * Container component for Header.
- * Manages state, Redux actions, and routing logic separately from UI.
- */
+import { Header } from './Header.component';
+
 export const HeaderContainer = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const theme = useTheme();
 
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    const currentPath = location.pathname;
 
-    // Mock data: Replace with actual RTK Query / Auth state later
     const isLoading = false;
     const user: UserData | undefined = { name: 'Vishnu', role: 'owner' };
-
-    // dummy cart count
-    const cartItemCount = 3;
+    const cartItemCount = 1;
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const isMenuOpen = Boolean(anchorEl);
@@ -33,12 +29,9 @@ export const HeaderContainer = () => {
 
     const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) =>
         setAnchorEl(event.currentTarget);
-
     const handleMenuClose = () => setAnchorEl(null);
-
     const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
-    /** Clears user session, resets RTK Query cache, and redirects to login */
     const handleLogout = () => {
         localStorage.removeItem('token');
         dispatch(baseApi.util.resetApiState());
@@ -50,6 +43,16 @@ export const HeaderContainer = () => {
         void navigate(path);
     };
 
+    const handleMobileNavigate = (path: string) => {
+        setMobileOpen(false);
+        handleNavigate(path);
+    };
+
+    const handleProfileNavigate = (path: string) => {
+        handleMenuClose();
+        handleNavigate(path);
+    };
+
     return (
         <Header
             isMobile={isMobile}
@@ -59,11 +62,14 @@ export const HeaderContainer = () => {
             anchorEl={anchorEl}
             isMenuOpen={isMenuOpen}
             mobileOpen={mobileOpen}
+            currentPath={currentPath}
             handleProfileMenuOpen={handleProfileMenuOpen}
             handleMenuClose={handleMenuClose}
             handleDrawerToggle={handleDrawerToggle}
             handleLogout={handleLogout}
             handleNavigate={handleNavigate}
+            handleMobileNavigate={handleMobileNavigate}
+            handleProfileNavigate={handleProfileNavigate}
         />
     );
 };

@@ -8,6 +8,7 @@ export const ROUTES = {
     REGISTER: '/register',
 
     MENU: '/menu',
+    RESTAURANTS: '/restaurants',
 
     MY_CART: '/my-cart',
     MY_ORDERS: '/my-orders',

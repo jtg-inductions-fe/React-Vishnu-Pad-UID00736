@@ -12,22 +12,6 @@ const lineClamp = (lines: number = 1): CSSProperties => ({
     WebkitLineClamp: lines,
 });
 
-/**
- * Dynamic Flexbox Mixin
- * Default behavior is a standard row with center alignment.
- */
-const flexLayout = (
-    justify: CSSProperties['justifyContent'] = 'flex-start',
-    align: CSSProperties['alignItems'] = 'center',
-    direction: CSSProperties['flexDirection'] = 'row',
-): CSSProperties => ({
-    display: 'flex',
-    justifyContent: justify,
-    alignItems: align,
-    flexDirection: direction,
-});
-
 export const mixins: MixinsOptions = {
     lineClamp,
-    flexLayout,
 };

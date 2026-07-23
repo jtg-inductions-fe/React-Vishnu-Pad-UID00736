@@ -1,14 +1,5 @@
 import { StyledImage } from './Image.styles';
-
-interface ImageProps {
-    src: string;
-    alt: string;
-    width?: string;
-    height?: string;
-    objectFit?: React.CSSProperties['objectFit'];
-    loading?: 'lazy' | 'eager';
-    onClick?: () => void;
-}
+import { ImageProps } from './Image.types';
 
 /**
  * Displays a reusable image throughout the application.

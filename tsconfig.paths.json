@@ -12,7 +12,9 @@
             "@routes/*": ["routes/*"],
             "@store/*": ["store/*"],
             "@theme": ["theme/index"],
-            "@theme/*": ["theme/*"]
+            "@theme/*": ["theme/*"],
+            "@type": ["types/index", "types"],
+            "@type/*": ["types/*"]
         }
     }
 }
