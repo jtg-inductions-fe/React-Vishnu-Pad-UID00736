@@ -3,14 +3,32 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { UserData } from 'types';
 
-import { useMediaQuery, useTheme } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import {
+    alpha,
+    AppBar,
+    Avatar,
+    Badge,
+    Button,
+    CircularProgress,
+    IconButton,
+    Stack,
+    Toolbar,
+    Typography,
+    useMediaQuery,
+    useTheme,
+} from '@mui/material';
 
 import { baseApi } from '@api/base.api';
+import { Image } from '@components/Image';
+import { FONT_WEIGHT } from '@constant';
+import { ROUTES } from '@routes/routes.constants';
 import { useAppDispatch } from '@store/hooks';
 
-import { Header } from './Header.component';
+import { MobileDrawer, ProfileMenu } from './subComponents';
 
-export const HeaderContainer = () => {
+export const Header = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -19,6 +37,7 @@ export const HeaderContainer = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const currentPath = location.pathname;
 
+    // TODO: Dynamic values mapping from state later
     const isLoading = false;
     const user: UserData | undefined = { name: 'Vishnu', role: 'owner' };
     const cartItemCount = 1;
@@ -36,7 +55,7 @@ export const HeaderContainer = () => {
         localStorage.removeItem('token');
         dispatch(baseApi.util.resetApiState());
         handleMenuClose();
-        void navigate('/login');
+        void navigate(ROUTES.LOGIN || '/login');
     };
 
     const handleNavigate = (path: string) => {
@@ -54,22 +73,182 @@ export const HeaderContainer = () => {
     };
 
     return (
-        <Header
-            isMobile={isMobile}
-            isLoading={isLoading}
-            user={user}
-            cartItemCount={cartItemCount}
-            anchorEl={anchorEl}
-            isMenuOpen={isMenuOpen}
-            mobileOpen={mobileOpen}
-            currentPath={currentPath}
-            handleProfileMenuOpen={handleProfileMenuOpen}
-            handleMenuClose={handleMenuClose}
-            handleDrawerToggle={handleDrawerToggle}
-            handleLogout={handleLogout}
-            handleNavigate={handleNavigate}
-            handleMobileNavigate={handleMobileNavigate}
-            handleProfileNavigate={handleProfileNavigate}
-        />
+        <AppBar position="sticky">
+            <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Stack
+                    direction="row"
+                    alignItems="center"
+                    spacing={1}
+                    sx={{ flex: 1, justifyContent: 'flex-start' }}
+                >
+                    {isMobile && (
+                        <IconButton
+                            onClick={handleDrawerToggle}
+                            size="large"
+                            sx={{
+                                color: mobileOpen
+                                    ? 'primary.main'
+                                    : 'text.primary',
+                                transition: 'all 0.2s ease',
+                                '&:hover': { color: 'primary.main' },
+                            }}
+                        >
+                            <MenuIcon fontSize="inherit" />
+                        </IconButton>
+                    )}
+
+                    <Stack
+                        direction="row"
+                        alignItems="center"
+                        spacing={1}
+                        onClick={() => handleNavigate(ROUTES.HOME)}
+                        sx={{ cursor: 'pointer' }}
+                    >
+                        <Image
+                            src="/logo.png"
+                            alt="Food Logo"
+                            height="4rem"
+                            width="auto"
+                            objectFit="contain"
+                        />
+                        {!isMobile && (
+                            <Typography variant="h3">Food</Typography>
+                        )}
+                    </Stack>
+                </Stack>
+
+                {!isMobile && (
+                    <Stack
+                        direction="row"
+                        alignItems="center"
+                        spacing={4}
+                        sx={{ flex: 1, justifyContent: 'center' }}
+                    >
+                        <Typography
+                            variant="body1"
+                            onClick={() => handleNavigate(ROUTES.MENU)}
+                            color={
+                                currentPath === ROUTES.MENU
+                                    ? 'primary.main'
+                                    : 'text.primary'
+                            }
+                            sx={{
+                                cursor: 'pointer',
+                                fontWeight: 400,
+                                transition: 'color 0.2s',
+                                '&:hover': { color: 'primary.main' },
+                            }}
+                        >
+                            Menu
+                        </Typography>
+
+                        <Typography
+                            variant="body1"
+                            onClick={() => handleNavigate(ROUTES.RESTAURANTS)}
+                            color={
+                                currentPath === ROUTES.RESTAURANTS
+                                    ? 'primary.main'
+                                    : 'text.primary'
+                            }
+                            sx={{
+                                cursor: 'pointer',
+                                fontWeight: FONT_WEIGHT.LIGHT,
+                                transition: 'color 0.2s',
+                                '&:hover': { color: 'primary.main' },
+                            }}
+                        >
+                            Restaurants
+                        </Typography>
+                    </Stack>
+                )}
+
+                <Stack
+                    direction="row"
+                    spacing={8}
+                    alignItems="center"
+                    sx={{ flex: 1, justifyContent: 'flex-end' }}
+                >
+                    <IconButton
+                        size="medium"
+                        onClick={() => handleNavigate(ROUTES.MY_CART)}
+                        sx={{
+                            color:
+                                currentPath === ROUTES.MY_CART
+                                    ? 'primary.main'
+                                    : 'text.primary',
+                            transition: 'all 0.2s ease',
+                            '&:hover': {
+                                color: 'primary.main',
+                                backgroundColor: () =>
+                                    alpha(theme.palette.primary.main, 0.08),
+                            },
+                        }}
+                    >
+                        <Badge badgeContent={cartItemCount} color="error">
+                            <ShoppingCartIcon />
+                        </Badge>
+                    </IconButton>
+
+                    {isLoading ? (
+                        <CircularProgress size={24} />
+                    ) : user ? (
+                        <>
+                            <Avatar
+                                onClick={handleProfileMenuOpen}
+                                sx={{
+                                    cursor: 'pointer',
+                                    bgcolor: 'primary.main',
+                                }}
+                            >
+                                {user.name.charAt(0).toUpperCase()}
+                            </Avatar>
+                            <ProfileMenu
+                                anchorEl={anchorEl}
+                                isMenuOpen={isMenuOpen}
+                                handleMenuClose={handleMenuClose}
+                                handleLogout={handleLogout}
+                                user={user}
+                                currentPath={currentPath}
+                                handleNavigate={handleProfileNavigate}
+                            />
+                        </>
+                    ) : (
+                        <Stack direction="row" spacing={3} alignItems="center">
+                            {!isMobile && (
+                                <Typography
+                                    variant="body1"
+                                    onClick={() => handleNavigate(ROUTES.LOGIN)}
+                                    color="text.primary"
+                                    sx={{
+                                        cursor: 'pointer',
+                                        transition: 'color 0.2s',
+                                        '&:hover': { color: 'primary.main' },
+                                    }}
+                                >
+                                    Login
+                                </Typography>
+                            )}
+                            <Button
+                                variant="contained"
+                                size="small"
+                                onClick={() => handleNavigate(ROUTES.REGISTER)}
+                                sx={{ px: 4, py: 2 }}
+                            >
+                                Register
+                            </Button>
+                        </Stack>
+                    )}
+                </Stack>
+            </Toolbar>
+
+            {isMobile && (
+                <MobileDrawer
+                    mobileOpen={mobileOpen}
+                    handleDrawerToggle={handleDrawerToggle}
+                    currentPath={currentPath}
+                    handleNavigate={handleMobileNavigate}
+                />
+            )}
+        </AppBar>
     );
 };
