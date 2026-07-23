@@ -39,7 +39,7 @@ export const Header = () => {
 
     // TODO: Dynamic values mapping from state later
     const isLoading = false;
-    const user: UserData | undefined = { name: 'Vishnu', role: 'owner' };
+    const user: UserData | undefined = { name: 'Vishnu Pad', role: 'owner' };
     const cartItemCount = 1;
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -78,7 +78,7 @@ export const Header = () => {
                 <Stack
                     direction="row"
                     alignItems="center"
-                    spacing={1}
+                    gap={1}
                     sx={{ flex: 1, justifyContent: 'flex-start' }}
                 >
                     {isMobile && (
@@ -100,14 +100,14 @@ export const Header = () => {
                     <Stack
                         direction="row"
                         alignItems="center"
-                        spacing={1}
+                        gap={1}
                         onClick={() => handleNavigate(ROUTES.HOME)}
                         sx={{ cursor: 'pointer' }}
                     >
                         <Image
                             src="/logo.png"
                             alt="Food Logo"
-                            height="4rem"
+                            height={theme.spacing(10)}
                             width="auto"
                             objectFit="contain"
                         />
@@ -121,7 +121,7 @@ export const Header = () => {
                     <Stack
                         direction="row"
                         alignItems="center"
-                        spacing={4}
+                        gap={4}
                         sx={{ flex: 1, justifyContent: 'center' }}
                     >
                         <Typography
@@ -134,7 +134,7 @@ export const Header = () => {
                             }
                             sx={{
                                 cursor: 'pointer',
-                                fontWeight: 400,
+                                fontWeight: FONT_WEIGHT.REGULAR,
                                 transition: 'color 0.2s',
                                 '&:hover': { color: 'primary.main' },
                             }}
@@ -164,7 +164,7 @@ export const Header = () => {
 
                 <Stack
                     direction="row"
-                    spacing={8}
+                    gap={8}
                     alignItems="center"
                     sx={{ flex: 1, justifyContent: 'flex-end' }}
                 >
@@ -213,7 +213,7 @@ export const Header = () => {
                             />
                         </>
                     ) : (
-                        <Stack direction="row" spacing={3} alignItems="center">
+                        <Stack direction="row" gap={6} alignItems="center">
                             {!isMobile && (
                                 <Typography
                                     variant="body1"

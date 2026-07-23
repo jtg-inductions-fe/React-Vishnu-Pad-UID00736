@@ -1,5 +1,17 @@
-import { StyledImage } from './Image.styles';
-import { ImageProps } from './Image.types';
+import { styled } from '@mui/material';
+
+import { ImageProps, StyledImageProps } from './Image.types';
+
+export const StyledImage = styled('img', {
+    shouldForwardProp: (prop) =>
+        !['width', 'height', 'objectFit', 'clickable'].includes(prop as string),
+})<StyledImageProps>(({ width, height, objectFit, clickable }) => ({
+    display: 'block',
+    width,
+    height,
+    objectFit,
+    cursor: clickable ? 'pointer' : 'default',
+}));
 
 /**
  * Displays a reusable image throughout the application.

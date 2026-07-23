@@ -14,7 +14,7 @@ const NotFound = () => {
             direction="column"
             justifyContent="center"
             alignItems="center"
-            spacing={2}
+            gap={1}
             sx={{
                 textAlign: 'center',
                 p: 3,
@@ -24,7 +24,7 @@ const NotFound = () => {
                 variant="h1"
                 color="primary.main"
                 sx={{
-                    fontSize: { xs: '6rem', md: '10rem' },
+                    fontSize: { xs: 70, md: 80 },
                     mb: 2,
                 }}
             >
@@ -36,7 +36,7 @@ const NotFound = () => {
             <Typography
                 variant="body2"
                 maxWidth={{ xs: '80%', sm: '40%' }}
-                sx={{ mb: 3, mt: 1 }}
+                sx={{ mb: 8, mt: 1 }}
             >
                 The page you are looking for might have been removed, had its
                 name changed, or is temporarily unavailable. Let&apos;s get you
