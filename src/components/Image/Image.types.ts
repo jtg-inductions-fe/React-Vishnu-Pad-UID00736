@@ -7,3 +7,10 @@ export interface ImageProps {
     loading?: 'lazy' | 'eager';
     onClick?: () => void;
 }
+
+export interface StyledImageProps {
+    width?: string;
+    height?: string;
+    objectFit?: React.CSSProperties['objectFit'];
+    clickable?: boolean;
+}

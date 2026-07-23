@@ -1,12 +1,6 @@
 import { styled } from '@mui/material/styles';
 
-/** Props for configuring image dimensions and click behavior */
-interface StyledImageProps {
-    width?: string;
-    height?: string;
-    objectFit?: React.CSSProperties['objectFit'];
-    clickable?: boolean;
-}
+import { StyledImageProps } from './Image.types';
 
 /** Styled image component that filters custom props from the DOM element */
 export const StyledImage = styled('img', {
