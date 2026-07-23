@@ -20,7 +20,7 @@ export const ProfileMenu = ({
     isMenuOpen,
     handleMenuClose,
     handleLogout,
-    user,
+    isOwner,
     currentPath,
     handleNavigate,
 }: ProfileMenuProps) => (
@@ -51,7 +51,7 @@ export const ProfileMenu = ({
             <Typography variant="body1">My Orders</Typography>
         </MenuItem>
 
-        {user?.role === 'owner' && [
+        {isOwner && [
             <Divider key="divider" />,
             <MenuItem
                 key="restaurant"

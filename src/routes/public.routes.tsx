@@ -1,7 +1,8 @@
-import AppLayout from 'layouts/AppLayout';
-import { LoginPage } from 'pages/LoginPage';
-import { RegisterPage } from 'pages/RegisterPage';
 import type { RouteObject } from 'react-router-dom';
+
+import AppLayout from '@layouts/App.layout';
+import { LoginPage } from '@pages/Login.page';
+import { RegisterPage } from '@pages/Register.page';
 
 import { ROUTES } from './routes.constants';
 

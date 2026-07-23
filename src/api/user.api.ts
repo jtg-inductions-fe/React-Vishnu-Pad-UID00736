@@ -1,9 +1,9 @@
 import toast from 'react-hot-toast';
 
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { logout, setCredentials } from '@store/slices';
 
 import { baseApi } from './base.api';
-import { logout, setCredentials } from '../store/authSlice';
 import { User } from '../types';
 import { getErrorMessage } from '../utils/errorHandler';
 

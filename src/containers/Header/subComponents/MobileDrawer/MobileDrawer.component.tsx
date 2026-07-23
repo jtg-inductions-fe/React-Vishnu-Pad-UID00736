@@ -8,11 +8,21 @@ import {
     ListItemIcon,
     ListItemText,
 } from '@mui/material';
+import { Drawer } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 import { ROUTES } from '@routes/routes.constants';
 
-import { CustomDrawer } from './MobileDrawer.styles';
 import { MobileDrawerProps } from './MobileDrawer.types';
+
+export const CustomDrawer = styled(Drawer)({
+    '& .MuiDrawer-paper': {
+        boxSizing: 'border-box',
+        width: '25rem',
+        top: '5.5rem',
+        height: 'calc(100% - 64px)',
+    },
+});
 
 export const MobileDrawer = ({
     mobileOpen,

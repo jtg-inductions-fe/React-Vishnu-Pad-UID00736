@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useAuth } from 'hooks/useAuth';
+import { useAuth } from 'hooks/useAuth.hook';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'routes/constants';
@@ -28,6 +28,7 @@ import { Image } from '@components/Image';
 import { FONT_WEIGHT } from '@constant';
 import { ROUTES } from '@routes/routes.constants';
 import { useAppDispatch } from '@store/hooks';
+import { logout } from '@store/slices';
 
 import { Header } from './Header';
 import { baseApi } from '../../api/base.api';
@@ -54,6 +55,7 @@ export const Header = () => {
 
     const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) =>
         setAnchorEl(event.currentTarget);
+
     const handleMenuClose = () => setAnchorEl(null);
     const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 

@@ -1,13 +1,12 @@
-import { CircularProgress, Stack, Typography } from '@mui/material';
+import { Header } from 'containers';
+import { useAuth } from 'hooks/useAuth.hook';
+import { Outlet } from 'react-router-dom';
 
-import { useGetUserProfileQuery } from '../api/user.api';
-import { useAuth } from '../hooks/useAuth';
+import { CircularProgress, Container, Stack, Typography } from '@mui/material';
 
-interface AuthWrapperProps {
-    children: React.ReactNode;
-}
+import { useGetUserProfileQuery } from '@api/user.api';
 
-export const AuthWrapper = ({ children }: AuthWrapperProps) => {
+const AppLayout = () => {
     const { user, token, isAuthenticated } = useAuth();
     const queryId = user?.id ?? 0;
 
@@ -32,5 +31,14 @@ export const AuthWrapper = ({ children }: AuthWrapperProps) => {
         );
     }
 
-    return <>{children}</>;
+    return (
+        <>
+            <Header />
+            <Container maxWidth="lg">
+                <Outlet />
+            </Container>
+        </>
+    );
 };
+
+export default AppLayout;
