@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 import { useAuth } from 'hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { User } from 'types';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from 'routes/constants';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -20,6 +21,7 @@ import {
     useMediaQuery,
     useTheme,
 } from '@mui/material';
+import { useMediaQuery, useTheme } from '@mui/material';
 
 import { baseApi } from '@api/base.api';
 import { Image } from '@components/Image';
@@ -27,29 +29,20 @@ import { FONT_WEIGHT } from '@constant';
 import { ROUTES } from '@routes/routes.constants';
 import { useAppDispatch } from '@store/hooks';
 
-
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from 'routes/constants';
-
-import { useMediaQuery, useTheme } from '@mui/material';
-
 import { Header } from './Header';
 import { baseApi } from '../../api/base.api';
 import { useAuth } from '../../hooks/useAuth';
 import { logout } from '../../store/authSlice';
 import { useAppDispatch } from '../../store/hooks';
 
-
 export const Header = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const { user } = useAuth;()
     const theme = useTheme();
 
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const currentPath = location.pathname;
-
 
     const isLoading = false;
     const user: UserData | undefined = { name: 'Vishnu Pad', role: 'owner' };
@@ -73,9 +66,6 @@ export const Header = () => {
 
     const handleNavigate = (path: string) => {
         void navigate(path);
-        if (isMobile) {
-            setMobileOpen(false);
-        }
     };
 
     const handleMobileNavigate = (path: string) => {

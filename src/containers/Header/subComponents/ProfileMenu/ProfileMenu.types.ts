@@ -3,7 +3,7 @@ export interface ProfileMenuProps {
     isMenuOpen: boolean;
     handleMenuClose: () => void;
     handleLogout: () => void;
-    user?: { name: string; role: string };
+    isOwner: boolean;
     currentPath: string;
     handleNavigate: (path: string) => void;
 }
