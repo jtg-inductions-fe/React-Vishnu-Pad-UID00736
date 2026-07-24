@@ -4,7 +4,7 @@ import { ROUTES } from '@constant';
 import AppLayout from '@layouts/App.layout';
 import { HomePage } from '@pages/Home.page';
 import { LoginPage } from '@pages/Login.page';
-import { MenuPage } from '@pages/Menu.paga';
+import { MenuPage } from '@pages/Menu.page';
 import { RegisterPage } from '@pages/Register.page';
 import { RestaurantsPage } from '@pages/Restaurant.page';
 

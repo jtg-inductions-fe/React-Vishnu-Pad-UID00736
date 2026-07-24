@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { Box, Stack, Typography } from '@mui/material';
 
@@ -16,13 +16,18 @@ export const MenuPage = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const cartItems = useAppSelector((state) => state.cart.items);
+    const [searchParams] = useSearchParams();
+
+    const restaurantId = searchParams.get('restaurant_id');
+
+    const restaurantIdNumber = restaurantId ? Number(restaurantId) : undefined;
 
     const {
         data: menuData,
         isLoading,
         error,
         refetch,
-    } = useGetExploreMenuItemsQuery();
+    } = useGetExploreMenuItemsQuery(restaurantIdNumber);
 
     const handleAddToCart = (item: MenuItem) => () => {
         dispatch(addToCart(item));
