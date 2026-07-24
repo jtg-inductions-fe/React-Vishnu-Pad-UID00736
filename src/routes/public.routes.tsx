@@ -5,6 +5,7 @@ import AppLayout from '@layouts/App.layout';
 import { HomePage } from '@pages/Home.page';
 import { LoginPage } from '@pages/Login.page';
 import { RegisterPage } from '@pages/Register.page';
+import { RestaurantsPage } from '@pages/Restaurant.page';
 
 /**
  * Defines the application's public routes.
@@ -17,6 +18,10 @@ export const publicRoutes: RouteObject[] = [
             {
                 path: ROUTES.HOME,
                 element: <HomePage />,
+            },
+            {
+                path: ROUTES.RESTAURANTS,
+                element: <RestaurantsPage />,
             },
             {
                 path: ROUTES.LOGIN,
