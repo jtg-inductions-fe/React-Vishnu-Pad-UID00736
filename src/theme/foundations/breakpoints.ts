@@ -9,6 +9,6 @@ export const breakpoints: BreakpointsOptions = {
         sm: 600,
         md: 900,
         lg: 1200,
-        xl: 1536,
+        xl: 1728,
     },
 };

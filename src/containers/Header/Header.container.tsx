@@ -21,7 +21,8 @@ import {
 
 import { Image } from '@components/Image';
 import { FONT_WEIGHT } from '@constant';
-import { ROUTES } from '@constant/routes.constants';
+import { ROUTES } from '@constant';
+import { useAppSelector } from '@store/hooks';
 
 import { DESKTOP_NAV_LINKS } from './Header.constants';
 import { cartButtonStyles, navLinkBaseStyles } from './Header.styles';
@@ -35,7 +36,7 @@ export const Header = () => {
 
     const { user, isAuthenticated, isOwner } = useAuth();
     const executeLogout = useLogout();
-    const cartItemCount = 1;
+    const cartItemCount = useAppSelector((state) => state.cart.totalQuantity);
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const isMenuOpen = Boolean(anchorEl);

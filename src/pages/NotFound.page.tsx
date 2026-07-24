@@ -11,7 +11,6 @@ const NotFound = () => {
         <Stack
             component='main'
             minHeight='100vh'
-            direction='column'
             justifyContent='center'
             alignItems='center'
             gap={1}

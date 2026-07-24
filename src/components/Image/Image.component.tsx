@@ -1,7 +1,6 @@
 import { styled } from '@mui/material/styles';
 
-import { ImageProps } from './Image.types';
-import { StyledImageProps } from './Image.types';
+import { ImageProps, StyledImageProps } from './Image.types';
 
 export const StyledImage = styled('img', {
     shouldForwardProp: (prop) =>
@@ -14,9 +13,6 @@ export const StyledImage = styled('img', {
     cursor: clickable ? 'pointer' : 'default',
 }));
 
-/**
- * Displays a reusable image throughout the application.
- */
 export const Image = ({
     src,
     alt,
@@ -25,6 +21,8 @@ export const Image = ({
     objectFit = 'cover',
     loading = 'lazy',
     onClick,
+    sx,
+    ...rest
 }: ImageProps) => (
     <StyledImage
         src={src}
@@ -35,5 +33,7 @@ export const Image = ({
         loading={loading}
         clickable={Boolean(onClick)}
         onClick={onClick}
+        sx={sx}
+        {...rest}
     />
 );

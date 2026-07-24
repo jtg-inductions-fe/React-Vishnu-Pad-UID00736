@@ -2,6 +2,7 @@ import type { RouteObject } from 'react-router-dom';
 
 import { ROUTES } from '@constant';
 import AppLayout from '@layouts/App.layout';
+import { HomePage } from '@pages/Home.page';
 import { LoginPage } from '@pages/Login.page';
 import { RegisterPage } from '@pages/Register.page';
 
@@ -15,7 +16,7 @@ export const publicRoutes: RouteObject[] = [
         children: [
             {
                 path: ROUTES.HOME,
-                element: <h1>Home Page</h1>,
+                element: <HomePage />,
             },
             {
                 path: ROUTES.LOGIN,

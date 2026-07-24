@@ -36,7 +36,7 @@ const AppLayout = () => {
     return (
         <>
             <Header />
-            <Container maxWidth='lg'>
+            <Container maxWidth='xl'>
                 <Outlet />
             </Container>
         </>
