@@ -4,6 +4,7 @@ import { ROUTES } from '@constant';
 import AppLayout from '@layouts/App.layout';
 import { HomePage } from '@pages/Home.page';
 import { LoginPage } from '@pages/Login.page';
+import { MenuPage } from '@pages/Menu.paga';
 import { RegisterPage } from '@pages/Register.page';
 import { RestaurantsPage } from '@pages/Restaurant.page';
 
@@ -22,6 +23,10 @@ export const publicRoutes: RouteObject[] = [
             {
                 path: ROUTES.RESTAURANTS,
                 element: <RestaurantsPage />,
+            },
+            {
+                path: ROUTES.MENU,
+                element: <MenuPage />,
             },
             {
                 path: ROUTES.LOGIN,
