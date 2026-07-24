@@ -9,4 +9,14 @@ export interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
     loading?: 'lazy' | 'eager';
     onClick?: () => void;
     sx?: SxProps<Theme>;
+<<<<<<< HEAD
+=======
+}
+
+export interface StyledImageProps {
+    width?: string | number;
+    height?: string | number;
+    objectFit?: React.CSSProperties['objectFit'];
+    clickable?: boolean;
+>>>>>>> 6a951d8 ([VP_A3_03] : done with Home Page)
 }
