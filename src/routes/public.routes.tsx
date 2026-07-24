@@ -19,7 +19,6 @@ export const publicRoutes: RouteObject[] = [
             {
                 path: ROUTES.HOME,
                 element: <HomePage />,
-<<<<<<< HEAD
             },
             {
                 path: ROUTES.RESTAURANTS,
@@ -28,9 +27,8 @@ export const publicRoutes: RouteObject[] = [
             {
                 path: ROUTES.MENU,
                 element: <MenuPage />,
-=======
->>>>>>> 6a951d8 ([VP_A3_03] : done with Home Page)
             },
+
             {
                 path: ROUTES.LOGIN,
                 element: <LoginPage />,
