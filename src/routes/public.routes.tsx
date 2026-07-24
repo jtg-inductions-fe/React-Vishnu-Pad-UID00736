@@ -2,6 +2,7 @@ import type { RouteObject } from 'react-router-dom';
 
 import { ROUTES } from '@constant';
 import AppLayout from '@layouts/App.layout';
+import { CartPage } from '@pages/Cart.page';
 import { HomePage } from '@pages/Home.page';
 import { LoginPage } from '@pages/Login.page';
 import { MenuPage } from '@pages/Menu.page';
@@ -29,6 +30,10 @@ export const publicRoutes: RouteObject[] = [
                 element: <MenuPage />,
             },
 
+            {
+                path: ROUTES.MY_CART,
+                element: <CartPage />,
+            },
             {
                 path: ROUTES.LOGIN,
                 element: <LoginPage />,

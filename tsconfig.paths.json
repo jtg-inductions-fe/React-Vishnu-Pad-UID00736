@@ -33,7 +33,6 @@
 
             "@utils": ["utils/index", "utils"],
             "@utils/*": ["utils/*"],
-
             "@validations": ["validations/index"],
             "@validations/*": ["validations/*"]
         }
