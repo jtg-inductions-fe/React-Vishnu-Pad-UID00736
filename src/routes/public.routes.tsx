@@ -2,10 +2,7 @@ import type { RouteObject } from 'react-router-dom';
 
 import { ROUTES } from '@constant';
 import AppLayout from '@layouts/App.layout';
-<<<<<<< HEAD
 import { CartPage } from '@pages/Cart.page';
-=======
->>>>>>> 6a951d8 ([VP_A3_03] : done with Home Page)
 import { HomePage } from '@pages/Home.page';
 import { LoginPage } from '@pages/Login.page';
 import { MenuPage } from '@pages/Menu.page';
