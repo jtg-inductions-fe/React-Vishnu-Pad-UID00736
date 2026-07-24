@@ -36,10 +36,6 @@ export const publicRoutes: RouteObject[] = [
             },
 
             {
-                path: ROUTES.MY_CART,
-                element: <CartPage />,
-            },
-            {
                 path: ROUTES.LOGIN,
                 element: <LoginPage />,
             },

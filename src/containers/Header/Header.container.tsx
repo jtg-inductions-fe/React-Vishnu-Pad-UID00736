@@ -21,7 +21,11 @@ import {
 
 import { Image } from '@components/Image';
 import { FONT_WEIGHT } from '@constant';
+<<<<<<< HEAD
 import { ROUTES } from '@constant';
+=======
+import { ROUTES } from '@routes/routes.constants';
+>>>>>>> 6a951d8 ([VP_A3_03] : done with Home Page)
 import { useAppSelector } from '@store/hooks';
 
 import { DESKTOP_NAV_LINKS } from './Header.constants';
