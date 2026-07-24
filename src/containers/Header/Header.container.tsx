@@ -21,7 +21,7 @@ import {
 
 import { Image } from '@components/Image';
 import { FONT_WEIGHT } from '@constant';
-import { ROUTES } from '@constant/routes.constants';
+import { ROUTES } from '@constant';
 import { useAppSelector } from '@store/hooks';
 
 import { DESKTOP_NAV_LINKS } from './Header.constants';
