@@ -14,7 +14,6 @@ export interface OrderCreateResponse {
     total_amount: number;
     remaining_balance: number;
 }
-<<<<<<< HEAD
 
 export interface OrderListResponse {
     id: number;
@@ -25,5 +24,3 @@ export interface OrderListResponse {
     total_items: number;
     items_summary: string;
 }
-=======
->>>>>>> 63431eb ([VP_A3_06]: Done with cart)
