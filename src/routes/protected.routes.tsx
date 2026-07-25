@@ -2,6 +2,7 @@ import type { RouteObject } from 'react-router-dom';
 
 import { ROUTES } from '@constant';
 import AppLayout from '@layouts/App.layout';
+import { MyOrdersPage } from '@pages/MyOrders.page';
 import { ProfilePage } from '@pages/Profile.page';
 
 import ProtectedRoute from './guards/routes.guard';
@@ -20,6 +21,10 @@ export const protectedRoutes: RouteObject[] = [
                     {
                         path: ROUTES.PROFILE,
                         element: <ProfilePage />,
+                    },
+                    {
+                        path: ROUTES.MY_ORDERS,
+                        element: <MyOrdersPage />,
                     },
                 ],
             },

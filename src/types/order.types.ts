@@ -14,3 +14,13 @@ export interface OrderCreateResponse {
     total_amount: number;
     remaining_balance: number;
 }
+
+export interface OrderListResponse {
+    id: number;
+    restaurant_id: number;
+    restaurant_name: string;
+    total_amount: string;
+    created_at: string;
+    total_items: number;
+    items_summary: string;
+}

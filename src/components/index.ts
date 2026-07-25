@@ -14,3 +14,4 @@ export {
     WalletSection,
     InfoRow,
 } from './ProflePageComponents';
+export { OrderCard } from './OrderCard';
