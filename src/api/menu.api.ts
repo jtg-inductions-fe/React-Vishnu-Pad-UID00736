@@ -16,6 +16,7 @@ export const menuApi = baseApi.injectEndpoints({
                     ? { restaurant_id: restaurantId }
                     : undefined,
             }),
+            providesTags: ['Menu'],
         }),
     }),
 });

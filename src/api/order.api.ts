@@ -11,6 +11,7 @@ export const orderApi = baseApi.injectEndpoints({
                 method: 'POST',
                 body: orderData,
             }),
+            invalidatesTags: ['Menu', 'User'],
         }),
     }),
     overrideExisting: false,

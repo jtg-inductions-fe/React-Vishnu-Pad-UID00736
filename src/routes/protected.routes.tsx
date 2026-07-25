@@ -2,6 +2,7 @@ import type { RouteObject } from 'react-router-dom';
 
 import { ROUTES } from '@constant';
 import AppLayout from '@layouts/App.layout';
+import { ProfilePage } from '@pages/ProfilePage/Profile.page';
 
 import ProtectedRoute from './guards/routes.guard';
 
@@ -18,7 +19,7 @@ export const protectedRoutes: RouteObject[] = [
                 children: [
                     {
                         path: ROUTES.PROFILE,
-                        element: <h1>Profile</h1>,
+                        element: <ProfilePage />,
                     },
                 ],
             },

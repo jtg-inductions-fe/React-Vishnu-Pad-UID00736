@@ -1,12 +1,11 @@
-import toast from 'react-hot-toast';
-
 import { API_URLS } from '@constant/api.constants';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { logout, setCredentials } from '@store/slices';
 import { User } from '@type';
-import { getErrorMessage } from '@utils';
 
 import { baseApi } from './base.api';
+
+export type ProfileUpdateRequest = Partial<
+    Omit<User, 'id' | 'role' | 'admin_code'>
+>;
 
 export const userApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -15,28 +14,34 @@ export const userApi = baseApi.injectEndpoints({
                 url: API_URLS.USERS.PROFILE(id),
                 method: 'GET',
             }),
-            async onQueryStarted(_, { dispatch, queryFulfilled }) {
-                try {
-                    const { data } = await queryFulfilled;
-                    const token = localStorage.getItem('token');
-                    if (token) {
-                        dispatch(setCredentials({ user: data, token }));
-                    }
-                } catch (err) {
-                    const isRtkError =
-                        err && typeof err === 'object' && 'error' in err;
-                    const actualError = isRtkError
-                        ? (err as { error: FetchBaseQueryError }).error
-                        : err;
+            providesTags: ['User'],
+        }),
 
-                    const errorMessage = getErrorMessage(actualError);
-                    toast.error(errorMessage);
+        updateUserProfile: builder.mutation<
+            User,
+            { id: number; data: ProfileUpdateRequest }
+        >({
+            query: ({ id, data }) => ({
+                url: `/users/${id}`,
+                method: 'PATCH',
+                body: data,
+            }),
+            invalidatesTags: ['User'],
+        }),
 
-                    dispatch(logout());
-                }
-            },
+        deleteUserProfile: builder.mutation<void, number>({
+            query: (id) => ({
+                url: `/users/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['User'],
         }),
     }),
+    overrideExisting: false,
 });
 
-export const { useGetUserProfileQuery } = userApi;
+export const {
+    useGetUserProfileQuery,
+    useUpdateUserProfileMutation,
+    useDeleteUserProfileMutation,
+} = userApi;

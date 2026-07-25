@@ -31,17 +31,8 @@ export const HomePage = () => {
         refetchRestaurants,
     } = useRestaurantService();
 
-<<<<<<< HEAD
     const { menuData, isMenuLoading, menuError, refetchMenu } =
         useMenuService();
-=======
-    const {
-        data: menuData,
-        isLoading: isMenuLoading,
-        error: menuError,
-        refetch: refetchMenu,
-    } = useGetExploreMenuItemsQuery(undefined);
->>>>>>> 63431eb ([VP_A3_06]: Done with cart)
 
     const displayRestaurants = restaurants?.slice(0, 10) || [];
     const displayMenuItems = menuData?.items.slice(0, 10) || [];
