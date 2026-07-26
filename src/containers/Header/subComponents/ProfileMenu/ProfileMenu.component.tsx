@@ -58,7 +58,7 @@ export const ProfileMenu = ({
             </MenuItem>,
             <MenuItem
                 key='analytics'
-                onClick={handleNavigate(ROUTES.MY_RESTAURANTS_ANALYTICS)}
+                onClick={handleNavigate(ROUTES.MY_RESTAURANTS_ANALYTICS_ALL)}
             >
                 <ListItemIcon>
                     <AnalyticsIcon fontSize='small' />

@@ -18,5 +18,6 @@ export const ROUTES = {
 
     MY_RESTAURANTS: '/my-restaurants',
     MY_RESTAURANTS_MENU: '/my-restaurants/:restaurantId/menu',
+    MY_RESTAURANTS_ANALYTICS_ALL: '/my-restaurants/analytics',
     MY_RESTAURANTS_ANALYTICS: '/my-restaurants/:restaurantId/analytics',
 } as const;

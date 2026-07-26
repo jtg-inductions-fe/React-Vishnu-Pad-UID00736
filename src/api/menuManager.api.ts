@@ -1,5 +1,7 @@
 import { API_URLS } from '@constant';
 import { MenuItem, MenuItemPayload, PaginatedMenuResponse } from '@type';
+import { MenuItemStat, TopCustomerStat } from '@type/analytics.types';
+import { OrderDetailsResponse } from '@type/order.types';
 
 import { baseApi } from './base.api';
 
@@ -40,6 +42,41 @@ export const menuManagerApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['Menu'],
         }),
+        getMenuStats: builder.query<MenuItemStat[], string | undefined>({
+            query: (restaurantId) => ({
+                url: '/owner/analytics/menu-stats',
+                params:
+                    restaurantId !== 'all' && restaurantId
+                        ? { restaurant_id: restaurantId }
+                        : undefined,
+            }),
+        }),
+        getTopCustomers: builder.query<TopCustomerStat[], string | undefined>({
+            query: (restaurantId) => ({
+                url: '/owner/analytics/top-customers',
+                params: {
+                    limit: 10,
+                    ...(restaurantId !== 'all' && restaurantId
+                        ? { restaurant_id: restaurantId }
+                        : {}),
+                },
+            }),
+        }),
+        getAllOrdersAnalytics: builder.query<
+            OrderDetailsResponse[],
+            string | undefined
+        >({
+            query: (restaurantId) => ({
+                url: '/owner/analytics/orders',
+                params: {
+                    limit: 50,
+                    offset: 0,
+                    ...(restaurantId !== 'all' && restaurantId
+                        ? { restaurant_id: restaurantId }
+                        : {}),
+                },
+            }),
+        }),
     }),
     overrideExisting: false,
 });
@@ -49,4 +86,7 @@ export const {
     useAddMenuItemMutation,
     useUpdateMenuItemMutation,
     useDeleteMenuItemMutation,
+    useGetMenuStatsQuery,
+    useGetTopCustomersQuery,
+    useGetAllOrdersAnalyticsQuery,
 } = menuManagerApi;
