@@ -7,11 +7,14 @@ import { OrderDetailsPage } from '@pages/OrderDetails.page';
 import { ProfilePage } from '@pages/Profile.page';
 
 import ProtectedRoute from './guards/routes.guard';
+import {
+    MenuManagerPage,
+    MyRestaurantsPage,
+} from '../pages/MyRestaurantsPages';
 
 /**
  * Defines the application's protected routes.
  */
-
 export const protectedRoutes: RouteObject[] = [
     {
         element: <ProtectedRoute />,
@@ -30,6 +33,15 @@ export const protectedRoutes: RouteObject[] = [
                     {
                         path: ROUTES.ORDER_DETAILS,
                         element: <OrderDetailsPage />,
+                    },
+                    {
+                        path: ROUTES.MY_RESTAURANTS,
+                        element: <MyRestaurantsPage />,
+                    },
+
+                    {
+                        path: ROUTES.MY_RESTAURANTS_MENU,
+                        element: <MenuManagerPage />,
                     },
                 ],
             },

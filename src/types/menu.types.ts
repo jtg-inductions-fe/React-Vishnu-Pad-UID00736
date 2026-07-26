@@ -14,3 +14,11 @@ export interface PaginatedMenuResponse {
     size: number;
     items: MenuItem[];
 }
+
+export interface MenuItemPayload {
+    restaurant_id?: number;
+    name: string;
+    price: number;
+    quantity: number;
+    category: string;
+}

@@ -19,7 +19,7 @@ import {
     useTheme,
 } from '@mui/material';
 
-import { Image } from '@components/Image';
+import { Image } from '@components';
 import { FONT_WEIGHT } from '@constant';
 import { ROUTES } from '@constant';
 import { useAppSelector } from '@store/hooks';

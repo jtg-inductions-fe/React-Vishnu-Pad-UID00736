@@ -11,7 +11,16 @@ export const restaurantApi = baseApi.injectEndpoints({
                 method: 'GET',
             }),
         }),
+        getMyRestaurants: builder.query<Restaurant[], void>({
+            query: () => ({
+                url: '/restaurants/me',
+                method: 'GET',
+            }),
+            providesTags: ['User'],
+        }),
     }),
+    overrideExisting: false,
 });
 
-export const { useGetRestaurantsQuery } = restaurantApi;
+export const { useGetRestaurantsQuery, useGetMyRestaurantsQuery } =
+    restaurantApi;

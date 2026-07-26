@@ -17,5 +17,6 @@ export const ROUTES = {
     PROFILE: '/profile',
 
     MY_RESTAURANTS: '/my-restaurants',
-    MY_ANALYTICS: '/my-restaurants/:restaurantId/analytics',
+    MY_RESTAURANTS_MENU: '/my-restaurants/:restaurantId/menu',
+    MY_RESTAURANTS_ANALYTICS: '/my-restaurants/:restaurantId/analytics',
 } as const;
