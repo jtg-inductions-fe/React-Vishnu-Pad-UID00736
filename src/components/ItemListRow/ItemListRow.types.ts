@@ -7,4 +7,5 @@ export interface ItemListRowProps {
     onIncrement?: () => void;
     onDecrement?: () => void;
     onRemove?: () => void;
+    onClick?: () => void;
 }

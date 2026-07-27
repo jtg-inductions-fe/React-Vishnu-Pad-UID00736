@@ -1,15 +1,13 @@
-import { useState } from 'react';
-
+import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import { Box, Divider, Grid2, Stack, Typography } from '@mui/material';
 
-import { useCreateOrderMutation } from '@api/order.api';
-import { BillSummary } from '@components/BillSummary';
-import { EmptyState } from '@components/EmptyState';
-import { ItemListRow } from '@components/ItemListRow';
-import { ROUTES } from '@routes/routes.constants';
+import FoodPlaceholder from '@assets/images/placeholders/food-placeholder.webp';
+import { BillSummary, EmptyState, ItemListRow } from '@components';
+import { FONT_WEIGHT, ROUTES } from '@constant';
+import { useOrderService } from '@services';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import {
     addToCart,
@@ -19,32 +17,37 @@ import {
 } from '@store/slices';
 import { MenuItem } from '@type';
 import { getErrorMessage } from '@utils/ErrorHandler';
-import {
-    CartCheckoutSchema,
-    CartCheckoutType,
-} from '@validations/order.schema';
+import { validateCartCheckout } from '@validations/order.validation';
 
 export const CartPage = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
     const cartItems = useAppSelector((state) => state.cart.items);
-
     const { user, isAuthenticated } = useAppSelector((state) => state.auth);
 
-    const [createOrder, { isLoading }] = useCreateOrderMutation();
-    const [checkoutError, setCheckoutError] = useState<string | null>(null);
+    const { createOrder, isLoading } = useOrderService();
+
+    const {
+        handleSubmit,
+        setError,
+        clearErrors,
+        formState: { errors },
+    } = useForm();
 
     const handleIncrement = (item: MenuItem) => () => {
         dispatch(addToCart(item));
+        clearErrors('root');
     };
 
     const handleDecrement = (itemId: number) => () => {
         dispatch(removeFromCart(itemId));
+        clearErrors('root');
     };
 
     const handleRemove = (itemId: number) => () => {
         dispatch(removeItemCompletely(itemId));
+        clearErrors('root');
     };
 
     const totalAmount = cartItems.reduce(
@@ -64,43 +67,41 @@ export const CartPage = () => {
     const hasMultipleRestaurants = uniqueRestaurantIds.size > 1;
     const firstRestaurantId =
         cartItems.length > 0 ? cartItems[0].restaurant_id : 0;
+    const userBalance = Number(user?.balance) || 0;
 
-    const handlePlaceOrder = async () => {
-        setCheckoutError(null);
+    const onSubmit = async () => {
+        clearErrors('root');
 
-        const validationPayload: CartCheckoutType = {
-            restaurantId: firstRestaurantId,
-            items: cartItems.map((item) => ({
-                item_id: item.id,
-                quantity: item.cartQuantity,
-            })),
+        const validation = validateCartCheckout({
+            cartItems,
             totalAmount,
-            userBalance: Number(user?.balance) || 0,
+            userBalance,
             hasMultipleRestaurants,
-        };
+        });
 
-        const validationResult =
-            CartCheckoutSchema.safeParse(validationPayload);
-
-        if (!validationResult.success) {
-            setCheckoutError(validationResult.error.issues[0].message);
+        if (!validation.isValid) {
+            setError('root', {
+                type: 'manual',
+                message: validation.errorMessage,
+            });
             return;
         }
 
         try {
             await createOrder({
-                restaurant_id: validationResult.data.restaurantId,
-                items: validationResult.data.items,
-            }).unwrap();
+                restaurant_id: firstRestaurantId,
+                items: cartItems.map((item) => ({
+                    item_id: item.id,
+                    quantity: item.cartQuantity,
+                })),
+            });
 
             toast.success('Order placed successfully!');
-
             dispatch(clearCart());
             void navigate(ROUTES.MY_ORDERS);
         } catch (error) {
             const errorMessage = getErrorMessage(error);
-            setCheckoutError(errorMessage);
-
+            setError('root', { type: 'manual', message: errorMessage });
             toast.error('Failed to place order. Please try again.');
         }
     };
@@ -113,7 +114,7 @@ export const CartPage = () => {
         if (!isAuthenticated) {
             void navigate(ROUTES.LOGIN);
         } else {
-            void handlePlaceOrder();
+            void handleSubmit(onSubmit)();
         }
     };
 
@@ -130,7 +131,7 @@ export const CartPage = () => {
 
     return (
         <Stack gap={4} px={{ xs: 2, md: 4 }} py={4} maxWidth='xl' mx='auto'>
-            <Typography variant='h4' fontWeight={800}>
+            <Typography variant='h4' fontWeight={FONT_WEIGHT.BOLD}>
                 Your Cart
             </Typography>
 
@@ -143,7 +144,7 @@ export const CartPage = () => {
                                 id={item.id}
                                 name={item.name}
                                 price={Number(item.price)}
-                                image={`/src/assets/images/menu/${item.id}.jpg`}
+                                image={FoodPlaceholder}
                                 quantity={item.cartQuantity}
                                 onIncrement={handleIncrement(item)}
                                 onDecrement={handleDecrement(item.id)}
@@ -158,7 +159,7 @@ export const CartPage = () => {
                         <BillSummary
                             totalAmount={totalAmount}
                             totalQuantity={totalQuantity}
-                            userBalance={Number(user?.balance)}
+                            userBalance={userBalance}
                             isLoggedIn={isAuthenticated}
                             isActionDisabled={hasMultipleRestaurants}
                             actionLabel='Place Order'
@@ -167,7 +168,7 @@ export const CartPage = () => {
                             errorMessage={
                                 hasMultipleRestaurants
                                     ? 'All items must be from the same restaurant.'
-                                    : checkoutError
+                                    : errors.root?.message
                             }
                         />
                     </Box>

@@ -1,5 +1,7 @@
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 
+import { FONT_WEIGHT } from '@constant';
+
 import { BillSummaryProps } from './BillSummary.types';
 
 export const BillSummary = ({
@@ -37,7 +39,7 @@ export const BillSummary = ({
             borderRadius={2}
             bgcolor='background.paper'
         >
-            <Typography variant='h6' fontWeight={700} mb={3}>
+            <Typography variant='h6' fontWeight={FONT_WEIGHT.BOLD} mb={3}>
                 Bill Summary
             </Typography>
 
@@ -46,7 +48,7 @@ export const BillSummary = ({
                     <Typography variant='body1' color='text.secondary'>
                         Total Items
                     </Typography>
-                    <Typography variant='body1' fontWeight={600}>
+                    <Typography variant='body1' fontWeight={FONT_WEIGHT.MEDIUM}>
                         {totalQuantity}
                     </Typography>
                 </Stack>
@@ -54,16 +56,16 @@ export const BillSummary = ({
                     <Typography variant='body1' color='text.secondary'>
                         Item Total
                     </Typography>
-                    <Typography variant='body1' fontWeight={600}>
+                    <Typography variant='body1' fontWeight={FONT_WEIGHT.MEDIUM}>
                         ₹{totalAmount.toFixed(2)}
                     </Typography>
                 </Stack>
                 <Divider />
                 <Stack direction='row' justifyContent='space-between'>
-                    <Typography variant='h6' fontWeight={700}>
+                    <Typography variant='h6' fontWeight={FONT_WEIGHT.BOLD}>
                         Grand Total
                     </Typography>
-                    <Typography variant='h6' fontWeight={700}>
+                    <Typography variant='h6' fontWeight={FONT_WEIGHT.BOLD}>
                         ₹{totalAmount.toFixed(2)}
                     </Typography>
                 </Stack>
@@ -90,26 +92,11 @@ export const BillSummary = ({
                             <Typography variant='body2'>
                                 Current Balance:
                             </Typography>
-                            <Typography variant='body2' fontWeight={600}>
-                                ₹{safeUserBalance.toFixed(2)}
-                            </Typography>
-                        </Stack>
-                        <Stack direction='row' justifyContent='space-between'>
-                            <Typography variant='body2'>
-                                Remaining Balance:
-                            </Typography>
                             <Typography
                                 variant='body2'
-                                fontWeight={700}
-                                color={
-                                    isInsufficientBalance
-                                        ? 'error.main'
-                                        : 'success.main'
-                                }
+                                fontWeight={FONT_WEIGHT.MEDIUM}
                             >
-                                {isInsufficientBalance
-                                    ? 'Insufficient'
-                                    : `₹${remainingBalance.toFixed(2)}`}
+                                ₹{safeUserBalance.toFixed(2)}
                             </Typography>
                         </Stack>
                     </Stack>

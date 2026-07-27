@@ -3,7 +3,8 @@ import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import { IconButton, Stack, Typography } from '@mui/material';
 
-import { Image } from '@components/Image';
+import { Image } from '@components';
+import { FONT_WEIGHT } from '@constant';
 
 import { ItemListRowProps } from './ItemListRow.types';
 
@@ -15,8 +16,11 @@ export const ItemListRow = ({
     onIncrement,
     onDecrement,
     onRemove,
+    onClick,
 }: ItemListRowProps) => {
     const isEditable = !!(onIncrement || onDecrement || onRemove);
+    const formattedPrice = price.toFixed(2);
+    const totalPrice = (price * quantity).toFixed(2);
 
     return (
         <Stack
@@ -25,6 +29,16 @@ export const ItemListRow = ({
             py={2}
             alignItems='center'
             width='100%'
+            onClick={onClick}
+            sx={{
+                cursor: onClick ? 'pointer' : 'default',
+                transition: 'background-color 0.2s ease',
+                px: onClick ? 1 : 0,
+                borderRadius: 1.5,
+                '&:hover': {
+                    bgcolor: onClick ? 'action.hover' : 'transparent',
+                },
+            }}
         >
             <Image
                 src={image}
@@ -36,17 +50,21 @@ export const ItemListRow = ({
             />
 
             <Stack flex={1} gap={0.5} width='100%'>
-                <Typography variant='subtitle1' fontWeight={600} noWrap>
+                <Typography
+                    variant='subtitle1'
+                    fontWeight={FONT_WEIGHT.MEDIUM}
+                    noWrap
+                >
                     {name}
                 </Typography>
                 <Typography variant='body2' color='text.secondary'>
-                    ₹{price.toFixed(2)}
+                    ₹{formattedPrice}
                 </Typography>
             </Stack>
 
             <Stack direction='row' alignItems='center' gap={2}>
-                <Typography variant='subtitle1' fontWeight={700}>
-                    ₹{(price * quantity).toFixed(2)}
+                <Typography variant='subtitle1' fontWeight={FONT_WEIGHT.BOLD}>
+                    ₹{totalPrice}
                 </Typography>
 
                 {isEditable ? (
@@ -59,16 +77,14 @@ export const ItemListRow = ({
                         >
                             <RemoveRoundedIcon fontSize='small' />
                         </IconButton>
-
                         <Typography
                             variant='body1'
-                            fontWeight={600}
+                            fontWeight={FONT_WEIGHT.MEDIUM}
                             width={24}
                             textAlign='center'
                         >
                             {quantity}
                         </Typography>
-
                         <IconButton
                             size='small'
                             onClick={onIncrement}
@@ -77,7 +93,6 @@ export const ItemListRow = ({
                         >
                             <AddRoundedIcon fontSize='small' />
                         </IconButton>
-
                         {onRemove && (
                             <IconButton
                                 size='small'
@@ -92,7 +107,7 @@ export const ItemListRow = ({
                 ) : (
                     <Typography
                         variant='body1'
-                        fontWeight={600}
+                        fontWeight={FONT_WEIGHT.MEDIUM}
                         color='text.secondary'
                         width={60}
                         textAlign='right'
