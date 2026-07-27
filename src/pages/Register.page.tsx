@@ -18,9 +18,9 @@ import {
     Typography,
 } from '@mui/material';
 
-import { useAuthService } from '@api/auth.api';
 import { ROUTES } from '@constant/routes.constants';
 import { AuthLayout } from '@layouts/Auth.layout';
+import { useAuthService } from '@services';
 import { RegisterFormData } from '@type';
 import { getErrorMessage } from '@utils';
 

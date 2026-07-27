@@ -11,11 +11,24 @@ interface CartState {
     totalAmount: number;
 }
 
-const initialState: CartState = {
-    items: [],
-    totalQuantity: 0,
-    totalAmount: 0,
+const loadState = (): CartState => {
+    const serializedState = localStorage.getItem('cartState');
+    if (serializedState === null) {
+        return { items: [], totalQuantity: 0, totalAmount: 0 };
+    }
+    return JSON.parse(serializedState) as CartState;
 };
+
+const saveState = (state: CartState) => {
+    const serializedState = JSON.stringify({
+        items: state.items,
+        totalQuantity: state.totalQuantity,
+        totalAmount: state.totalAmount,
+    });
+    localStorage.setItem('cartState', serializedState);
+};
+
+const initialState: CartState = loadState();
 
 const cartSlice = createSlice({
     name: 'cart',
@@ -34,6 +47,8 @@ const cartSlice = createSlice({
 
             state.totalQuantity += 1;
             state.totalAmount += Number(action.payload.price);
+
+            saveState(state);
         },
         removeFromCart: (state, action: PayloadAction<number>) => {
             const existingItem = state.items.find(
@@ -50,6 +65,8 @@ const cartSlice = createSlice({
                 }
                 state.totalQuantity -= 1;
                 state.totalAmount -= Number(existingItem.price);
+
+                saveState(state);
             }
         },
         removeItemCompletely: (state, action: PayloadAction<number>) => {
@@ -64,12 +81,16 @@ const cartSlice = createSlice({
                 state.items = state.items.filter(
                     (item) => item.id !== action.payload,
                 );
+
+                saveState(state);
             }
         },
         clearCart: (state) => {
             state.items = [];
             state.totalQuantity = 0;
             state.totalAmount = 0;
+
+            saveState(state);
         },
     },
 });

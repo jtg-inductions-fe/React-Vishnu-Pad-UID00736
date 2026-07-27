@@ -11,15 +11,17 @@ import {
     CardContent,
     IconButton,
     Stack,
+    Tooltip,
     Typography,
 } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 
-import { Image } from '@components/Image';
+import RestaurantPlaceholder from '@assets/images/placeholders/restaurant-placeholder.webp';
+import { Image } from '@components';
+import { COLORS, FONT_WEIGHT } from '@constant';
 
 import { ItemCardProps } from './ItemCard.types';
-
-const FALLBACK_IMAGE =
-    'data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect width="100%25" height="100%25" fill="%23F0EBE3"/%3E%3C/svg%3E';
+const FALLBACK_IMAGE = RestaurantPlaceholder;
 
 export const ItemCard = ({
     title,
@@ -38,6 +40,10 @@ export const ItemCard = ({
     const [imgSrc, setImgSrc] = useState(image);
     const inStock = tag !== 'Out of Stock';
 
+    const handleImageError = () => {
+        setImgSrc(FALLBACK_IMAGE);
+    };
+
     return (
         <Card component={Stack} sx={{ height: '100%' }}>
             <Box position='relative' width='100%'>
@@ -46,7 +52,7 @@ export const ItemCard = ({
                     alt={title}
                     width='100%'
                     objectFit='cover'
-                    onError={() => setImgSrc(FALLBACK_IMAGE)}
+                    onError={handleImageError}
                     sx={{
                         aspectRatio: '4 / 3',
                         filter: inStock
@@ -61,13 +67,19 @@ export const ItemCard = ({
                         position='absolute'
                         top={12}
                         left={12}
-                        bgcolor={inStock ? 'success.main' : 'grey.800'}
-                        color='common.white'
+                        bgcolor={
+                            inStock
+                                ? COLORS.FEEDBACK.SUCCESS
+                                : COLORS.NEUTRAL[800]
+                        }
+                        color={COLORS.PRIMARY.CONTRAST}
                         px={1.25}
                         py={0.5}
                         borderRadius={2}
-                        fontWeight='bold'
-                        sx={{ backdropFilter: 'blur(4px)' }}
+                        fontWeight={FONT_WEIGHT.BOLD}
+                        sx={(theme) => ({
+                            backdropFilter: `blur(${theme.spacing(0.5)})`,
+                        })}
                     >
                         {tag}
                     </Typography>
@@ -81,18 +93,23 @@ export const ItemCard = ({
                         position='absolute'
                         top={12}
                         right={12}
-                        bgcolor='rgba(20,20,20,0.72)'
-                        color='common.white'
+                        bgcolor={alpha(COLORS.SECONDARY.DARK, 0.72)}
+                        color={COLORS.SECONDARY.CONTRAST}
                         px={1.25}
                         py={0.5}
                         borderRadius={5}
-                        sx={{ backdropFilter: 'blur(4px)' }}
+                        sx={(theme) => ({
+                            backdropFilter: `blur(${theme.spacing(0.5)})`,
+                        })}
                     >
                         <StarRoundedIcon
                             fontSize='inherit'
-                            sx={{ color: '#FFC53D' }}
+                            sx={{ color: COLORS.FEEDBACK.WARNING }}
                         />
-                        <Typography variant='caption' fontWeight='bold'>
+                        <Typography
+                            variant='caption'
+                            fontWeight={FONT_WEIGHT.BOLD}
+                        >
                             {rating}
                         </Typography>
                     </Stack>
@@ -109,7 +126,7 @@ export const ItemCard = ({
                 <Stack gap={0.25}>
                     <Typography
                         variant='subtitle1'
-                        fontWeight={700}
+                        fontWeight={FONT_WEIGHT.BOLD}
                         noWrap
                         title={title}
                     >
@@ -126,7 +143,7 @@ export const ItemCard = ({
                     <Typography
                         variant='h6'
                         color='primary.main'
-                        fontWeight={700}
+                        fontWeight={FONT_WEIGHT.BOLD}
                     >
                         ₹{price}
                     </Typography>
@@ -151,40 +168,58 @@ export const ItemCard = ({
                             px={0.5}
                             flexGrow={1}
                         >
-                            <IconButton
-                                size='small'
-                                color='primary'
-                                onClick={onDecrement}
+                            <Tooltip
+                                title='Decrease quantity'
+                                arrow
+                                placement='top'
                             >
-                                <RemoveRoundedIcon fontSize='small' />
-                            </IconButton>
+                                <IconButton
+                                    size='small'
+                                    color='primary'
+                                    onClick={onDecrement}
+                                >
+                                    <RemoveRoundedIcon fontSize='small' />
+                                </IconButton>
+                            </Tooltip>
 
                             <Typography
                                 variant='subtitle2'
                                 minWidth={24}
                                 align='center'
-                                fontWeight={700}
+                                fontWeight={FONT_WEIGHT.BOLD}
                             >
                                 {cartQuantity}
                             </Typography>
 
-                            <IconButton
-                                size='small'
-                                color='primary'
-                                onClick={onIncrement}
+                            <Tooltip
+                                title='Increase quantity'
+                                arrow
+                                placement='top'
                             >
-                                <AddRoundedIcon fontSize='small' />
-                            </IconButton>
+                                <IconButton
+                                    size='small'
+                                    color='primary'
+                                    onClick={onIncrement}
+                                >
+                                    <AddRoundedIcon fontSize='small' />
+                                </IconButton>
+                            </Tooltip>
                         </Stack>
 
                         {onRemove && (
-                            <IconButton
-                                size='small'
-                                color='error'
-                                onClick={onRemove}
+                            <Tooltip
+                                title='Remove item from cart'
+                                arrow
+                                placement='top'
                             >
-                                <DeleteOutlineRoundedIcon fontSize='medium' />
-                            </IconButton>
+                                <IconButton
+                                    size='small'
+                                    color='error'
+                                    onClick={onRemove}
+                                >
+                                    <DeleteOutlineRoundedIcon fontSize='medium' />
+                                </IconButton>
+                            </Tooltip>
                         )}
                     </Stack>
                 ) : (

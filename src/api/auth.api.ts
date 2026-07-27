@@ -1,7 +1,7 @@
 import { API_URLS } from '@constant/api.constants';
+import { AuthResponse, LoginRequest, RegisterRequest, User } from '@type';
 
 import { baseApi } from './base.api';
-import { AuthResponse, LoginRequest, RegisterRequest, User } from '../types';
 
 export const authApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -28,19 +28,5 @@ export const authApi = baseApi.injectEndpoints({
     }),
 });
 
-const { useLoginMutation, useRegisterMutation, useLogoutMutation } = authApi;
-
-export const useAuthService = () => {
-    const [login, loginMeta] = useLoginMutation();
-    const [register, registerMeta] = useRegisterMutation();
-    const [logout, logoutMeta] = useLogoutMutation();
-
-    return {
-        login,
-        register,
-        logout,
-        isLoginLoading: loginMeta.isLoading,
-        isRegisterLoading: registerMeta.isLoading,
-        isLogoutLoading: logoutMeta.isLoading,
-    };
-};
+export const { useLoginMutation, useRegisterMutation, useLogoutMutation } =
+    authApi;

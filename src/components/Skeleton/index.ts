@@ -1,1 +1,1 @@
-export { ItemSkeletonLoader } from './Skeleton.components';
+export { ItemSkeletonLoader } from './Skeleton.component';

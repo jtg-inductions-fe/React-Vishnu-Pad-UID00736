@@ -2,9 +2,16 @@ import { Header } from 'containers';
 import { useAuth } from 'hooks/useAuth.hook';
 import { Outlet } from 'react-router-dom';
 
-import { CircularProgress, Container, Stack, Typography } from '@mui/material';
+import {
+    Box,
+    CircularProgress,
+    Container,
+    Stack,
+    Typography,
+} from '@mui/material';
 
-import { useUserService } from '@api/user.api';
+import { Footer } from '@components';
+import { useUserService } from '@services';
 
 const AppLayout = () => {
     const { user, token, isAuthenticated } = useAuth();
@@ -34,12 +41,20 @@ const AppLayout = () => {
     }
 
     return (
-        <>
+        <Stack minHeight='100vh'>
             <Header />
-            <Container maxWidth='xl'>
-                <Outlet />
-            </Container>
-        </>
+
+            <Box
+                component='main'
+                sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}
+            >
+                <Container maxWidth='xl' sx={{ flexGrow: 1, py: 4 }}>
+                    <Outlet />
+                </Container>
+            </Box>
+
+            <Footer />
+        </Stack>
     );
 };
 

@@ -39,8 +39,4 @@ export const userApi = baseApi.injectEndpoints({
     }),
 });
 
-const { useGetUserProfileQuery } = userApi;
-
-export const useUserService = () => ({
-    useGetUserProfileQuery,
-});
+export const { useGetUserProfileQuery } = userApi;

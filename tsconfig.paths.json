@@ -4,19 +4,38 @@
         "paths": {
             "@api/*": ["api/*"],
             "@assets/*": ["assets/*"],
+
+            "@components": ["components/index", "components"],
             "@components/*": ["components/*"],
+
             "@constant": ["constant/index"],
             "@constant/*": ["constant/*"],
+
+            "@layouts": ["layouts/index", "layouts"],
             "@layouts/*": ["layouts/*"],
+
+            "@pages": ["pages/index", "pages"],
             "@pages/*": ["pages/*"],
+
+            "@routes": ["routes/index", "routes"],
             "@routes/*": ["routes/*"],
+
+            "@services": ["services/index", "services"],
+            "@services/*": ["services/*"],
+
             "@store/*": ["store/*"],
+
             "@theme": ["theme/index"],
             "@theme/*": ["theme/*"],
+
             "@type": ["types/index", "types"],
             "@type/*": ["types/*"],
+
             "@utils": ["utils/index", "utils"],
-            "@utils/*": ["utils/*"]
+            "@utils/*": ["utils/*"],
+
+            "@validations": ["validations/index"],
+            "@validations/*": ["validations/*"]
         }
     }
 }

@@ -17,9 +17,9 @@ import {
     Typography,
 } from '@mui/material';
 
-import { useAuthService } from '@api/auth.api';
 import { ROUTES } from '@constant';
 import { AuthLayout } from '@layouts/Auth.layout';
+import { useAuthService } from '@services';
 import { useAppDispatch } from '@store/hooks';
 import { setCredentials } from '@store/slices';
 import { LoginFormData } from '@type';

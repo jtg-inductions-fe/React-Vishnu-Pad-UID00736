@@ -4,6 +4,8 @@ import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import { Box, Button, IconButton, Stack, Typography } from '@mui/material';
 
+import { FONT_WEIGHT } from '@constant';
+
 import { HorizontalSectionProps } from './HorizontalSection.types';
 
 const SCROLL_AMOUNT = 320;
@@ -43,6 +45,9 @@ export const HorizontalSection = ({
         });
     };
 
+    const handleScrollLeft = () => scrollBy('left');
+    const handleScrollRight = () => scrollBy('right');
+
     return (
         <Stack gap={2}>
             <Stack
@@ -51,7 +56,7 @@ export const HorizontalSection = ({
                 alignItems='center'
                 gap={2}
             >
-                <Typography variant='h5' fontWeight={700}>
+                <Typography variant='h5' fontWeight={FONT_WEIGHT.BOLD}>
                     {title}
                 </Typography>
 
@@ -74,7 +79,7 @@ export const HorizontalSection = ({
                             zIndex={1}
                         />
                         <IconButton
-                            onClick={() => scrollBy('left')}
+                            onClick={handleScrollLeft}
                             aria-label={`Scroll ${title} left`}
                             sx={{
                                 position: 'absolute',
@@ -103,7 +108,7 @@ export const HorizontalSection = ({
                             zIndex={1}
                         />
                         <IconButton
-                            onClick={() => scrollBy('right')}
+                            onClick={handleScrollRight}
                             aria-label={`Scroll ${title} right`}
                             sx={{
                                 position: 'absolute',

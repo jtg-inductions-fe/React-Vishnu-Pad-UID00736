@@ -18,7 +18,7 @@ export const ItemSkeletonLoader = ({
                     variant='rounded'
                     width='100%'
                     height='auto'
-                    style={{ borderRadius: '24px', aspectRatio: '4 / 3' }}
+                    style={{ borderRadius: 24, aspectRatio: '4 / 3' }}
                 />
                 <Skeleton variant='text' width='70%' height={28} />
                 <Skeleton variant='text' width='40%' height={20} />

@@ -1,17 +1,6 @@
-import { styled } from '@mui/material/styles';
+import { Box } from '@mui/material';
 
-import { ImageProps, StyledImageProps } from './Image.types';
-
-export const StyledImage = styled('img', {
-    shouldForwardProp: (prop) =>
-        !['width', 'height', 'objectFit', 'clickable'].includes(prop as string),
-})<StyledImageProps>(({ width, height, objectFit, clickable }) => ({
-    display: 'block',
-    width,
-    height,
-    objectFit,
-    cursor: clickable ? 'pointer' : 'default',
-}));
+import { ImageProps } from './Image.types';
 
 export const Image = ({
     src,
@@ -24,16 +13,20 @@ export const Image = ({
     sx,
     ...rest
 }: ImageProps) => (
-    <StyledImage
+    <Box
+        component='img'
         src={src}
         alt={alt}
-        width={width}
-        height={height}
-        objectFit={objectFit}
         loading={loading}
-        clickable={Boolean(onClick)}
         onClick={onClick}
-        sx={sx}
+        sx={{
+            display: 'block',
+            width: width,
+            height: height,
+            objectFit: objectFit,
+            cursor: onClick ? 'pointer' : 'default',
+            ...sx,
+        }}
         {...rest}
     />
 );

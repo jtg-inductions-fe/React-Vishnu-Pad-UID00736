@@ -10,10 +10,3 @@ export interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
     onClick?: () => void;
     sx?: SxProps<Theme>;
 }
-
-export interface StyledImageProps {
-    width?: string | number;
-    height?: string | number;
-    objectFit?: React.CSSProperties['objectFit'];
-    clickable?: boolean;
-}

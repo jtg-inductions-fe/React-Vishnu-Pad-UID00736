@@ -4,14 +4,15 @@ import { useNavigate } from 'react-router-dom';
 
 import { Alert, Skeleton, Snackbar, Stack, Typography } from '@mui/material';
 
-import { useGetExploreMenuItemsQuery } from '@api/menu.api';
-import { useGetRestaurantsQuery } from '@api/restaurant.api';
-import { ErrorState } from '@components/ErrorState';
-import { Footer } from '@components/Footer';
-import { HorizontalSection } from '@components/HorizontalSection';
-import { ItemCard } from '@components/ItemCard';
-import { ItemSkeletonLoader } from '@components/Skeleton';
-import { ROUTES } from '@routes/routes.constants';
+import FoodPlaceholder from '@assets/images/placeholders/food-placeholder.webp';
+import RestaurantPlaceholder from '@assets/images/placeholders/restaurant-placeholder.webp';
+import { EmptyState, ErrorState } from '@components';
+import { HorizontalSection } from '@components';
+import { ItemCard } from '@components';
+import { ItemSkeletonLoader } from '@components';
+import { FONT_WEIGHT, ROUTES } from '@constant';
+import { useMenuService } from '@services';
+import { useRestaurantService } from '@services';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { addToCart, removeFromCart, removeItemCompletely } from '@store/slices';
 import { MenuItem } from '@type';
@@ -24,18 +25,14 @@ export const HomePage = () => {
     const [isMenuToastOpen, setIsMenuToastOpen] = useState(false);
 
     const {
-        data: restaurants,
-        isLoading: isRestaurantsLoading,
-        error: restaurantsError,
-        refetch: refetchRestaurants,
-    } = useGetRestaurantsQuery();
+        restaurants,
+        isRestaurantsLoading,
+        restaurantsError,
+        refetchRestaurants,
+    } = useRestaurantService();
 
-    const {
-        data: menuData,
-        isLoading: isMenuLoading,
-        error: menuError,
-        refetch: refetchMenu,
-    } = useGetExploreMenuItemsQuery();
+    const { menuData, isMenuLoading, menuError, refetchMenu } =
+        useMenuService();
 
     const displayRestaurants = restaurants?.slice(0, 10) || [];
     const displayMenuItems = menuData?.items.slice(0, 10) || [];
@@ -45,7 +42,7 @@ export const HomePage = () => {
     };
 
     const handleExploreRestaurant = (restaurantId: string | number) => () => {
-        void navigate(`${ROUTES.RESTAURANTS}/${restaurantId}`);
+        void navigate(`${ROUTES.MENU}?restaurant_id=${restaurantId}`);
     };
 
     const handleViewAllMenu = () => {
@@ -72,6 +69,13 @@ export const HomePage = () => {
         dispatch(removeItemCompletely(itemId));
     };
 
+    const formatDate = (date: string | Date) =>
+        new Date(date).toLocaleDateString('en-IN', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+        });
+
     if (restaurantsError || menuError) {
         return (
             <ErrorState
@@ -84,10 +88,30 @@ export const HomePage = () => {
         );
     }
 
+    const isDataEmpty =
+        !isRestaurantsLoading &&
+        !isMenuLoading &&
+        displayRestaurants.length === 0 &&
+        displayMenuItems.length === 0;
+
+    if (isDataEmpty) {
+        return (
+            <EmptyState
+                title='No Items Available'
+                description="We couldn't find any restaurants or menu items at the moment. Please try again later."
+                actionLabel='Refresh Page'
+                onActionClick={() => {
+                    void refetchRestaurants();
+                    void refetchMenu();
+                }}
+            />
+        );
+    }
+
     return (
-        <Stack gap={7} px={{ xs: 2, md: 4 }} py={4}>
+        <Stack gap={8} px={{ xs: 2, md: 4 }} py={4}>
             <Stack gap={0.5}>
-                <Typography variant='h3' fontWeight={800}>
+                <Typography variant='h3' fontWeight={FONT_WEIGHT.BOLD}>
                     Explore Best Food
                 </Typography>
                 <Typography variant='body1' color='text.secondary'>
@@ -114,8 +138,8 @@ export const HomePage = () => {
                             <Stack key={restaurant.id} minWidth={300}>
                                 <ItemCard
                                     title={restaurant.name}
-                                    subtitle={`Added on: ${new Date(restaurant.created_at).toLocaleDateString()}`}
-                                    image={`/src/assets/images/restaurants/${restaurant.id}.jpg`}
+                                    subtitle={`Joined on: ${formatDate(restaurant.created_at)}`}
+                                    image={RestaurantPlaceholder}
                                     actionLabel='Explore Restaurant'
                                     onActionClick={handleExploreRestaurant(
                                         restaurant.id,
@@ -163,7 +187,7 @@ export const HomePage = () => {
                                                 ? 'In Stock'
                                                 : 'Out of Stock'
                                         }
-                                        image={`/src/assets/images/menu/${item.id}.jpg`}
+                                        image={FoodPlaceholder}
                                         cartQuantity={currentQuantity}
                                         actionLabel={
                                             isAvailable
@@ -187,8 +211,6 @@ export const HomePage = () => {
                     )}
                 </HorizontalSection>
             )}
-
-            <Footer />
 
             <Snackbar
                 open={isMenuToastOpen}
