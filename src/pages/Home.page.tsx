@@ -140,7 +140,7 @@ export const HomePage = () => {
                                     title={restaurant.name}
                                     subtitle={`Joined on: ${formatDate(restaurant.created_at)}`}
                                     image={RestaurantPlaceholder}
-                                    actionLabel='Explore Restaurant'
+                                    actionLabel='Explore Menu'
                                     onActionClick={handleExploreRestaurant(
                                         restaurant.id,
                                     )}

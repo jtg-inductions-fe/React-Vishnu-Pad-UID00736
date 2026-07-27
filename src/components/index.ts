@@ -5,3 +5,4 @@ export { Image } from './Image';
 export { ItemCard } from './ItemCard';
 export { ErrorState } from './ErrorState';
 export { EmptyState } from './EmptyState';
+export { SearchBar } from './SearchBar';

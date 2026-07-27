@@ -1,68 +1,84 @@
 import { useNavigate } from 'react-router-dom';
 
 import { Box, Stack, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 
-import { useGetRestaurantsQuery } from '@api/restaurant.api';
-import { EmptyState } from '@components/EmptyState';
-import { ErrorState } from '@components/ErrorState';
-import { ItemCard } from '@components/ItemCard';
-import { ItemSkeletonLoader } from '@components/Skeleton';
-import { ROUTES } from '@routes/routes.constants';
+import RestaurantPlaceholder from '@assets/images/placeholders/restaurant-placeholder.webp';
+import {
+    EmptyState,
+    ErrorState,
+    ItemCard,
+    ItemSkeletonLoader,
+    SearchBar,
+} from '@components';
+import { FONT_WEIGHT, ROUTES } from '@constant';
+import { useRestaurantService } from '@services';
 
 export const RestaurantsPage = () => {
     const navigate = useNavigate();
 
     const {
-        data: restaurants,
-        isLoading,
-        error,
-        refetch,
-    } = useGetRestaurantsQuery();
+        restaurants,
+        isRestaurantsLoading: isLoading,
+        restaurantsError: error,
+        refetchRestaurants: refetch,
+    } = useRestaurantService();
 
     const handleExploreRestaurant = (restaurantId: string | number) => () => {
-        void navigate(`${ROUTES.RESTAURANTS}/${restaurantId}`);
+        void navigate(`${ROUTES.MENU}?restaurant_id=${restaurantId}`);
     };
 
     const handleGoHome = () => {
         void navigate(ROUTES.HOME);
     };
 
+    const handleRetry = () => {
+        void refetch();
+    };
+
+    const formatDate = (date: string | Date) =>
+        new Date(date).toLocaleDateString('en-IN', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+        });
+
     if (error) {
-        return (
-            <ErrorState
-                actionLabel='Retry'
-                onActionClick={() => {
-                    void refetch();
-                }}
-            />
-        );
+        return <ErrorState actionLabel='Retry' onActionClick={handleRetry} />;
     }
 
     return (
-        <Stack gap={7} px={{ xs: 2, md: 4 }} py={4}>
-            <Stack gap={0.5}>
-                <Typography variant='h3' fontWeight={800}>
-                    All Restaurants
-                </Typography>
-                <Typography variant='body1' color='text.secondary'>
-                    Explore our complete list of top-rated restaurants
-                </Typography>
+        <Stack gap={8} px={{ xs: 2, md: 4 }} py={4}>
+            <Stack
+                direction={{ md: 'row' }}
+                justifyContent='space-between'
+                alignItems={{ xs: 'flex-start', md: 'center' }}
+                gap={4}
+                width='100%'
+            >
+                <Stack gap={0.5}>
+                    <Typography variant='h3' fontWeight={FONT_WEIGHT.BOLD}>
+                        All Restaurants
+                    </Typography>
+                    <Typography variant='body1' color='text.secondary'>
+                        Explore our complete list of top-rated restaurants
+                    </Typography>
+                </Stack>
+
+                <Box
+                    sx={(theme) => ({
+                        width: {
+                            xs: '100%',
+                            md: theme.spacing(100),
+                        },
+                    })}
+                >
+                    <SearchBar placeholder='Search for restaurants, cuisines...' />
+                </Box>
             </Stack>
 
             {isLoading ? (
-                <Box
-                    display='grid'
-                    gridTemplateColumns='repeat(auto-fill, minmax(300px, 1fr))'
-                    gap={4}
-                >
-                    {Array.from({ length: 8 }).map((_, index) => (
-                        <ItemSkeletonLoader
-                            key={index}
-                            count={1}
-                            minWidth={300}
-                        />
-                    ))}
-                </Box>
+                <ItemSkeletonLoader count={8} minWidth={300} layout='grid' />
             ) : restaurants?.length === 0 ? (
                 <EmptyState
                     title='No Restaurants Found'
@@ -71,24 +87,24 @@ export const RestaurantsPage = () => {
                     onActionClick={handleGoHome}
                 />
             ) : (
-                <Box
-                    display='grid'
-                    gridTemplateColumns='repeat(auto-fill, minmax(300px, 1fr))'
-                    gap={4}
-                >
+                <Grid container spacing={4}>
                     {restaurants?.map((restaurant) => (
-                        <ItemCard
+                        <Grid
                             key={restaurant.id}
-                            title={restaurant.name}
-                            subtitle={`Added on: ${new Date(restaurant.created_at).toLocaleDateString()}`}
-                            image={`/src/assets/images/restaurants/${restaurant.id}.jpg`}
-                            actionLabel='Explore Restaurant'
-                            onActionClick={handleExploreRestaurant(
-                                restaurant.id,
-                            )}
-                        />
+                            size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
+                        >
+                            <ItemCard
+                                title={restaurant.name}
+                                subtitle={`Joined on: ${formatDate(restaurant.created_at)}`}
+                                image={RestaurantPlaceholder}
+                                actionLabel='Explore Menu'
+                                onActionClick={handleExploreRestaurant(
+                                    restaurant.id,
+                                )}
+                            />
+                        </Grid>
                     ))}
-                </Box>
+                </Grid>
             )}
         </Stack>
     );

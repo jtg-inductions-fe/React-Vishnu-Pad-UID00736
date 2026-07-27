@@ -18,7 +18,8 @@ dist-ssr/
 # Cache files
 .eslintcache
 *.tsbuildinfo
-
+*.json.build
+.build-info.json
 
 
 # Netlify builds and cache
