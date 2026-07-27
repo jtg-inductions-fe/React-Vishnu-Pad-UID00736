@@ -1,9 +1,20 @@
+import React, { useState } from 'react';
+
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { LoginFormData, loginSchema } from 'validations/auth.schema';
 
-import { Button, Link, Stack, TextField, Typography } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import {
+    Button,
+    IconButton,
+    InputAdornment,
+    Link,
+    Stack,
+    TextField,
+    Typography,
+} from '@mui/material';
 
 import { useLoginMutation } from '@api/auth.api';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,7 +28,13 @@ export const LoginPage = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const [loginUser, { isLoading }] = useLoginMutation();
-
+    const [showPassword, setShowPassword] = useState(false);
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleMouseDownPassword = (
+        event: React.MouseEvent<HTMLButtonElement>,
+    ) => {
+        event.preventDefault();
+    };
     const {
         register,
         handleSubmit,
@@ -64,11 +81,31 @@ export const LoginPage = () => {
 
                 <TextField
                     label='Password'
-                    type='password'
+                    type={showPassword ? 'text' : 'password'}
                     fullWidth
                     {...register('password')}
                     error={!!errors.password}
                     helperText={errors.password?.message || ''}
+                    slotProps={{
+                        input: {
+                            endAdornment: (
+                                <InputAdornment position='end'>
+                                    <IconButton
+                                        aria-label='toggle password visibility'
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge='end'
+                                    >
+                                        {showPassword ? (
+                                            <VisibilityOff />
+                                        ) : (
+                                            <Visibility />
+                                        )}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        },
+                    }}
                 />
 
                 <Button

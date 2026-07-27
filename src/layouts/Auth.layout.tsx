@@ -1,12 +1,10 @@
 import { ReactNode } from 'react';
 
-// useTheme import kiya
 import { Box, Card, Stack, useTheme } from '@mui/material';
 
 interface AuthLayoutProps {
     children: ReactNode;
     onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-    // Type ko string | number kar diya taaki MUI spacing number pass kar sakein
     maxWidth?: string | number;
 }
 

@@ -1,9 +1,21 @@
+import React, { useState } from 'react';
+
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { RegisterFormData, registerSchema } from 'validations/auth.schema';
 
-import { Button, Link, Stack, TextField, Typography } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import {
+    Button,
+    IconButton,
+    InputAdornment,
+    Link,
+    Stack,
+    TextField,
+    Typography,
+} from '@mui/material';
 
 import { useRegisterMutation } from '@api/auth.api';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -14,6 +26,16 @@ import { getErrorMessage } from '@utils';
 export const RegisterPage = () => {
     const navigate = useNavigate();
     const [registerUser, { isLoading }] = useRegisterMutation();
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleMouseDownPassword = (
+        event: React.MouseEvent<HTMLButtonElement>,
+    ) => {
+        event.preventDefault();
+    };
 
     const {
         register,
@@ -28,6 +50,7 @@ export const RegisterPage = () => {
             city: '',
             state: '',
             zipcode: '',
+            balance: 0,
         },
     });
 
@@ -72,11 +95,31 @@ export const RegisterPage = () => {
 
                 <TextField
                     label='Password'
-                    type='password'
+                    type={showPassword ? 'text' : 'password'}
                     fullWidth
                     {...register('password')}
                     error={!!errors.password}
                     helperText={errors.password?.message || ''}
+                    slotProps={{
+                        input: {
+                            endAdornment: (
+                                <InputAdornment position='end'>
+                                    <IconButton
+                                        aria-label='toggle password visibility'
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge='end'
+                                    >
+                                        {showPassword ? (
+                                            <VisibilityOff />
+                                        ) : (
+                                            <Visibility />
+                                        )}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        },
+                    }}
                 />
 
                 <Stack direction='row' gap={2}>
@@ -96,13 +139,24 @@ export const RegisterPage = () => {
                     />
                 </Stack>
 
-                <TextField
-                    label='Zipcode'
-                    fullWidth
-                    {...register('zipcode')}
-                    error={!!errors.zipcode}
-                    helperText={errors.zipcode?.message || ''}
-                />
+                <Stack direction='row' gap={2}>
+                    <TextField
+                        label='Zipcode'
+                        fullWidth
+                        {...register('zipcode')}
+                        error={!!errors.zipcode}
+                        helperText={errors.zipcode?.message || ''}
+                    />
+
+                    <TextField
+                        label='Balance'
+                        type='number'
+                        fullWidth
+                        {...register('balance', { valueAsNumber: true })}
+                        error={!!errors.balance}
+                        helperText={errors.balance?.message || ''}
+                    />
+                </Stack>
 
                 <Button
                     type='submit'
