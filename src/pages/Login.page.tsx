@@ -50,7 +50,14 @@ export const LoginPage = () => {
     const onSubmit = async (data: LoginFormData) => {
         try {
             const response = await loginUser(data).unwrap();
-            dispatch(setCredentials({ user: response, token: response.token }));
+
+            dispatch(
+                setCredentials({
+                    user: response.user,
+                    token: response.token,
+                }),
+            );
+
             toast.success('Login Successful! Welcome back.');
             void navigate(ROUTES.HOME);
         } catch (error) {

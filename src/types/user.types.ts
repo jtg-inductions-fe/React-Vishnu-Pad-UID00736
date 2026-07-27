@@ -21,6 +21,7 @@ export interface RegisterRequest extends BaseUser {
     password: string;
 }
 
-export interface AuthResponse extends User {
+export interface AuthResponse {
+    user: User;
     token: string;
 }

@@ -1,5 +1,8 @@
+import toast from 'react-hot-toast';
+
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User } from '@type';
+import { getErrorMessage } from '@utils';
 
 interface AuthState {
     user: User | null;
@@ -8,14 +11,30 @@ interface AuthState {
 }
 
 const loadUserFromStorage = (): User | null => {
-    const storedUser = localStorage.getItem('user');
-    return storedUser ? (JSON.parse(storedUser) as User) : null;
+    try {
+        const storedUser = localStorage.getItem('user');
+        if (!storedUser) return null;
+
+        const parsedUser = JSON.parse(storedUser) as User;
+
+        if (parsedUser && typeof parsedUser === 'object') {
+            return parsedUser;
+        }
+
+        throw new Error('Malformed user data structure');
+    } catch (error) {
+        toast.error(getErrorMessage(error));
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        return null;
+    }
 };
 
 const initialState: AuthState = {
     user: loadUserFromStorage(),
     token: localStorage.getItem('token'),
-    isAuthenticated: !!localStorage.getItem('token'),
+    isAuthenticated:
+        !!localStorage.getItem('token') && !!localStorage.getItem('user'),
 };
 
 export const authSlice = createSlice({

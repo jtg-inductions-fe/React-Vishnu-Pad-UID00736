@@ -20,8 +20,10 @@ export const useLogout = () => {
             const errorMsg = getErrorMessage(error);
             toast.error(errorMsg);
         } finally {
-            dispatch(logout());
             dispatch(baseApi.util.resetApiState());
+
+            dispatch(logout());
+
             void navigate(ROUTES.LOGIN);
         }
     };

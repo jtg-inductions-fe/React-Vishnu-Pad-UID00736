@@ -10,6 +10,7 @@ export const getErrorMessage = (err: unknown): string => {
             const errorData = fetchError.data as ApiErrorResponse;
 
             return (
+                errorData.error ||
                 errorData.message ||
                 errorData.detail ||
                 'Something went wrong on the server.'

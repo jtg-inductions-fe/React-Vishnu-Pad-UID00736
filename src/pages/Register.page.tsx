@@ -122,7 +122,7 @@ export const RegisterPage = () => {
                     }}
                 />
 
-                <Stack direction='row' gap={2}>
+                <Stack direction={{ sm: 'row' }} gap={2}>
                     <TextField
                         label='City'
                         fullWidth
@@ -139,7 +139,7 @@ export const RegisterPage = () => {
                     />
                 </Stack>
 
-                <Stack direction='row' gap={2}>
+                <Stack direction={{ sm: 'row' }} gap={2}>
                     <TextField
                         label='Zipcode'
                         fullWidth
