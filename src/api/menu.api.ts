@@ -9,7 +9,7 @@ export const menuApi = baseApi.injectEndpoints({
             PaginatedMenuResponse,
             number | undefined
         >({
-            query: () => ({
+            query: (restaurantId) => ({
                 url: API_URLS.MENU.SEARCH,
                 method: 'GET',
                 params: restaurantId

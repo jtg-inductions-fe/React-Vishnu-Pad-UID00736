@@ -1,6 +1,6 @@
 import { useGetExploreMenuItemsQuery } from '@api/menu.api';
 
-export const useMenuService = () => {
+export const useMenuService = (restaurantId?: number) => {
     const {
         data: menuData,
         isLoading: isMenuLoading,
@@ -8,7 +8,7 @@ export const useMenuService = () => {
         isError: isMenuError,
         error: menuError,
         refetch: refetchMenu,
-    } = useGetExploreMenuItemsQuery();
+    } = useGetExploreMenuItemsQuery(restaurantId);
 
     return {
         menuData,
