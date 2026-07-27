@@ -15,6 +15,7 @@ export const API_URLS = {
         FEED: '/restaurants/feed',
     },
     ORDERS: {
+        BASE: '/orders',
         CREATE: '/orders',
     },
 } as const;

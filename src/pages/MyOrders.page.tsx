@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import ReceiptLongRoundedIcon from '@mui/icons-material/ReceiptLongRounded';
 import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 
-import { useGetAllOrdersQuery } from '@api/order.api';
 import { EmptyState, ErrorState, OrderCard } from '@components';
 import { ROUTES } from '@constant';
+import { useOrderService } from '@services';
 
 export const MyOrdersPage = () => {
+    const { useGetAllOrdersQuery } = useOrderService();
     const {
         data: orders,
         isLoading,
@@ -22,7 +23,7 @@ export const MyOrdersPage = () => {
     };
 
     const handleBrowseRestaurants = () => {
-        void navigate('/restaurants');
+        void navigate(ROUTES.RESTAURANTS);
     };
 
     const handleOrderClick = (orderId: number) => () => {

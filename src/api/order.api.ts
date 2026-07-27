@@ -19,7 +19,7 @@ export const orderApi = baseApi.injectEndpoints({
         }),
         getAllOrders: builder.query<OrderListResponse[], void>({
             query: () => ({
-                url: '/orders',
+                url: API_URLS.ORDERS.BASE,
                 method: 'GET',
             }),
             providesTags: ['Order'],
