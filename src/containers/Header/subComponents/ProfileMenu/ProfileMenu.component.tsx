@@ -11,7 +11,7 @@ import {
     Typography,
 } from '@mui/material';
 
-import { ROUTES } from '@routes/routes.constants';
+import { ROUTES } from '@constant';
 
 import { ProfileMenuProps } from './ProfileMenu.types';
 

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { LoginFormData, loginSchema } from 'validations/auth.schema';
+import { loginRules } from 'validations/auth.validation';
 
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
@@ -13,21 +13,23 @@ import {
     Link,
     Stack,
     TextField,
+    Tooltip,
     Typography,
 } from '@mui/material';
 
-import { useLoginMutation } from '@api/auth.api';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useAuthService } from '@api/auth.api';
+import { ROUTES } from '@constant';
 import { AuthLayout } from '@layouts/Auth.layout';
-import { ROUTES } from '@routes/routes.constants';
 import { useAppDispatch } from '@store/hooks';
 import { setCredentials } from '@store/slices';
+import { LoginFormData } from '@type';
 import { getErrorMessage } from '@utils';
 
 export const LoginPage = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const [loginUser, { isLoading }] = useLoginMutation();
+    const { login: loginUser, isLoginLoading: isLoading } = useAuthService();
+
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (
@@ -35,12 +37,12 @@ export const LoginPage = () => {
     ) => {
         event.preventDefault();
     };
+
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<LoginFormData>({
-        resolver: zodResolver(loginSchema),
         defaultValues: {
             email: '',
             password: '',
@@ -51,10 +53,12 @@ export const LoginPage = () => {
         try {
             const response = await loginUser(data).unwrap();
 
+            const { token, ...userData } = response;
+
             dispatch(
                 setCredentials({
-                    user: response.user,
-                    token: response.token,
+                    user: userData,
+                    token: token,
                 }),
             );
 
@@ -81,7 +85,7 @@ export const LoginPage = () => {
                     label='Email'
                     type='email'
                     fullWidth
-                    {...register('email')}
+                    {...register('email', loginRules.email)}
                     error={!!errors.email}
                     helperText={errors.email?.message || ''}
                 />
@@ -90,25 +94,36 @@ export const LoginPage = () => {
                     label='Password'
                     type={showPassword ? 'text' : 'password'}
                     fullWidth
-                    {...register('password')}
+                    {...register('password', loginRules.password)}
                     error={!!errors.password}
                     helperText={errors.password?.message || ''}
                     slotProps={{
                         input: {
                             endAdornment: (
                                 <InputAdornment position='end'>
-                                    <IconButton
-                                        aria-label='toggle password visibility'
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                        edge='end'
+                                    <Tooltip
+                                        title={
+                                            showPassword
+                                                ? 'Hide Password'
+                                                : 'Show Password'
+                                        }
+                                        arrow
                                     >
-                                        {showPassword ? (
-                                            <VisibilityOff />
-                                        ) : (
-                                            <Visibility />
-                                        )}
-                                    </IconButton>
+                                        <IconButton
+                                            aria-label='toggle password visibility'
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={
+                                                handleMouseDownPassword
+                                            }
+                                            edge='end'
+                                        >
+                                            {showPassword ? (
+                                                <VisibilityOff />
+                                            ) : (
+                                                <Visibility />
+                                            )}
+                                        </IconButton>
+                                    </Tooltip>
                                 </InputAdornment>
                             ),
                         },

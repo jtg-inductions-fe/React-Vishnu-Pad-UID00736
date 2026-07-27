@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button, Stack, Typography } from '@mui/material';
 
-import { ROUTES } from '@routes/routes.constants';
+import { ROUTES } from '@constant';
 
 const NotFound = () => {
     const navigate = useNavigate();

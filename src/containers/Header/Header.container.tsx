@@ -6,15 +6,14 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {
-    alpha,
     AppBar,
     Avatar,
     Badge,
     Button,
     IconButton,
     Stack,
-    Theme,
     Toolbar,
+    Tooltip,
     Typography,
     useMediaQuery,
     useTheme,
@@ -22,42 +21,11 @@ import {
 
 import { Image } from '@components/Image';
 import { FONT_WEIGHT } from '@constant';
-import { ROUTES } from '@routes/routes.constants';
+import { ROUTES } from '@constant/routes.constants';
 
+import { DESKTOP_NAV_LINKS } from './Header.constants';
+import { cartButtonStyles, navLinkBaseStyles } from './Header.styles';
 import { MobileDrawer, ProfileMenu } from './subComponents';
-
-const DESKTOP_NAV_LINKS = [
-    { label: 'Menu', path: ROUTES.MENU, baseWeight: FONT_WEIGHT.LIGHT },
-    {
-        label: 'Restaurants',
-        path: ROUTES.RESTAURANTS,
-        baseWeight: FONT_WEIGHT.LIGHT,
-    },
-];
-
-const getNavLinkStyles = (baseWeight: number | string) => ({
-    textDecoration: 'none',
-    color: 'text.primary',
-    cursor: 'pointer',
-    fontWeight: baseWeight,
-    transition: 'color 0.2s',
-    '&:hover, &.active': {
-        color: 'primary.main',
-    },
-    '&.active': {
-        fontWeight: FONT_WEIGHT.MEDIUM,
-    },
-});
-
-const cartButtonStyles = {
-    color: 'text.primary',
-    transition: 'all 0.2s ease',
-    '&:hover, &.active': {
-        color: 'primary.main',
-        backgroundColor: (theme: Theme) =>
-            alpha(theme.palette.primary.main, 0.08),
-    },
-};
 
 export const Header = () => {
     const navigate = useNavigate();
@@ -157,7 +125,10 @@ export const Header = () => {
                                     component={NavLink}
                                     to={path}
                                     variant='body1'
-                                    sx={getNavLinkStyles(baseWeight)}
+                                    sx={[
+                                        navLinkBaseStyles,
+                                        { fontWeight: baseWeight },
+                                    ]}
                                 >
                                     {label}
                                 </Typography>
@@ -172,16 +143,18 @@ export const Header = () => {
                     alignItems='center'
                     sx={{ flex: 1, justifyContent: 'flex-end' }}
                 >
-                    <IconButton
-                        component={NavLink}
-                        to={ROUTES.MY_CART}
-                        size='medium'
-                        sx={cartButtonStyles}
-                    >
-                        <Badge badgeContent={cartItemCount} color='error'>
-                            <ShoppingCartIcon />
-                        </Badge>
-                    </IconButton>
+                    <Tooltip title='My Cart' arrow>
+                        <IconButton
+                            component={NavLink}
+                            to={ROUTES.MY_CART}
+                            size='medium'
+                            sx={cartButtonStyles}
+                        >
+                            <Badge badgeContent={cartItemCount} color='error'>
+                                <ShoppingCartIcon />
+                            </Badge>
+                        </IconButton>
+                    </Tooltip>
 
                     {isAuthenticated && user ? (
                         <>
@@ -210,7 +183,10 @@ export const Header = () => {
                                     component={NavLink}
                                     to={ROUTES.LOGIN}
                                     variant='body1'
-                                    sx={getNavLinkStyles(FONT_WEIGHT.REGULAR)}
+                                    sx={[
+                                        navLinkBaseStyles,
+                                        { fontWeight: FONT_WEIGHT.REGULAR },
+                                    ]}
                                 >
                                     Login
                                 </Typography>

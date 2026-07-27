@@ -16,74 +16,61 @@ import { COLORS, FONT_WEIGHT } from '@constant';
  */
 export const components: Components<Theme> = {
     MuiCssBaseline: {
-        styleOverrides: (theme) => ({
-            '@font-face': [
-                {
-                    fontDisplay: 'swap',
-                    fontFamily: 'Inter',
-                    fontStyle: 'normal',
-                    fontWeight: FONT_WEIGHT.LIGHT,
-                    src: `
-                        url(${InterLightWOFF2}) format('woff2'),
-                        url(${InterLightTTF}) format('truetype')
-                    `,
-                },
-                {
-                    fontDisplay: 'swap',
-                    fontFamily: 'Inter',
-                    fontStyle: 'normal',
-                    fontWeight: FONT_WEIGHT.REGULAR,
-                    src: `
-                        url(${InterRegularWOFF2}) format('woff2'),
-                        url(${InterRegularTTF}) format('truetype')
-                    `,
-                },
-                {
-                    fontDisplay: 'swap',
-                    fontFamily: 'Inter',
-                    fontStyle: 'normal',
-                    fontWeight: FONT_WEIGHT.MEDIUM,
-                    src: `
-                        url(${InterMediumWOFF2}) format('woff2'),
-                        url(${InterMediumTTF}) format('truetype')
-                    `,
-                },
-                {
-                    fontDisplay: 'swap',
-                    fontFamily: 'Inter',
-                    fontStyle: 'normal',
-                    fontWeight: FONT_WEIGHT.BOLD,
-                    src: `
-                        url(${InterBoldWOFF2}) format('woff2'),
-                        url(${InterBoldTTF}) format('truetype')
-                    `,
-                },
-            ],
-            html: {
-                fontSize: '62.5%',
-                scrollBehavior: 'smooth',
-            },
-            body: {
-                WebkitFontSmoothing: 'antialiased',
-                MozOsxFontSmoothing: 'grayscale',
-                backgroundColor: COLORS.NEUTRAL[50],
-                color: COLORS.NEUTRAL[800],
-            },
-            '*::-webkit-scrollbar': {
-                width: theme.spacing(2),
-                height: theme.spacing(2),
-            },
-            '*::-webkit-scrollbar-track': {
-                backgroundColor: 'transparent',
-            },
-            '*::-webkit-scrollbar-thumb': {
-                backgroundColor: COLORS.NEUTRAL[300],
-                borderRadius: theme.spacing(1),
-            },
-            '*::-webkit-scrollbar-thumb:hover': {
-                backgroundColor: COLORS.NEUTRAL[500],
-            },
-        }),
+        styleOverrides: (theme) => `
+            @font-face {
+                font-display: swap;
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: ${FONT_WEIGHT.LIGHT};
+                src: url(${InterLightWOFF2}) format('woff2'), url(${InterLightTTF}) format('truetype');
+            }
+            @font-face {
+                font-display: swap;
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: ${FONT_WEIGHT.REGULAR};
+                src: url(${InterRegularWOFF2}) format('woff2'), url(${InterRegularTTF}) format('truetype');
+            }
+            @font-face {
+                font-display: swap;
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: ${FONT_WEIGHT.MEDIUM};
+                src: url(${InterMediumWOFF2}) format('woff2'), url(${InterMediumTTF}) format('truetype');
+            }
+            @font-face {
+                font-display: swap;
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: ${FONT_WEIGHT.BOLD};
+                src: url(${InterBoldWOFF2}) format('woff2'), url(${InterBoldTTF}) format('truetype');
+            }
+
+            html {
+                font-size: 62.5%;
+                scroll-behavior: smooth;
+            }
+            body {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                background-color: ${COLORS.NEUTRAL[50]};
+                color: ${COLORS.NEUTRAL[800]};
+            }
+            *::-webkit-scrollbar {
+                width: ${theme.spacing(2)};
+                height: ${theme.spacing(2)};
+            }
+            *::-webkit-scrollbar-track {
+                background-color: transparent;
+            }
+            *::-webkit-scrollbar-thumb {
+                background-color: ${COLORS.NEUTRAL[300]};
+                border-radius: ${theme.spacing(1)};
+            }
+            *::-webkit-scrollbar-thumb:hover {
+                background-color: ${COLORS.NEUTRAL[500]};
+            }
+        `,
     },
 
     MuiPaper: {
@@ -299,7 +286,7 @@ export const components: Components<Theme> = {
                     },
                     '& .MuiTypography-root': {
                         color: COLORS.PRIMARY.MAIN,
-                        fontWeight: 600,
+                        fontWeight: FONT_WEIGHT.MEDIUM,
                     },
                 },
             }),

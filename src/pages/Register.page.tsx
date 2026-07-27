@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { RegisterFormData, registerSchema } from 'validations/auth.schema';
+import { registerRules } from 'validations/auth.validation';
 
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -14,18 +14,20 @@ import {
     Link,
     Stack,
     TextField,
+    Tooltip,
     Typography,
 } from '@mui/material';
 
-import { useRegisterMutation } from '@api/auth.api';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useAuthService } from '@api/auth.api';
+import { ROUTES } from '@constant/routes.constants';
 import { AuthLayout } from '@layouts/Auth.layout';
-import { ROUTES } from '@routes/routes.constants';
+import { RegisterFormData } from '@type';
 import { getErrorMessage } from '@utils';
 
 export const RegisterPage = () => {
     const navigate = useNavigate();
-    const [registerUser, { isLoading }] = useRegisterMutation();
+    const { register: registerUser, isRegisterLoading: isLoading } =
+        useAuthService();
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -42,7 +44,6 @@ export const RegisterPage = () => {
         handleSubmit,
         formState: { errors },
     } = useForm<RegisterFormData>({
-        resolver: zodResolver(registerSchema),
         defaultValues: {
             name: '',
             email: '',
@@ -79,7 +80,7 @@ export const RegisterPage = () => {
                 <TextField
                     label='Full Name'
                     fullWidth
-                    {...register('name')}
+                    {...register('name', registerRules.name)}
                     error={!!errors.name}
                     helperText={errors.name?.message || ''}
                 />
@@ -88,7 +89,7 @@ export const RegisterPage = () => {
                     label='Email'
                     type='email'
                     fullWidth
-                    {...register('email')}
+                    {...register('email', registerRules.email)}
                     error={!!errors.email}
                     helperText={errors.email?.message || ''}
                 />
@@ -97,25 +98,36 @@ export const RegisterPage = () => {
                     label='Password'
                     type={showPassword ? 'text' : 'password'}
                     fullWidth
-                    {...register('password')}
+                    {...register('password', registerRules.password)}
                     error={!!errors.password}
                     helperText={errors.password?.message || ''}
                     slotProps={{
                         input: {
                             endAdornment: (
                                 <InputAdornment position='end'>
-                                    <IconButton
-                                        aria-label='toggle password visibility'
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                        edge='end'
+                                    <Tooltip
+                                        title={
+                                            showPassword
+                                                ? 'Hide Password'
+                                                : 'Show Password'
+                                        }
+                                        arrow
                                     >
-                                        {showPassword ? (
-                                            <VisibilityOff />
-                                        ) : (
-                                            <Visibility />
-                                        )}
-                                    </IconButton>
+                                        <IconButton
+                                            aria-label='toggle password visibility'
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={
+                                                handleMouseDownPassword
+                                            }
+                                            edge='end'
+                                        >
+                                            {showPassword ? (
+                                                <VisibilityOff />
+                                            ) : (
+                                                <Visibility />
+                                            )}
+                                        </IconButton>
+                                    </Tooltip>
                                 </InputAdornment>
                             ),
                         },
@@ -126,14 +138,14 @@ export const RegisterPage = () => {
                     <TextField
                         label='City'
                         fullWidth
-                        {...register('city')}
+                        {...register('city', registerRules.city)}
                         error={!!errors.city}
                         helperText={errors.city?.message || ''}
                     />
                     <TextField
                         label='State'
                         fullWidth
-                        {...register('state')}
+                        {...register('state', registerRules.state)}
                         error={!!errors.state}
                         helperText={errors.state?.message || ''}
                     />
@@ -143,7 +155,7 @@ export const RegisterPage = () => {
                     <TextField
                         label='Zipcode'
                         fullWidth
-                        {...register('zipcode')}
+                        {...register('zipcode', registerRules.zipcode)}
                         error={!!errors.zipcode}
                         helperText={errors.zipcode?.message || ''}
                     />
@@ -152,7 +164,7 @@ export const RegisterPage = () => {
                         label='Balance'
                         type='number'
                         fullWidth
-                        {...register('balance', { valueAsNumber: true })}
+                        {...register('balance', registerRules.balance)}
                         error={!!errors.balance}
                         helperText={errors.balance?.message || ''}
                     />

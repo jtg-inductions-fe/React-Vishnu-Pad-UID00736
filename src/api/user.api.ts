@@ -1,5 +1,6 @@
 import toast from 'react-hot-toast';
 
+import { API_URLS } from '@constant/api.constants';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { logout, setCredentials } from '@store/slices';
 import { User } from '@type';
@@ -11,7 +12,7 @@ export const userApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getUserProfile: builder.query<User, number>({
             query: (id) => ({
-                url: `/users/${id}`,
+                url: API_URLS.USERS.PROFILE(id),
                 method: 'GET',
             }),
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
@@ -38,4 +39,8 @@ export const userApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useGetUserProfileQuery } = userApi;
+const { useGetUserProfileQuery } = userApi;
+
+export const useUserService = () => ({
+    useGetUserProfileQuery,
+});

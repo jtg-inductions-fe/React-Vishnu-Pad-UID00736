@@ -1,10 +1,9 @@
 import type { RouteObject } from 'react-router-dom';
 
+import { ROUTES } from '@constant';
 import AppLayout from '@layouts/App.layout';
 import { LoginPage } from '@pages/Login.page';
 import { RegisterPage } from '@pages/Register.page';
-
-import { ROUTES } from './routes.constants';
 
 /**
  * Defines the application's public routes.

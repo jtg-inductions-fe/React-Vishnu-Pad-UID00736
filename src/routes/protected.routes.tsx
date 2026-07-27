@@ -1,9 +1,9 @@
 import type { RouteObject } from 'react-router-dom';
 
+import { ROUTES } from '@constant';
 import AppLayout from '@layouts/App.layout';
 
 import ProtectedRoute from './guards/routes.guard';
-import { ROUTES } from './routes.constants';
 
 /**
  * Defines the application's protected routes.

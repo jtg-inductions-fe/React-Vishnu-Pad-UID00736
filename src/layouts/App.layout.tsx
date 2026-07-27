@@ -4,11 +4,13 @@ import { Outlet } from 'react-router-dom';
 
 import { CircularProgress, Container, Stack, Typography } from '@mui/material';
 
-import { useGetUserProfileQuery } from '@api/user.api';
+import { useUserService } from '@api/user.api';
 
 const AppLayout = () => {
     const { user, token, isAuthenticated } = useAuth();
     const queryId = user?.id ?? 0;
+
+    const { useGetUserProfileQuery } = useUserService();
 
     const { isFetching } = useGetUserProfileQuery(queryId, {
         skip: !isAuthenticated || !user?.id || !token,

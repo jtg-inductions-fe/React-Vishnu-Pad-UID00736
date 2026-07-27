@@ -1,9 +1,9 @@
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-import { useLogoutMutation } from '@api/auth.api';
+import { useAuthService } from '@api/auth.api';
 import { baseApi } from '@api/base.api';
-import { ROUTES } from '@routes/routes.constants';
+import { ROUTES } from '@constant';
 import { useAppDispatch } from '@store/hooks';
 import { logout } from '@store/slices';
 import { getErrorMessage } from '@utils';
@@ -11,7 +11,8 @@ import { getErrorMessage } from '@utils';
 export const useLogout = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const [logoutServer] = useLogoutMutation();
+
+    const { logout: logoutServer } = useAuthService();
 
     const executeLogout = async () => {
         try {
@@ -21,9 +22,7 @@ export const useLogout = () => {
             toast.error(errorMsg);
         } finally {
             dispatch(baseApi.util.resetApiState());
-
             dispatch(logout());
-
             void navigate(ROUTES.LOGIN);
         }
     };

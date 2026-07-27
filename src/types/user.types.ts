@@ -19,9 +19,12 @@ export interface LoginRequest {
 
 export interface RegisterRequest extends BaseUser {
     password: string;
+    balance: number;
 }
 
-export interface AuthResponse {
-    user: User;
+export interface AuthResponse extends User {
     token: string;
 }
+
+export type LoginFormData = LoginRequest;
+export type RegisterFormData = RegisterRequest;
