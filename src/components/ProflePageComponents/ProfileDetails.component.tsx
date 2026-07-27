@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
@@ -14,63 +15,45 @@ import {
     Typography,
 } from '@mui/material';
 
-import { useUpdateUserProfileMutation } from '@api/user.api';
-import { FONT_WEIGHT } from '@constant';
+import { InfoRow } from '@components';
+import {
+    FONT_WEIGHT,
+    FORM_EDIT_FIELDS,
+    PROFILE_DISPLAY_FIELDS,
+} from '@constant';
+import { useUserService } from '@services';
 import { useAppDispatch } from '@store/hooks';
 import { updateUser } from '@store/slices';
 import { User } from '@type';
 import { getErrorMessage } from '@utils';
-import { updateProfileSchema } from '@validations/profile.schema';
-
-const InfoRow = ({ label, value }: { label: string; value: string }) => (
-    <Stack gap={0.5}>
-        <Typography
-            variant='caption'
-            color='text.secondary'
-            textTransform='uppercase'
-            fontWeight={FONT_WEIGHT.MEDIUM}
-        >
-            {label}
-        </Typography>
-        <Typography variant='body1' fontWeight={FONT_WEIGHT.REGULAR}>
-            {value || '—'}
-        </Typography>
-    </Stack>
-);
-
-const PROFILE_DISPLAY_FIELDS = [
-    { label: 'City', key: 'city' as const },
-    { label: 'State', key: 'state' as const },
-    { label: 'Zipcode', key: 'zipcode' as const },
-];
-
-const FORM_EDIT_FIELDS = [
-    { label: 'Full Name', name: 'name', sm: 6 },
-    { label: 'Email Address', name: 'email', sm: 6 },
-    { label: 'City', name: 'city', sm: 4 },
-    { label: 'State', name: 'state', sm: 4 },
-    { label: 'Zipcode', name: 'zipcode', sm: 4 },
-] as const;
+import {
+    PROFILE_VALIDATION_RULES,
+    ProfileFormData,
+} from '@validations/profile.validation';
 
 export const ProfileDetails = ({ user }: { user: User }) => {
     const dispatch = useAppDispatch();
-
     const [isEditing, setIsEditing] = useState(false);
-    const [updateProfileApi, { isLoading: isUpdating }] =
-        useUpdateUserProfileMutation();
-    const [errors, setErrors] = useState<Record<string, string>>({});
+    const { updateProfile, isUpdating } = useUserService();
 
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        city: '',
-        state: '',
-        zipcode: '',
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm<ProfileFormData>({
+        defaultValues: {
+            name: user?.name || '',
+            email: user?.email || '',
+            city: user?.city || '',
+            state: user?.state || '',
+            zipcode: user?.zipcode || '',
+        },
     });
 
     useEffect(() => {
         if (user) {
-            setFormData({
+            reset({
                 name: user.name || '',
                 email: user.email || '',
                 city: user.city || '',
@@ -78,13 +61,7 @@ export const ProfileDetails = ({ user }: { user: User }) => {
                 zipcode: user.zipcode || '',
             });
         }
-    }, [user, isEditing]);
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
-        if (errors[name]) setErrors((prev) => ({ ...prev, [name]: '' }));
-    };
+    }, [user, reset, isEditing]);
 
     const handleEnableEdit = () => {
         setIsEditing(true);
@@ -92,29 +69,16 @@ export const ProfileDetails = ({ user }: { user: User }) => {
 
     const handleCancelEdit = () => {
         setIsEditing(false);
-        setErrors({});
+        reset();
     };
 
-    const handleProfileUpdate = async () => {
-        const validation = updateProfileSchema.safeParse(formData);
-        if (!validation.success) {
-            const formattedErrors: Record<string, string> = {};
-            validation.error.issues.forEach((issue) => {
-                const key = issue.path[0];
-                if (typeof key === 'string' || typeof key === 'number') {
-                    formattedErrors[String(key)] = issue.message;
-                }
-            });
-            setErrors(formattedErrors);
-            return;
-        }
+    const handleFormSubmit = (e: React.FormEvent) => {
+        void handleSubmit(onSubmit)(e);
+    };
 
+    const onSubmit = async (data: ProfileFormData) => {
         try {
-            const updatedUser = await updateProfileApi({
-                id: user.id,
-                data: validation.data,
-            }).unwrap();
-
+            const updatedUser = await updateProfile(user.id, data);
             dispatch(updateUser(updatedUser));
 
             toast.success('Profile details updated successfully!');
@@ -122,10 +86,6 @@ export const ProfileDetails = ({ user }: { user: User }) => {
         } catch (error) {
             toast.error(getErrorMessage(error));
         }
-    };
-
-    const handleSaveClick = () => {
-        void handleProfileUpdate();
     };
 
     return (
@@ -196,18 +156,19 @@ export const ProfileDetails = ({ user }: { user: User }) => {
                     </Grid2>
                 </Stack>
             ) : (
-                <Stack gap={3}>
+                <Stack component='form' onSubmit={handleFormSubmit} gap={3}>
                     <Grid2 container spacing={3}>
                         {FORM_EDIT_FIELDS.map(({ label, name, sm }) => (
                             <Grid2 key={name} size={{ xs: 12, sm }}>
                                 <TextField
                                     fullWidth
                                     label={label}
-                                    name={name}
-                                    value={formData[name]}
-                                    onChange={handleInputChange}
+                                    {...register(
+                                        name,
+                                        PROFILE_VALIDATION_RULES[name],
+                                    )}
                                     error={!!errors[name]}
-                                    helperText={errors[name]}
+                                    helperText={errors[name]?.message}
                                 />
                             </Grid2>
                         ))}
@@ -228,10 +189,10 @@ export const ProfileDetails = ({ user }: { user: User }) => {
                             Cancel
                         </Button>
                         <Button
+                            type='submit'
                             variant='contained'
                             color='primary'
                             size='large'
-                            onClick={handleSaveClick}
                             disabled={isUpdating}
                             disableElevation
                         >

@@ -14,8 +14,8 @@ import {
     Typography,
 } from '@mui/material';
 
-import { useDeleteUserProfileMutation } from '@api/user.api';
 import { FONT_WEIGHT } from '@constant';
+import { useUserService } from '@services';
 import { useAppDispatch } from '@store/hooks';
 import { logout } from '@store/slices';
 import { User } from '@type';
@@ -25,13 +25,11 @@ export const DangerZone = ({ user }: { user: User }) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-    const [deleteProfile, { isLoading: isDeleting }] =
-        useDeleteUserProfileMutation();
+    const { deleteProfile, isDeleting } = useUserService();
 
     const handleDeleteAccount = async () => {
         try {
-            await deleteProfile(user.id).unwrap();
-
+            await deleteProfile(user.id);
             dispatch(logout());
 
             toast.success('Account permanently deleted.');
@@ -41,6 +39,7 @@ export const DangerZone = ({ user }: { user: User }) => {
             toast.error(getErrorMessage(error));
         }
     };
+
     return (
         <>
             <Box

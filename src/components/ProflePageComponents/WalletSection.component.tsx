@@ -1,59 +1,49 @@
-import { useState } from 'react';
-
+import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 
-import { useUpdateUserProfileMutation } from '@api/user.api';
 import { FONT_WEIGHT } from '@constant';
+import { useUserService } from '@services';
 import { useAppDispatch } from '@store/hooks';
 import { updateUser } from '@store/slices';
 import { User } from '@type';
 import { getErrorMessage } from '@utils';
-import { walletUpdateSchema } from '@validations/profile.schema';
+import {
+    WALLET_VALIDATION_RULES,
+    WalletFormData,
+} from '@validations/profile.validation';
 
 export const WalletSection = ({ user }: { user: User }) => {
     const dispatch = useAppDispatch();
-    const [walletAmount, setWalletAmount] = useState<string>('');
-    const [errors, setErrors] = useState<Record<string, string>>({});
-    const [updateProfileApi, { isLoading: isUpdating }] =
-        useUpdateUserProfileMutation();
+    const { updateProfile, isUpdating } = useUserService();
 
-    const handleWalletUpdate = async () => {
-        const amountNumber = Number(walletAmount);
-        const validation = walletUpdateSchema.safeParse({
-            amount: amountNumber,
-        });
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm<WalletFormData>();
 
-        if (!validation.success) {
-            setErrors({ wallet: validation.error.issues[0].message });
-            return;
-        }
+    const handleFormSubmit = (e: React.FormEvent) => {
+        void handleSubmit(onSubmit)(e);
+    };
 
+    const onSubmit = async (data: WalletFormData) => {
+        const amountNumber = Number(data.amount);
         try {
             const newBalance = Number(user.balance) + amountNumber;
-            const updatedUser = await updateProfileApi({
-                id: user.id,
-                data: { balance: newBalance.toString() },
-            }).unwrap();
+            const updatedUser = await updateProfile(user.id, {
+                balance: newBalance.toString(),
+            });
 
             dispatch(updateUser(updatedUser));
 
             toast.success('Wallet top-up successful!');
-            setWalletAmount('');
-            setErrors({});
+            reset();
         } catch (error) {
             toast.error(getErrorMessage(error));
         }
-    };
-
-    const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setWalletAmount(e.target.value);
-        if (errors.wallet) setErrors({});
-    };
-
-    const handleTopUpClick = () => {
-        void handleWalletUpdate();
     };
 
     return (
@@ -76,30 +66,25 @@ export const WalletSection = ({ user }: { user: User }) => {
                 ₹{Number(user.balance).toFixed(2)}
             </Typography>
 
-            <Stack spacing={2} mb={1}>
+            <Stack component='form' onSubmit={handleFormSubmit} spacing={2}>
                 <TextField
                     fullWidth
                     size='small'
                     placeholder='Add Amount (₹)'
                     type='number'
-                    value={walletAmount}
-                    onChange={handleAmountChange}
-                    error={!!errors.wallet}
+                    {...register('amount', WALLET_VALIDATION_RULES)}
+                    error={!!errors.amount}
+                    helperText={errors.amount?.message}
                 />
                 <Button
+                    type='submit'
                     variant='outlined'
-                    onClick={handleTopUpClick}
-                    disabled={isUpdating || !walletAmount}
+                    disabled={isUpdating}
                     disableElevation
                 >
                     {isUpdating ? 'Processing...' : 'Top-Up'}
                 </Button>
             </Stack>
-            {errors.wallet && (
-                <Typography variant='caption' color='error'>
-                    {errors.wallet}
-                </Typography>
-            )}
         </Box>
     );
 };

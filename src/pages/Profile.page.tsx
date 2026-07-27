@@ -1,11 +1,8 @@
 import { Grid2, Stack, Typography } from '@mui/material';
 
+import { DangerZone, ProfileDetails, WalletSection } from '@components';
 import { FONT_WEIGHT } from '@constant';
 import { useAppSelector } from '@store/hooks';
-
-import { DangerZone } from './components/DangerZone.component';
-import { ProfileDetails } from './components/ProfileDetails.component';
-import { WalletSection } from './components/WalletSection.component';
 
 export const ProfilePage = () => {
     const { user } = useAppSelector((state) => state.auth);
