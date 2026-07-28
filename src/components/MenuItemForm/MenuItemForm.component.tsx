@@ -57,13 +57,17 @@ export const MenuItemForm = ({
         onSubmit(data);
     };
 
+    const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        void handleSubmit(handleFormSubmit)(e);
+    };
+
     return (
         <Dialog open={open} onClose={onClose} maxWidth='sm' fullWidth>
             <DialogTitle fontWeight={700}>
                 {initialData ? 'Edit Menu Item' : 'Add New Item'}
             </DialogTitle>
 
-            <form onSubmit={(e) => void handleSubmit(handleFormSubmit)(e)}>
+            <form onSubmit={onFormSubmit}>
                 <DialogContent>
                     <Stack gap={4} pt={2}>
                         <TextField
