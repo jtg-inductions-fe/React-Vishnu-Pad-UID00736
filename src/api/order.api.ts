@@ -2,6 +2,7 @@ import { API_URLS } from '@constant';
 import {
     OrderCreateRequest,
     OrderCreateResponse,
+    OrderDetailsResponse,
     OrderListResponse,
 } from '@type/order.types';
 
@@ -24,8 +25,19 @@ export const orderApi = baseApi.injectEndpoints({
             }),
             providesTags: ['Order'],
         }),
+        getOrderDetails: builder.query<OrderDetailsResponse, number>({
+            query: (orderId) => ({
+                url: `${API_URLS.ORDERS.BASE}/${orderId}`,
+                method: 'GET',
+            }),
+            providesTags: (_result, _error, id) => [{ type: 'Order', id }],
+        }),
     }),
     overrideExisting: false,
 });
 
-export const { useCreateOrderMutation, useGetAllOrdersQuery } = orderApi;
+export const {
+    useCreateOrderMutation,
+    useGetAllOrdersQuery,
+    useGetOrderDetailsQuery,
+} = orderApi;

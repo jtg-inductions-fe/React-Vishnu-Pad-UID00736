@@ -49,7 +49,7 @@ export const ProfileMenu = ({
             <Divider key='divider' />,
             <MenuItem
                 key='restaurant'
-                onClick={handleNavigate(ROUTES.MY_RESTAURANT)}
+                onClick={handleNavigate(ROUTES.MY_RESTAURANTS)}
             >
                 <ListItemIcon>
                     <StorefrontIcon fontSize='small' />
@@ -58,7 +58,7 @@ export const ProfileMenu = ({
             </MenuItem>,
             <MenuItem
                 key='analytics'
-                onClick={handleNavigate(ROUTES.ANALYTICS)}
+                onClick={handleNavigate(ROUTES.MY_ANALYTICS)}
             >
                 <ListItemIcon>
                     <AnalyticsIcon fontSize='small' />

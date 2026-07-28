@@ -12,9 +12,10 @@ export const ROUTES = {
 
     MY_CART: '/my-cart',
     MY_ORDERS: '/my-orders',
+    ORDER_DETAILS: '/my-orders/:orderId',
 
     PROFILE: '/profile',
 
-    MY_RESTAURANT: '/my-restaurant',
-    ANALYTICS: '/analytics',
+    MY_RESTAURANTS: '/my-restaurants',
+    MY_ANALYTICS: '/my-restaurants/:restaurantId/analytics',
 } as const;

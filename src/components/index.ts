@@ -15,3 +15,4 @@ export {
     InfoRow,
 } from './ProflePageComponents';
 export { OrderCard } from './OrderCard';
+export { ItemDetailsPopup } from './ItemDetailsPopup';

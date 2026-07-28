@@ -1,4 +1,8 @@
-import { useCreateOrderMutation, useGetAllOrdersQuery } from '@api/order.api';
+import {
+    useCreateOrderMutation,
+    useGetAllOrdersQuery,
+    useGetOrderDetailsQuery,
+} from '@api/order.api';
 import { OrderCreateRequest } from '@type/order.types';
 
 export const useOrderService = () => {
@@ -13,5 +17,6 @@ export const useOrderService = () => {
         isSuccess: createOrderStatus.isSuccess,
         isError: createOrderStatus.isError,
         useGetAllOrdersQuery,
+        useGetOrderDetailsQuery,
     };
 };

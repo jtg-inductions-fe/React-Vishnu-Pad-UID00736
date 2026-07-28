@@ -4,7 +4,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-
 # Dependencies and build outputs
 node_modules/
 dist/
@@ -15,12 +14,11 @@ dist-ssr/
 .env.*.local
 *.local
 
-# Cache files
+# Cache and TypeScript build files
 .eslintcache
 *.tsbuildinfo
 *.json.build
 .build-info.json
-
 
 # Netlify builds and cache
 .netlify/
