@@ -42,7 +42,7 @@ export const ItemDetailsPopup = ({
             onClose={onClose}
             maxWidth='xs'
             fullWidth
-            slotProps={{ paper: { sx: { borderRadius: 3 } } }}
+            slotProps={{ paper: { sx: { borderRadius: 3, p: 2 } } }}
         >
             <DialogTitle
                 sx={{
