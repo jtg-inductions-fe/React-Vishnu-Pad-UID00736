@@ -1,3 +1,4 @@
+import { API_URLS } from '@constant';
 import { MenuItem, MenuItemPayload, PaginatedMenuResponse } from '@type';
 
 import { baseApi } from './base.api';
@@ -6,14 +7,14 @@ export const menuManagerApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getRestaurantMenu: builder.query<PaginatedMenuResponse, number>({
             query: (restaurantId) => ({
-                url: `/menu/search?restaurant_id=${restaurantId}&page=1&size=100`,
+                url: API_URLS.MENU.GET_BY_RESTAURANT(restaurantId),
                 method: 'GET',
             }),
             providesTags: (_result, _error, id) => [{ type: 'Menu', id }],
         }),
         addMenuItem: builder.mutation<MenuItem, MenuItemPayload>({
             query: (body) => ({
-                url: '/menu/add',
+                url: API_URLS.MENU.ADD,
                 method: 'POST',
                 body,
             }),
@@ -26,7 +27,7 @@ export const menuManagerApi = baseApi.injectEndpoints({
             { id: number; body: Partial<MenuItemPayload> }
         >({
             query: ({ id, body }) => ({
-                url: `/menu/${id}`,
+                url: API_URLS.MENU.ITEM(id),
                 method: 'PATCH',
                 body,
             }),
@@ -34,7 +35,7 @@ export const menuManagerApi = baseApi.injectEndpoints({
         }),
         deleteMenuItem: builder.mutation<void, number>({
             query: (id) => ({
-                url: `/menu/${id}`,
+                url: API_URLS.MENU.ITEM(id),
                 method: 'DELETE',
             }),
             invalidatesTags: ['Menu'],

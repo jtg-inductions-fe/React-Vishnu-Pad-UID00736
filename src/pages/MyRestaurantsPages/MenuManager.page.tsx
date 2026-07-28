@@ -18,21 +18,25 @@ import {
     Typography,
 } from '@mui/material';
 
-import {
-    useAddMenuItemMutation,
-    useDeleteMenuItemMutation,
-    useGetRestaurantMenuQuery,
-    useUpdateMenuItemMutation,
-} from '@api/owner.api';
 import { EmptyState, ErrorState } from '@components';
-import { MenuItemFormModal } from '@components/MenuItemForm/MenuItemForm.component';
+import { MenuItemForm } from '@components/MenuItemForm';
+import { useMenuManagerService } from '@services';
 import { MenuItem } from '@type';
 import { getErrorMessage } from '@utils';
-import { MenuItemFormValues } from '@validations/menuItem.schema';
+import { MenuItemFormData } from '@validations/menuItem.validation';
 
 export const MenuManagerPage = () => {
     const { restaurantId } = useParams<{ restaurantId: string }>();
     const parsedRestaurantId = Number(restaurantId);
+
+    const {
+        useGetRestaurantMenuQuery,
+        addMenuItem,
+        updateMenuItem,
+        deleteMenuItem,
+        isAdding,
+        isUpdating,
+    } = useMenuManagerService();
 
     const {
         data: menuData,
@@ -40,11 +44,6 @@ export const MenuManagerPage = () => {
         error,
         refetch,
     } = useGetRestaurantMenuQuery(parsedRestaurantId);
-
-    const [addMenuItem, { isLoading: isAdding }] = useAddMenuItemMutation();
-    const [updateMenuItem, { isLoading: isUpdating }] =
-        useUpdateMenuItemMutation();
-    const [deleteMenuItem] = useDeleteMenuItemMutation();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
@@ -74,7 +73,7 @@ export const MenuManagerPage = () => {
         if (window.confirm('Are you sure you want to delete this item?')) {
             void (async () => {
                 try {
-                    await deleteMenuItem(id).unwrap();
+                    await deleteMenuItem(id);
                     toast.success('Menu item deleted successfully');
                 } catch (err) {
                     toast.error(getErrorMessage(err));
@@ -83,20 +82,17 @@ export const MenuManagerPage = () => {
         }
     };
 
-    const handleFormSubmit = (data: MenuItemFormValues) => {
+    const handleFormSubmit = (data: MenuItemFormData) => {
         void (async () => {
             try {
                 if (selectedItem) {
-                    await updateMenuItem({
-                        id: selectedItem.id,
-                        body: data,
-                    }).unwrap();
+                    await updateMenuItem(selectedItem.id, data);
                     toast.success('Menu item updated successfully');
                 } else {
                     await addMenuItem({
                         ...data,
                         restaurant_id: parsedRestaurantId,
-                    }).unwrap();
+                    });
                     toast.success('Menu item added successfully');
                 }
                 handleCloseModal();
@@ -259,7 +255,7 @@ export const MenuManagerPage = () => {
                 </Box>
             )}
 
-            <MenuItemFormModal
+            <MenuItemForm
                 open={isModalOpen}
                 onClose={handleCloseModal}
                 onSubmit={handleFormSubmit}

@@ -1,4 +1,7 @@
-import { useGetRestaurantsQuery } from '@api/restaurant.api';
+import {
+    useGetMyRestaurantsQuery,
+    useGetRestaurantsQuery,
+} from '@api/restaurant.api';
 
 export const useRestaurantService = () => {
     const {
@@ -10,6 +13,15 @@ export const useRestaurantService = () => {
         refetch: refetchRestaurants,
     } = useGetRestaurantsQuery();
 
+    const {
+        data: myRestaurants,
+        isLoading: isMyRestaurantsLoading,
+        isFetching: isMyRestaurantsFetching,
+        isError: isMyRestaurantsError,
+        error: myRestaurantsError,
+        refetch: refetchMyRestaurants,
+    } = useGetMyRestaurantsQuery();
+
     return {
         restaurants,
         isRestaurantsLoading,
@@ -17,5 +29,12 @@ export const useRestaurantService = () => {
         isRestaurantsError,
         restaurantsError,
         refetchRestaurants,
+
+        myRestaurants,
+        isMyRestaurantsLoading,
+        isMyRestaurantsFetching,
+        isMyRestaurantsError,
+        myRestaurantsError,
+        refetchMyRestaurants,
     };
 };

@@ -1,9 +1,9 @@
-import { MenuItemFormValues } from '@validations/menuItem.schema';
+import { MenuItemFormData } from '@validations/menuItem.validation';
 
 export interface MenuItemFormProps {
     open: boolean;
     onClose: () => void;
-    onSubmit: (data: MenuItemFormValues) => void;
-    initialData?: MenuItemFormValues | null;
+    onSubmit: (data: MenuItemFormData) => void;
+    initialData?: Partial<MenuItemFormData>;
     isLoading?: boolean;
 }

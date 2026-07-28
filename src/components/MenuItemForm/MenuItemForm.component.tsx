@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import {
     Button,
@@ -12,15 +12,14 @@ import {
     TextField,
 } from '@mui/material';
 
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
-    MenuItemFormValues,
-    menuItemSchema,
-} from '@validations/menuItem.schema';
+    MENU_ITEM_VALIDATION_RULES,
+    MenuItemFormData,
+} from '@validations/menuItem.validation';
 
 import { MenuItemFormProps } from './MenuItemForm.types';
 
-export const MenuItemFormModal = ({
+export const MenuItemForm = ({
     open,
     onClose,
     onSubmit,
@@ -28,18 +27,16 @@ export const MenuItemFormModal = ({
     isLoading,
 }: MenuItemFormProps) => {
     const {
-        control,
+        register,
         handleSubmit,
         reset,
-        setValue,
         formState: { errors },
-    } = useForm<MenuItemFormValues>({
-        resolver: zodResolver(menuItemSchema),
+    } = useForm<MenuItemFormData>({
         defaultValues: {
             name: '',
             category: '',
-            price: '' as unknown as number,
-            quantity: '' as unknown as number,
+            price: undefined,
+            quantity: undefined,
         },
     });
 
@@ -49,37 +46,15 @@ export const MenuItemFormModal = ({
                 initialData || {
                     name: '',
                     category: '',
-                    price: '' as unknown as number,
-                    quantity: '' as unknown as number,
+                    price: undefined,
+                    quantity: undefined,
                 },
             );
         }
     }, [open, initialData, reset]);
 
-    const handleFormSubmit = handleSubmit((data) => {
+    const handleFormSubmit = (data: MenuItemFormData) => {
         onSubmit(data);
-    });
-
-    const onSaveClick = () => {
-        void handleFormSubmit();
-    };
-
-    const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const val = e.target.value;
-        setValue(
-            'price',
-            val === '' ? ('' as unknown as number) : Number(val),
-            { shouldValidate: true, shouldDirty: true },
-        );
-    };
-
-    const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const val = e.target.value;
-        setValue(
-            'quantity',
-            val === '' ? ('' as unknown as number) : Number(val),
-            { shouldValidate: true, shouldDirty: true },
-        );
     };
 
     return (
@@ -88,85 +63,75 @@ export const MenuItemFormModal = ({
                 {initialData ? 'Edit Menu Item' : 'Add New Item'}
             </DialogTitle>
 
-            <DialogContent>
-                <Stack gap={4} pt={2}>
-                    <Controller
-                        name='name'
-                        control={control}
-                        render={({ field }) => (
-                            <TextField
-                                {...field}
-                                label='Item Name'
-                                error={!!errors.name}
-                                helperText={errors.name?.message}
-                            />
-                        )}
-                    />
-                    <Controller
-                        name='category'
-                        control={control}
-                        render={({ field }) => (
-                            <TextField
-                                {...field}
-                                label='Category'
-                                error={!!errors.category}
-                                helperText={errors.category?.message}
-                            />
-                        )}
-                    />
-                    <Stack direction='row' gap={4}>
-                        <Controller
-                            name='price'
-                            control={control}
-                            render={({ field }) => (
-                                <TextField
-                                    {...field}
-                                    type='number'
-                                    label='Price (₹)'
-                                    value={field.value ?? ''}
-                                    onChange={handlePriceChange}
-                                    error={!!errors.price}
-                                    helperText={errors.price?.message}
-                                />
+            <form onSubmit={(e) => void handleSubmit(handleFormSubmit)(e)}>
+                <DialogContent>
+                    <Stack gap={4} pt={2}>
+                        <TextField
+                            {...register(
+                                'name',
+                                MENU_ITEM_VALIDATION_RULES.name,
                             )}
+                            label='Item Name'
+                            error={!!errors.name}
+                            helperText={errors.name?.message}
+                            fullWidth
                         />
-                        <Controller
-                            name='quantity'
-                            control={control}
-                            render={({ field }) => (
-                                <TextField
-                                    {...field}
-                                    type='number'
-                                    label='Stock Quantity'
-                                    value={field.value ?? ''}
-                                    onChange={handleQuantityChange}
-                                    error={!!errors.quantity}
-                                    helperText={errors.quantity?.message}
-                                />
+                        <TextField
+                            {...register(
+                                'category',
+                                MENU_ITEM_VALIDATION_RULES.category,
                             )}
+                            label='Category'
+                            error={!!errors.category}
+                            helperText={errors.category?.message}
+                            fullWidth
                         />
+                        <Stack direction='row' gap={4}>
+                            <TextField
+                                {...register(
+                                    'price',
+                                    MENU_ITEM_VALIDATION_RULES.price,
+                                )}
+                                type='number'
+                                label='Price (₹)'
+                                error={!!errors.price}
+                                helperText={errors.price?.message}
+                                fullWidth
+                            />
+                            <TextField
+                                {...register(
+                                    'quantity',
+                                    MENU_ITEM_VALIDATION_RULES.quantity,
+                                )}
+                                type='number'
+                                label='Stock Quantity'
+                                error={!!errors.quantity}
+                                helperText={errors.quantity?.message}
+                                fullWidth
+                            />
+                        </Stack>
                     </Stack>
-                </Stack>
-            </DialogContent>
+                </DialogContent>
 
-            <DialogActions sx={{ px: 6, pb: 4 }}>
-                <Button
-                    variant='text'
-                    color='inherit'
-                    onClick={onClose}
-                    disabled={isLoading}
-                >
-                    Cancel
-                </Button>
-                <Button
-                    variant='contained'
-                    color='primary'
-                    onClick={onSaveClick}
-                    disabled={isLoading}
-                >
-                    {isLoading ? 'Saving...' : 'Save Item'}
-                </Button>
-            </DialogActions>
+                <DialogActions sx={{ px: 6, pb: 4 }}>
+                    <Button
+                        variant='text'
+                        color='inherit'
+                        onClick={onClose}
+                        disabled={isLoading}
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        type='submit'
+                        variant='contained'
+                        color='primary'
+                        disabled={isLoading}
+                    >
+                        {isLoading ? 'Saving...' : 'Save Item'}
+                    </Button>
+                </DialogActions>
+            </form>
         </Dialog>
     );
 };

@@ -13,17 +13,18 @@ import {
     Typography,
 } from '@mui/material';
 
-import { useGetMyRestaurantsQuery } from '@api/restaurant.api';
 import { EmptyState, ErrorState } from '@components';
+import { useRestaurantService } from '@services';
 
 export const MyRestaurantsPage = () => {
     const navigate = useNavigate();
+
     const {
-        data: restaurants,
-        isLoading,
-        error,
-        refetch,
-    } = useGetMyRestaurantsQuery();
+        myRestaurants: restaurants,
+        isMyRestaurantsLoading: isLoading,
+        myRestaurantsError: error,
+        refetchMyRestaurants: refetch,
+    } = useRestaurantService();
 
     const handleRetry = () => {
         void refetch();
