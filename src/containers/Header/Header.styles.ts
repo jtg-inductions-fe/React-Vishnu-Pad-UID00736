@@ -1,4 +1,6 @@
-import { alpha, Theme } from '@mui/material';
+import { NavLink } from 'react-router-dom';
+
+import { alpha, styled, Theme } from '@mui/material';
 
 import { FONT_WEIGHT } from '@constant';
 
@@ -24,3 +26,19 @@ export const cartButtonStyles = {
             alpha(theme.palette.primary.main, 0.08),
     },
 };
+
+export const StyledNavLink = styled(NavLink)(({ theme }) => ({
+    textDecoration: 'none',
+    color: 'inherit',
+    ...theme.typography.body1,
+    transition: 'color 0.2s ease-in-out',
+
+    '&.active': {
+        color: theme.palette.primary.main,
+        fontWeight: 700,
+    },
+
+    '&:hover': {
+        color: theme.palette.primary.main,
+    },
+}));

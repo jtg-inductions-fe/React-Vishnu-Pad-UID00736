@@ -29,7 +29,7 @@ export const RestaurantCard = ({
     };
 
     return (
-        <Card component={Stack} sx={{ height: '100%' }}>
+        <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
             <Box position='relative' width='100%'>
                 <Image
                     src={imgSrc}
@@ -42,11 +42,15 @@ export const RestaurantCard = ({
             </Box>
 
             <CardContent
-                component={Stack}
-                gap={1.5}
-                p={2}
-                flexGrow={1}
-                sx={{ pb: 2, '&:last-child': { pb: 2 } }}
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 1.5,
+                    p: 2,
+                    flexGrow: 1,
+                    pb: 2,
+                    '&:last-child': { pb: 2 },
+                }}
             >
                 <Stack gap={0.25}>
                     <Typography

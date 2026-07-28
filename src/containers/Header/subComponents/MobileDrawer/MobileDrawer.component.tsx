@@ -1,12 +1,6 @@
-import { NavLink } from 'react-router-dom';
+import { StyledNavLink } from 'containers/Header/Header.styles';
 
-import {
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-} from '@mui/material';
+import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 
 import { DRAWER_ITEMS } from './MobileDrawer.constants';
 import { activeLinkStyles, CustomDrawer } from './MobileDrawer.styles';
@@ -29,17 +23,25 @@ export const MobileDrawer = ({
         <List sx={{ pt: 2 }}>
             {DRAWER_ITEMS.map(({ label, path, icon: IconComponent }) => (
                 <ListItem disablePadding key={path}>
-                    <ListItemButton
-                        component={NavLink}
+                    <StyledNavLink
                         to={path}
                         onClick={handleNavigate(path)}
-                        sx={activeLinkStyles}
+                        sx={[
+                            {
+                                display: 'flex',
+                                alignItems: 'center',
+                                width: '100%',
+                                px: 2,
+                                py: 1,
+                            },
+                            activeLinkStyles,
+                        ]}
                     >
-                        <ListItemIcon>
+                        <ListItemIcon sx={{ minWidth: 40, color: 'inherit' }}>
                             <IconComponent />
-                        </ListItemIcon>{' '}
+                        </ListItemIcon>
                         <ListItemText primary={label} />
-                    </ListItemButton>
+                    </StyledNavLink>
                 </ListItem>
             ))}
         </List>

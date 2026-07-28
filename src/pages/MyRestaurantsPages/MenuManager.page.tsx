@@ -19,9 +19,9 @@ import {
     Typography,
 } from '@mui/material';
 
-import { EmptyState, ErrorState } from '@components';
+import { menuManagerApi } from '@api/menuManager.api';
+import { ConfirmDialog, EmptyState, ErrorState } from '@components';
 import { MenuItemForm } from '@components/MenuItemForm';
-import { useMenuManagerService } from '@services';
 import { MenuItem } from '@type';
 import { getErrorMessage } from '@utils';
 import { MenuItemFormData } from '@validations/menuItem.validation';
@@ -32,12 +32,10 @@ export const MenuManagerPage = () => {
 
     const {
         useGetRestaurantMenuQuery,
-        addMenuItem,
-        updateMenuItem,
-        deleteMenuItem,
-        isAdding,
-        isUpdating,
-    } = useMenuManagerService();
+        useAddMenuItemMutation,
+        useUpdateMenuItemMutation,
+        useDeleteMenuItemMutation,
+    } = menuManagerApi;
 
     const {
         data: menuData,
@@ -46,8 +44,19 @@ export const MenuManagerPage = () => {
         refetch,
     } = useGetRestaurantMenuQuery(parsedRestaurantId);
 
+    const [addMenuItem, { isLoading: isAdding }] = useAddMenuItemMutation();
+
+    const [updateMenuItem, { isLoading: isUpdating }] =
+        useUpdateMenuItemMutation();
+
+    const [deleteMenuItem, { isLoading: isDeleting }] =
+        useDeleteMenuItemMutation();
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
+
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+    const [itemToDelete, setItemToDelete] = useState<number | null>(null);
 
     const isSubmitting = isAdding || isUpdating;
 
@@ -70,30 +79,44 @@ export const MenuManagerPage = () => {
         setSelectedItem(null);
     };
 
-    const handleDelete = (id: number) => () => {
-        if (window.confirm('Are you sure you want to delete this item?')) {
-            void (async () => {
-                try {
-                    await deleteMenuItem(id);
-                    toast.success('Menu item deleted successfully');
-                } catch (err) {
-                    toast.error(getErrorMessage(err));
-                }
-            })();
-        }
+    const handleDeleteClick = (id: number) => () => {
+        setItemToDelete(id);
+        setDeleteDialogOpen(true);
+    };
+
+    const handleDeleteCancel = () => {
+        setDeleteDialogOpen(false);
+        setItemToDelete(null);
+    };
+
+    const handleDeleteConfirm = () => {
+        if (itemToDelete === null) return;
+
+        void (async () => {
+            try {
+                await deleteMenuItem(itemToDelete).unwrap();
+                toast.success('Menu item deleted successfully');
+                handleDeleteCancel();
+            } catch (err) {
+                toast.error(getErrorMessage(err));
+            }
+        })();
     };
 
     const handleFormSubmit = (data: MenuItemFormData) => {
         void (async () => {
             try {
                 if (selectedItem) {
-                    await updateMenuItem(selectedItem.id, data);
+                    await updateMenuItem({
+                        id: selectedItem.id,
+                        body: data,
+                    }).unwrap();
                     toast.success('Menu item updated successfully');
                 } else {
                     await addMenuItem({
                         ...data,
                         restaurant_id: parsedRestaurantId,
-                    });
+                    }).unwrap();
                     toast.success('Menu item added successfully');
                 }
                 handleCloseModal();
@@ -168,12 +191,22 @@ export const MenuManagerPage = () => {
                         const inStock = item.quantity > 0;
 
                         return (
-                            <Card key={item.id} component={Stack} height='100%'>
+                            <Card
+                                key={item.id}
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    height: '100%',
+                                }}
+                            >
                                 <CardContent
-                                    component={Stack}
-                                    gap={2}
-                                    flexGrow={1}
-                                    p={3}
+                                    sx={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: 2,
+                                        flexGrow: 1,
+                                        p: 3,
+                                    }}
                                 >
                                     <Stack
                                         direction='row'
@@ -257,7 +290,7 @@ export const MenuManagerPage = () => {
                                                 <IconButton
                                                     size='small'
                                                     color='error'
-                                                    onClick={handleDelete(
+                                                    onClick={handleDeleteClick(
                                                         item.id,
                                                     )}
                                                 >
@@ -279,6 +312,18 @@ export const MenuManagerPage = () => {
                 onSubmit={handleFormSubmit}
                 isLoading={isSubmitting}
                 initialData={modalInitialData}
+            />
+
+            <ConfirmDialog
+                open={deleteDialogOpen}
+                onClose={handleDeleteCancel}
+                onConfirm={handleDeleteConfirm}
+                title='Delete Menu Item?'
+                description='Are you sure you want to delete this item? This action cannot be undone and it will be permanently removed from your menu.'
+                confirmText='Delete'
+                loadingText='Deleting...'
+                confirmColor='error'
+                isLoading={isDeleting}
             />
         </Stack>
     );

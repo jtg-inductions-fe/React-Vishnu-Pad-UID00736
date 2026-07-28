@@ -3,8 +3,8 @@ import toast from 'react-hot-toast';
 
 import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 
+import { userApi } from '@api/user.api';
 import { FONT_WEIGHT } from '@constant';
-import { useUserService } from '@services';
 import { useAppDispatch } from '@store/hooks';
 import { updateUser } from '@store/slices';
 import { User } from '@type';
@@ -16,7 +16,11 @@ import {
 
 export const WalletSection = ({ user }: { user: User }) => {
     const dispatch = useAppDispatch();
-    const { updateProfile, isUpdating } = useUserService();
+
+    const { useUpdateUserProfileMutation } = userApi;
+
+    const [updateProfile, { isLoading: isUpdating }] =
+        useUpdateUserProfileMutation();
 
     const {
         register,
@@ -33,9 +37,11 @@ export const WalletSection = ({ user }: { user: User }) => {
         const amountNumber = Number(data.amount);
         try {
             const newBalance = Number(user.balance) + amountNumber;
-            const updatedUser = await updateProfile(user.id, {
-                balance: newBalance.toString(),
-            });
+
+            const updatedUser = await updateProfile({
+                id: user.id,
+                data: { balance: newBalance.toString() },
+            }).unwrap();
 
             dispatch(updateUser(updatedUser));
 

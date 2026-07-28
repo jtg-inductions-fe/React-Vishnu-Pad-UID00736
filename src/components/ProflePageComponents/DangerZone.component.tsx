@@ -3,19 +3,11 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-import {
-    Box,
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    Typography,
-} from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 
+import { userApi } from '@api/user.api';
+import { ConfirmDialog } from '@components';
 import { FONT_WEIGHT, ROUTES } from '@constant';
-import { useUserService } from '@services';
 import { useAppDispatch } from '@store/hooks';
 import { logout } from '@store/slices';
 import { User } from '@type';
@@ -25,11 +17,15 @@ export const DangerZone = ({ user }: { user: User }) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-    const { deleteProfile, isDeleting } = useUserService();
+
+    const { useDeleteUserProfileMutation } = userApi;
+
+    const [deleteProfile, { isLoading: isDeleting }] =
+        useDeleteUserProfileMutation();
 
     const handleDeleteAccount = async () => {
         try {
-            await deleteProfile(user.id);
+            await deleteProfile(user.id).unwrap();
             dispatch(logout());
 
             toast.success('Account permanently deleted.');
@@ -74,41 +70,19 @@ export const DangerZone = ({ user }: { user: User }) => {
                 </Box>
             </Box>
 
-            <Dialog
+            <ConfirmDialog
                 open={isDeleteDialogOpen}
                 onClose={() => setIsDeleteDialogOpen(false)}
-                PaperProps={{ sx: { borderRadius: 3, p: 1 } }}
-            >
-                <DialogTitle fontWeight={700}>
-                    Account Delete Confirmation
-                </DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Are you absolutely certain you want to permanently erase
-                        your account? This action cannot be undone and will
-                        immediately terminate your session.
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button
-                        onClick={() => setIsDeleteDialogOpen(false)}
-                        color='inherit'
-                    >
-                        Cancel
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            void handleDeleteAccount();
-                        }}
-                        color='error'
-                        variant='contained'
-                        disabled={isDeleting}
-                        disableElevation
-                    >
-                        {isDeleting ? 'Erasing...' : 'Confirm Deletion'}
-                    </Button>
-                </DialogActions>
-            </Dialog>
+                onConfirm={() => {
+                    void handleDeleteAccount();
+                }}
+                title='Account Delete Confirmation'
+                description='Are you absolutely certain you want to permanently erase your account? This action cannot be undone and will immediately terminate your session.'
+                confirmText='Confirm Deletion'
+                loadingText='Erasing...'
+                confirmColor='error'
+                isLoading={isDeleting}
+            />
         </>
     );
 };

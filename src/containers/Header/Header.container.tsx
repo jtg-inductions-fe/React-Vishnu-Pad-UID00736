@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { useAuth, useLogout } from 'hooks';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -25,7 +25,11 @@ import { ROUTES } from '@constant';
 import { useAppSelector } from '@store/hooks';
 
 import { DESKTOP_NAV_LINKS } from './Header.constants';
-import { cartButtonStyles, navLinkBaseStyles } from './Header.styles';
+import {
+    cartButtonStyles,
+    navLinkBaseStyles,
+    StyledNavLink,
+} from './Header.styles';
 import { MobileDrawer, ProfileMenu } from './subComponents';
 
 export const Header = () => {
@@ -121,18 +125,16 @@ export const Header = () => {
                     >
                         {DESKTOP_NAV_LINKS.map(
                             ({ label, path, baseWeight }) => (
-                                <Typography
+                                <StyledNavLink
                                     key={path}
-                                    component={NavLink}
                                     to={path}
-                                    variant='body1'
                                     sx={[
                                         navLinkBaseStyles,
                                         { fontWeight: baseWeight },
                                     ]}
                                 >
                                     {label}
-                                </Typography>
+                                </StyledNavLink>
                             ),
                         )}
                     </Stack>
@@ -146,8 +148,7 @@ export const Header = () => {
                 >
                     <Tooltip title='My Cart' arrow>
                         <IconButton
-                            component={NavLink}
-                            to={ROUTES.MY_CART}
+                            onClick={handleNavigate(ROUTES.MY_CART)}
                             size='medium'
                             sx={cartButtonStyles}
                         >
@@ -180,21 +181,18 @@ export const Header = () => {
                     ) : (
                         <>
                             {!isMobile && (
-                                <Typography
-                                    component={NavLink}
+                                <StyledNavLink
                                     to={ROUTES.LOGIN}
-                                    variant='body1'
                                     sx={[
                                         navLinkBaseStyles,
                                         { fontWeight: FONT_WEIGHT.REGULAR },
                                     ]}
                                 >
                                     Login
-                                </Typography>
+                                </StyledNavLink>
                             )}
                             <Button
-                                component={NavLink}
-                                to={ROUTES.REGISTER}
+                                onClick={handleNavigate(ROUTES.REGISTER)}
                                 variant='contained'
                                 size='small'
                                 sx={{ px: 4, py: 2 }}

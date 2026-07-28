@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import ReceiptLongRoundedIcon from '@mui/icons-material/ReceiptLongRounded';
 import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 
+import { orderApi } from '@api/order.api';
 import { EmptyState, ErrorState, OrderCard } from '@components';
 import { ROUTES } from '@constant';
-import { useOrderService } from '@services';
 
 export const MyOrdersPage = () => {
-    const { useGetAllOrdersQuery } = useOrderService();
+    const { useGetAllOrdersQuery } = orderApi;
+
     const {
         data: orders,
         isLoading,

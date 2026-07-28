@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Stack, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
+import { restaurantApi } from '@api/restaurant.api';
 import RestaurantPlaceholder from '@assets/images/placeholders/restaurant-placeholder.webp';
 import {
     EmptyState,
@@ -12,17 +13,18 @@ import {
     SearchBar,
 } from '@components';
 import { FONT_WEIGHT, ROUTES } from '@constant';
-import { useRestaurantService } from '@services';
 
 export const RestaurantsPage = () => {
     const navigate = useNavigate();
 
+    const { useGetRestaurantsQuery } = restaurantApi;
+
     const {
-        restaurants,
-        isRestaurantsLoading: isLoading,
-        restaurantsError: error,
-        refetchRestaurants: refetch,
-    } = useRestaurantService();
+        data: restaurants,
+        isLoading,
+        error,
+        refetch,
+    } = useGetRestaurantsQuery();
 
     const handleExploreRestaurant = (restaurantId: string | number) => () => {
         void navigate(`${ROUTES.MENU}?restaurant_id=${restaurantId}`);

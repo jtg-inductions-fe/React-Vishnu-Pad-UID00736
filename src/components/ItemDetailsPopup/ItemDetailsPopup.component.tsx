@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'; // <-- Router import kiya
+import { useNavigate } from 'react-router-dom';
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';

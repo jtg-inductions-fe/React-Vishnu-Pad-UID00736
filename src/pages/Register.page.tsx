@@ -18,16 +18,17 @@ import {
     Typography,
 } from '@mui/material';
 
+import { authApi } from '@api/auth.api';
 import { ROUTES } from '@constant/routes.constants';
 import { AuthLayout } from '@layouts/Auth.layout';
-import { useAuthService } from '@services';
 import { RegisterFormData } from '@type';
 import { getErrorMessage } from '@utils';
 
 export const RegisterPage = () => {
     const navigate = useNavigate();
-    const { register: registerUser, isRegisterLoading: isLoading } =
-        useAuthService();
+    const { useRegisterMutation } = authApi;
+
+    const [registerUser, { isLoading }] = useRegisterMutation();
 
     const [showPassword, setShowPassword] = useState(false);
 

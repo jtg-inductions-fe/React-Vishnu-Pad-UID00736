@@ -68,9 +68,3 @@ export const userApi = baseApi.injectEndpoints({
 
     overrideExisting: false,
 });
-
-export const {
-    useGetUserProfileQuery,
-    useUpdateUserProfileMutation,
-    useDeleteUserProfileMutation,
-} = userApi;

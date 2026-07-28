@@ -12,6 +12,7 @@ import {
     Typography,
 } from '@mui/material';
 
+import { orderApi } from '@api/order.api';
 import FoodPlaceholder from '@assets/images/placeholders/food-placeholder.webp';
 import {
     BillSummary,
@@ -20,7 +21,6 @@ import {
     ItemDetailsPopup,
     ItemListRow,
 } from '@components';
-import { useOrderService } from '@services';
 import { OrderItemDetailResponse } from '@type/order.types';
 
 export const OrderDetailsPage = () => {
@@ -30,7 +30,7 @@ export const OrderDetailsPage = () => {
     const [selectedItem, setSelectedItem] =
         useState<OrderItemDetailResponse | null>(null);
 
-    const { useGetOrderDetailsQuery } = useOrderService();
+    const { useGetOrderDetailsQuery } = orderApi;
 
     const {
         data: order,
@@ -40,7 +40,6 @@ export const OrderDetailsPage = () => {
     } = useGetOrderDetailsQuery(Number(orderId), {
         skip: !orderId,
     });
-
     const handleRefetch = () => {
         void refetch();
     };

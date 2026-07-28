@@ -43,10 +43,3 @@ export const menuManagerApi = baseApi.injectEndpoints({
     }),
     overrideExisting: false,
 });
-
-export const {
-    useGetRestaurantMenuQuery,
-    useAddMenuItemMutation,
-    useUpdateMenuItemMutation,
-    useDeleteMenuItemMutation,
-} = menuManagerApi;

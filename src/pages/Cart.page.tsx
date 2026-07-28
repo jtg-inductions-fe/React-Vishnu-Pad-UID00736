@@ -6,10 +6,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { Box, Divider, Grid2, Stack, Typography } from '@mui/material';
 
+import { orderApi } from '@api/order.api';
 import FoodPlaceholder from '@assets/images/placeholders/food-placeholder.webp';
 import { BillSummary, EmptyState, ItemListRow } from '@components';
 import { FONT_WEIGHT, ROUTES } from '@constant';
-import { useOrderService } from '@services';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import {
     addToCart,
@@ -28,7 +28,9 @@ export const CartPage = () => {
     const cartItems = useAppSelector((state) => state.cart.items);
     const { user, isAuthenticated } = useAppSelector((state) => state.auth);
 
-    const { createOrder, isLoading } = useOrderService();
+    const { useCreateOrderMutation } = orderApi;
+
+    const [createOrder, { isLoading }] = useCreateOrderMutation();
 
     const {
         handleSubmit,
@@ -96,7 +98,6 @@ export const CartPage = () => {
     };
 
     const onSubmit = async () => {
-        // Double check validation before final submission
         const validation = validateCartCheckout({
             cartItems,
             totalAmount,
@@ -115,7 +116,7 @@ export const CartPage = () => {
                     item_id: item.id,
                     quantity: item.cartQuantity,
                 })),
-            });
+            }).unwrap();
 
             toast.success('Order placed successfully!');
             dispatch(clearCart());
@@ -150,7 +151,6 @@ export const CartPage = () => {
         );
     }
 
-    // Kuch bhi invalid hone par ya insufficient balance hone par button disable hona chahiye
     const isCheckoutDisabled =
         hasMultipleRestaurants || userBalance < totalAmount;
 

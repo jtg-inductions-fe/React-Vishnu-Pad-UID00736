@@ -20,5 +20,3 @@ export const menuApi = baseApi.injectEndpoints({
         }),
     }),
 });
-
-export const { useGetExploreMenuItemsQuery } = menuApi;

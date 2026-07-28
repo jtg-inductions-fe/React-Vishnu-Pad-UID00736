@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Box, Stack, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
+import { menuApi } from '@api/menu.api';
 import FoodPlaceholder from '@assets/images/placeholders/food-placeholder.webp';
 import {
     EmptyState,
@@ -12,7 +13,6 @@ import {
     SearchBar,
 } from '@components';
 import { FONT_WEIGHT, ROUTES } from '@constant';
-import { useMenuService } from '@services';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { addToCart, removeFromCart, removeItemCompletely } from '@store/slices';
 import { MenuItem } from '@type';
@@ -26,12 +26,14 @@ export const MenuPage = () => {
     const restaurantId = searchParams.get('restaurant_id');
     const restaurantIdNumber = restaurantId ? Number(restaurantId) : undefined;
 
+    const { useGetExploreMenuItemsQuery } = menuApi;
+
     const {
-        menuData,
-        isMenuLoading: isLoading,
-        menuError: error,
-        refetchMenu: refetch,
-    } = useMenuService(restaurantIdNumber);
+        data: menuData,
+        isLoading,
+        error,
+        refetch,
+    } = useGetExploreMenuItemsQuery(restaurantIdNumber);
 
     const handleAddToCart = (item: MenuItem) => () => {
         dispatch(addToCart(item));

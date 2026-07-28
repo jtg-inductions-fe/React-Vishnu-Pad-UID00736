@@ -15,13 +15,13 @@ import {
     Typography,
 } from '@mui/material';
 
+import { userApi } from '@api/user.api';
 import { InfoRow } from '@components';
 import {
     FONT_WEIGHT,
     FORM_EDIT_FIELDS,
     PROFILE_DISPLAY_FIELDS,
 } from '@constant';
-import { useUserService } from '@services';
 import { useAppDispatch } from '@store/hooks';
 import { updateUser } from '@store/slices';
 import { User } from '@type';
@@ -34,7 +34,11 @@ import {
 export const ProfileDetails = ({ user }: { user: User }) => {
     const dispatch = useAppDispatch();
     const [isEditing, setIsEditing] = useState(false);
-    const { updateProfile, isUpdating } = useUserService();
+
+    const { useUpdateUserProfileMutation } = userApi;
+
+    const [updateProfile, { isLoading: isUpdating }] =
+        useUpdateUserProfileMutation();
 
     const {
         register,
@@ -78,7 +82,11 @@ export const ProfileDetails = ({ user }: { user: User }) => {
 
     const onSubmit = async (data: ProfileFormData) => {
         try {
-            const updatedUser = await updateProfile(user.id, data);
+            const updatedUser = await updateProfile({
+                id: user.id,
+                data,
+            }).unwrap();
+
             dispatch(updateUser(updatedUser));
 
             toast.success('Profile details updated successfully!');

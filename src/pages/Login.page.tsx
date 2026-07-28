@@ -17,9 +17,9 @@ import {
     Typography,
 } from '@mui/material';
 
+import { authApi } from '@api/auth.api';
 import { ROUTES } from '@constant';
 import { AuthLayout } from '@layouts/Auth.layout';
-import { useAuthService } from '@services';
 import { useAppDispatch } from '@store/hooks';
 import { setCredentials } from '@store/slices';
 import { LoginFormData } from '@type';
@@ -28,7 +28,9 @@ import { getErrorMessage } from '@utils';
 export const LoginPage = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const { login: loginUser, isLoginLoading: isLoading } = useAuthService();
+
+    const { useLoginMutation } = authApi;
+    const [loginUser, { isLoading }] = useLoginMutation();
 
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);

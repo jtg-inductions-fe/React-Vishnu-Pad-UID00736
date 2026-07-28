@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { Skeleton, Stack, Typography } from '@mui/material';
 
+import { menuApi } from '@api/menu.api';
+import { restaurantApi } from '@api/restaurant.api';
 import FoodPlaceholder from '@assets/images/placeholders/food-placeholder.webp';
 import RestaurantPlaceholder from '@assets/images/placeholders/restaurant-placeholder.webp';
 import { EmptyState, ErrorState } from '@components';
@@ -9,8 +11,6 @@ import { HorizontalSection } from '@components';
 import { MenuItemCard, RestaurantCard } from '@components';
 import { ItemSkeletonLoader } from '@components';
 import { FONT_WEIGHT, ROUTES } from '@constant';
-import { useMenuService } from '@services';
-import { useRestaurantService } from '@services';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { addToCart, removeFromCart, removeItemCompletely } from '@store/slices';
 import { MenuItem } from '@type';
@@ -20,15 +20,22 @@ export const HomePage = () => {
     const dispatch = useAppDispatch();
     const cartItems = useAppSelector((state) => state.cart.items);
 
-    const {
-        restaurants,
-        isRestaurantsLoading,
-        restaurantsError,
-        refetchRestaurants,
-    } = useRestaurantService();
+    const { useGetRestaurantsQuery } = restaurantApi;
+    const { useGetExploreMenuItemsQuery } = menuApi;
 
-    const { menuData, isMenuLoading, menuError, refetchMenu } =
-        useMenuService();
+    const {
+        data: restaurants,
+        isLoading: isRestaurantsLoading,
+        error: restaurantsError,
+        refetch: refetchRestaurants,
+    } = useGetRestaurantsQuery();
+
+    const {
+        data: menuData,
+        isLoading: isMenuLoading,
+        error: menuError,
+        refetch: refetchMenu,
+    } = useGetExploreMenuItemsQuery(undefined);
 
     const displayRestaurants = restaurants?.slice(0, 10) || [];
     const displayMenuItems = menuData?.items.slice(0, 10) || [];

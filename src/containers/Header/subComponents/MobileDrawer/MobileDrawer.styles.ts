@@ -6,8 +6,8 @@ import { FONT_WEIGHT } from '@constant';
 export const CustomDrawer = styled(Drawer)(({ theme }) => ({
     '& .MuiDrawer-paper': {
         boxSizing: 'border-box',
-        width: theme.spacing(62.5),
-        top: theme.spacing(13.75),
+        width: theme.spacing(62),
+        top: theme.spacing(14),
         height: `calc(100% - ${theme.spacing(16)})`,
     },
 }));

@@ -13,18 +13,20 @@ import {
     Typography,
 } from '@mui/material';
 
+import { restaurantApi } from '@api/restaurant.api';
 import { EmptyState, ErrorState } from '@components';
-import { useRestaurantService } from '@services';
 
 export const MyRestaurantsPage = () => {
     const navigate = useNavigate();
 
+    const { useGetMyRestaurantsQuery } = restaurantApi;
+
     const {
-        myRestaurants: restaurants,
-        isMyRestaurantsLoading: isLoading,
-        myRestaurantsError: error,
-        refetchMyRestaurants: refetch,
-    } = useRestaurantService();
+        data: restaurants,
+        isLoading,
+        error,
+        refetch,
+    } = useGetMyRestaurantsQuery();
 
     const handleRetry = () => {
         void refetch();
@@ -41,6 +43,13 @@ export const MyRestaurantsPage = () => {
     const handleAnalyticsClick = (restaurantId: number) => () => {
         void navigate(`/my-restaurants/${restaurantId}/analytics`);
     };
+
+    const formatDate = (date: string | Date) =>
+        new Date(date).toLocaleDateString('en-IN', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+        });
 
     if (error) {
         return <ErrorState actionLabel='Retry' onActionClick={handleRetry} />;
@@ -81,15 +90,21 @@ export const MyRestaurantsPage = () => {
                     {restaurants?.map((restaurant) => (
                         <Card
                             key={restaurant.id}
-                            component={Stack}
-                            height='100%'
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                height: '100%',
+                            }}
                         >
                             <CardContent
-                                component={Stack}
-                                gap={3}
-                                flexGrow={1}
-                                p={3}
-                                justifyContent='space-between'
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: 3,
+                                    flexGrow: 1,
+                                    p: 3,
+                                    justifyContent: 'space-between',
+                                }}
                             >
                                 <Stack
                                     direction='row'
@@ -116,9 +131,7 @@ export const MyRestaurantsPage = () => {
                                             color='text.secondary'
                                         >
                                             Added on{' '}
-                                            {new Date(
-                                                restaurant.created_at,
-                                            ).toLocaleDateString('en-IN')}
+                                            {formatDate(restaurant.created_at)}
                                         </Typography>
                                     </Stack>
                                 </Stack>

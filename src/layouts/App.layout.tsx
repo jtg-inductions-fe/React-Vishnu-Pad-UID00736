@@ -10,14 +10,14 @@ import {
     Typography,
 } from '@mui/material';
 
+import { userApi } from '@api/user.api';
 import { Footer } from '@components';
-import { useUserService } from '@services';
 
 const AppLayout = () => {
     const { user, token, isAuthenticated } = useAuth();
     const queryId = user?.id ?? 0;
 
-    const { useGetUserProfileQuery } = useUserService();
+    const { useGetUserProfileQuery } = userApi;
 
     const { isFetching } = useGetUserProfileQuery(queryId, {
         skip: !isAuthenticated || !user?.id || !token,
