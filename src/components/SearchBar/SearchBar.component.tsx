@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import toast from 'react-hot-toast';
 
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import { SearchRounded } from '@mui/icons-material';
 import { Box, IconButton, InputBase, Paper, Tooltip } from '@mui/material';
 
 import { FONT_WEIGHT } from '@constant';
@@ -73,7 +73,7 @@ export const SearchBar = ({
                         sx={{ p: 3, mr: 0.5, color: 'primary.main' }}
                         aria-label='search'
                     >
-                        <SearchRoundedIcon />
+                        <SearchRounded />
                     </IconButton>
                 </Tooltip>
             </Paper>

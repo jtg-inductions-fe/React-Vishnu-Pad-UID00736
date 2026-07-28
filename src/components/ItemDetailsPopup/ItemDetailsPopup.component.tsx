@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import StarRoundedIcon from '@mui/icons-material/StarRounded';
-import StorefrontRoundedIcon from '@mui/icons-material/StorefrontRounded';
+import {
+    CloseRounded,
+    StarRounded,
+    StorefrontRounded,
+} from '@mui/icons-material';
 import {
     Box,
     Button,
@@ -61,7 +63,7 @@ export const ItemDetailsPopup = ({
                     onClick={onClose}
                     sx={{ color: 'text.secondary' }}
                 >
-                    <CloseRoundedIcon />
+                    <CloseRounded />
                 </IconButton>
             </DialogTitle>
 
@@ -103,7 +105,7 @@ export const ItemDetailsPopup = ({
                                     >
                                         {item.menu_item_rating}
                                     </Typography>
-                                    <StarRoundedIcon sx={{ fontSize: 16 }} />
+                                    <StarRounded sx={{ fontSize: 16 }} />
                                 </Stack>
                             ) : null}
                         </Stack>
@@ -143,7 +145,7 @@ export const ItemDetailsPopup = ({
                                 gap={1.5}
                                 alignItems='center'
                             >
-                                <StorefrontRoundedIcon color='action' />
+                                <StorefrontRounded color='action' />
                                 <Box>
                                     <Typography
                                         variant='caption'

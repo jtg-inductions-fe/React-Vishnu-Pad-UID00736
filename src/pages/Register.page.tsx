@@ -5,8 +5,7 @@ import toast from 'react-hot-toast';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { registerRules } from 'validations/auth.validation';
 
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
     Button,
     IconButton,

@@ -1,4 +1,4 @@
-import SearchOffRoundedIcon from '@mui/icons-material/SearchOffRounded';
+import { SearchOffRounded } from '@mui/icons-material';
 import { Button, Stack, Typography } from '@mui/material';
 
 import { FONT_WEIGHT } from '@constant';
@@ -21,9 +21,7 @@ export const EmptyState = ({
         px={2}
     >
         {icon || (
-            <SearchOffRoundedIcon
-                sx={{ fontSize: 80, color: 'text.disabled' }}
-            />
+            <SearchOffRounded sx={{ fontSize: 80, color: 'text.disabled' }} />
         )}
 
         <Typography

@@ -2,6 +2,7 @@ import type { RouteObject } from 'react-router-dom';
 
 import { ROUTES } from '@constant';
 import AppLayout from '@layouts/App.layout';
+import { AnalyticsPage } from '@pages/Analytics.page';
 import { MyOrdersPage } from '@pages/MyOrders.page';
 import { OrderDetailsPage } from '@pages/OrderDetails.page';
 import { ProfilePage } from '@pages/Profile.page';
@@ -42,6 +43,14 @@ export const protectedRoutes: RouteObject[] = [
                     {
                         path: ROUTES.MY_RESTAURANTS_MENU,
                         element: <MenuManagerPage />,
+                    },
+                    {
+                        path: ROUTES.MY_RESTAURANTS_ANALYTICS_ALL,
+                        element: <AnalyticsPage />,
+                    },
+                    {
+                        path: ROUTES.MY_RESTAURANTS_ANALYTICS,
+                        element: <AnalyticsPage />,
                     },
                 ],
             },

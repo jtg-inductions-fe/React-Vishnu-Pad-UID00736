@@ -1,6 +1,8 @@
-import AddRoundedIcon from '@mui/icons-material/AddRounded';
-import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
-import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
+import {
+    AddRounded,
+    DeleteOutlineRounded,
+    RemoveRounded,
+} from '@mui/icons-material';
 import { IconButton, Stack, Tooltip, Typography } from '@mui/material';
 
 import { Image } from '@components';
@@ -80,7 +82,7 @@ export const ItemListRow = ({
                                 color='primary'
                                 sx={{ bgcolor: 'action.hover' }}
                             >
-                                <RemoveRoundedIcon fontSize='small' />
+                                <RemoveRounded fontSize='small' />
                             </IconButton>
                         </Tooltip>
 
@@ -104,7 +106,7 @@ export const ItemListRow = ({
                                 color='primary'
                                 sx={{ bgcolor: 'action.hover' }}
                             >
-                                <AddRoundedIcon fontSize='small' />
+                                <AddRounded fontSize='small' />
                             </IconButton>
                         </Tooltip>
 
@@ -116,7 +118,7 @@ export const ItemListRow = ({
                                     onClick={onRemove}
                                     sx={{ ml: 1 }}
                                 >
-                                    <DeleteOutlineRoundedIcon fontSize='small' />
+                                    <DeleteOutlineRounded fontSize='small' />
                                 </IconButton>
                             </Tooltip>
                         )}

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import { EditRounded } from '@mui/icons-material';
 import {
     Avatar,
     Box,
@@ -118,7 +118,7 @@ export const ProfileDetails = ({ user }: { user: User }) => {
                         variant='outlined'
                         color='primary'
                         size='small'
-                        startIcon={<EditRoundedIcon />}
+                        startIcon={<EditRounded />}
                         onClick={handleEnableEdit}
                     >
                         Edit Profile

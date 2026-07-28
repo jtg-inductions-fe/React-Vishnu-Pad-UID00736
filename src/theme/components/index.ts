@@ -1,14 +1,16 @@
 import type { Components, Theme } from '@mui/material/styles';
 import { alpha } from '@mui/material/styles';
 
-import InterBoldTTF from '@assets/fonts/inter/InterBoldTTF.ttf';
-import InterBoldWOFF2 from '@assets/fonts/inter/InterBoldWOFF2.woff2';
-import InterLightTTF from '@assets/fonts/inter/InterLightTTF.ttf';
-import InterLightWOFF2 from '@assets/fonts/inter/InterLightWOFF2.woff2';
-import InterMediumTTF from '@assets/fonts/inter/InterMediumTTF.ttf';
-import InterMediumWOFF2 from '@assets/fonts/inter/InterMediumWOFF2.woff2';
-import InterRegularTTF from '@assets/fonts/inter/InterRegularTTF.ttf';
-import InterRegularWOFF2 from '@assets/fonts/inter/InterRegularWOFF2.woff2';
+import {
+    InterBoldTTF,
+    InterBoldWOFF2,
+    InterLightTTF,
+    InterLightWOFF2,
+    InterMediumTTF,
+    InterMediumWOFF2,
+    InterRegularTTF,
+    InterRegularWOFF2,
+} from '@assets/fonts';
 import { COLORS, FONT_WEIGHT } from '@constant';
 
 /**

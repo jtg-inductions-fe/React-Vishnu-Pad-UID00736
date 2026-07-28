@@ -3,9 +3,11 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 
-import AddRoundedIcon from '@mui/icons-material/AddRounded';
-import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import {
+    AddRounded,
+    DeleteOutlineRounded,
+    EditRounded,
+} from '@mui/icons-material';
 import {
     Box,
     Button,
@@ -19,7 +21,7 @@ import {
     Typography,
 } from '@mui/material';
 
-import { menuManagerApi } from '@api/menuManager.api';
+import { menuApi } from '@api/menu.api';
 import { ConfirmDialog, EmptyState, ErrorState } from '@components';
 import { MenuItemForm } from '@components/MenuItemForm';
 import { MenuItem } from '@type';
@@ -35,7 +37,7 @@ export const MenuManagerPage = () => {
         useAddMenuItemMutation,
         useUpdateMenuItemMutation,
         useDeleteMenuItemMutation,
-    } = menuManagerApi;
+    } = menuApi;
 
     const {
         data: menuData,
@@ -157,7 +159,7 @@ export const MenuManagerPage = () => {
                 <Button
                     variant='contained'
                     color='primary'
-                    startIcon={<AddRoundedIcon />}
+                    startIcon={<AddRounded />}
                     onClick={handleOpenAdd}
                 >
                     Add New Item
@@ -278,7 +280,7 @@ export const MenuManagerPage = () => {
                                                         item,
                                                     )}
                                                 >
-                                                    <EditRoundedIcon fontSize='small' />
+                                                    <EditRounded fontSize='small' />
                                                 </IconButton>
                                             </Tooltip>
 
@@ -294,7 +296,7 @@ export const MenuManagerPage = () => {
                                                         item.id,
                                                     )}
                                                 >
-                                                    <DeleteOutlineRoundedIcon fontSize='small' />
+                                                    <DeleteOutlineRounded fontSize='small' />
                                                 </IconButton>
                                             </Tooltip>
                                         </Stack>

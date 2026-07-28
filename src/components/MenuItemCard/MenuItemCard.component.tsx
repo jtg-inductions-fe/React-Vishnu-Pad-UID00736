@@ -1,9 +1,11 @@
 import { useState } from 'react';
 
-import AddRoundedIcon from '@mui/icons-material/AddRounded';
-import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
-import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
-import StarRoundedIcon from '@mui/icons-material/StarRounded';
+import {
+    AddRounded,
+    DeleteOutlineRounded,
+    RemoveRounded,
+    StarRounded,
+} from '@mui/icons-material';
 import {
     Box,
     Button,
@@ -96,7 +98,7 @@ export const MenuItemCard = ({
                         backdropFilter: `blur(${theme.spacing(0.5)})`,
                     })}
                 >
-                    <StarRoundedIcon
+                    <StarRounded
                         fontSize='inherit'
                         sx={{ color: COLORS.FEEDBACK.WARNING }}
                     />
@@ -168,7 +170,7 @@ export const MenuItemCard = ({
                                     color='primary'
                                     onClick={onDecrement}
                                 >
-                                    <RemoveRoundedIcon fontSize='small' />
+                                    <RemoveRounded fontSize='small' />
                                 </IconButton>
                             </Tooltip>
 
@@ -191,7 +193,7 @@ export const MenuItemCard = ({
                                     color='primary'
                                     onClick={onIncrement}
                                 >
-                                    <AddRoundedIcon fontSize='small' />
+                                    <AddRounded fontSize='small' />
                                 </IconButton>
                             </Tooltip>
                         </Stack>
@@ -206,7 +208,7 @@ export const MenuItemCard = ({
                                 color='error'
                                 onClick={onRemove}
                             >
-                                <DeleteOutlineRoundedIcon fontSize='medium' />
+                                <DeleteOutlineRounded fontSize='medium' />
                             </IconButton>
                         </Tooltip>
                     </Stack>

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import { Facebook, Instagram, Twitter } from '@mui/icons-material';
 import {
     Alert,
     Box,
@@ -98,7 +96,7 @@ export const Footer = () => {
                             </Typography>
 
                             <Stack direction='row' gap={2}>
-                                {[FacebookIcon, TwitterIcon, InstagramIcon].map(
+                                {[Facebook, Twitter, Instagram].map(
                                     (Icon, index) => (
                                         <IconButton
                                             key={index}

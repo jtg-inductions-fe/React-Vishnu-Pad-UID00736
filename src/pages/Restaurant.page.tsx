@@ -13,6 +13,7 @@ import {
     SearchBar,
 } from '@components';
 import { FONT_WEIGHT, ROUTES } from '@constant';
+import { formatDate } from '@utils';
 
 export const RestaurantsPage = () => {
     const navigate = useNavigate();
@@ -37,13 +38,6 @@ export const RestaurantsPage = () => {
     const handleRetry = () => {
         void refetch();
     };
-
-    const formatDate = (date: string | Date) =>
-        new Date(date).toLocaleDateString('en-IN', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-        });
 
     if (error) {
         return <ErrorState actionLabel='Retry' onActionClick={handleRetry} />;

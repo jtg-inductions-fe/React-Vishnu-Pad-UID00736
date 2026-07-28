@@ -1,12 +1,11 @@
 import { Children, useEffect, useRef, useState } from 'react';
 
-import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
-import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
-import { Box, Button, IconButton, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 
 import { FONT_WEIGHT } from '@constant';
 
 import { HorizontalSectionProps } from './HorizontalSection.types';
+import { ScrollButton } from './subComponent';
 
 const SCROLL_AMOUNT = 320;
 
@@ -69,61 +68,19 @@ export const HorizontalSection = ({
 
             <Box position='relative'>
                 {canScrollLeft && (
-                    <>
-                        <Box
-                            position='absolute'
-                            left={0}
-                            top={0}
-                            bottom={0}
-                            width={48}
-                            zIndex={1}
-                        />
-                        <IconButton
-                            onClick={handleScrollLeft}
-                            aria-label={`Scroll ${title} left`}
-                            sx={{
-                                position: 'absolute',
-                                left: 4,
-                                top: '50%',
-                                transform: 'translateY(-50%)',
-                                zIndex: 2,
-                                bgcolor: 'background.paper',
-                                boxShadow: 2,
-                                '&:hover': { bgcolor: 'background.paper' },
-                            }}
-                        >
-                            <ChevronLeftRoundedIcon />
-                        </IconButton>
-                    </>
+                    <ScrollButton
+                        direction='left'
+                        onClick={handleScrollLeft}
+                        title={title}
+                    />
                 )}
 
                 {canScrollRight && (
-                    <>
-                        <Box
-                            position='absolute'
-                            right={0}
-                            top={0}
-                            bottom={0}
-                            width={48}
-                            zIndex={1}
-                        />
-                        <IconButton
-                            onClick={handleScrollRight}
-                            aria-label={`Scroll ${title} right`}
-                            sx={{
-                                position: 'absolute',
-                                right: 4,
-                                top: '50%',
-                                transform: 'translateY(-50%)',
-                                zIndex: 2,
-                                bgcolor: 'background.paper',
-                                boxShadow: 2,
-                                '&:hover': { bgcolor: 'background.paper' },
-                            }}
-                        >
-                            <ChevronRightRoundedIcon />
-                        </IconButton>
-                    </>
+                    <ScrollButton
+                        direction='right'
+                        onClick={handleScrollRight}
+                        title={title}
+                    />
                 )}
 
                 <Stack

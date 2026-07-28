@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
-import AnalyticsRoundedIcon from '@mui/icons-material/AnalyticsRounded';
-import RestaurantMenuRoundedIcon from '@mui/icons-material/RestaurantMenuRounded';
-import StorefrontRoundedIcon from '@mui/icons-material/StorefrontRounded';
+import {
+    AnalyticsRounded,
+    RestaurantMenuRounded,
+    StorefrontRounded,
+} from '@mui/icons-material';
 import {
     Box,
     Button,
@@ -15,6 +17,7 @@ import {
 
 import { restaurantApi } from '@api/restaurant.api';
 import { EmptyState, ErrorState } from '@components';
+import { formatDate } from '@utils';
 
 export const MyRestaurantsPage = () => {
     const navigate = useNavigate();
@@ -43,13 +46,6 @@ export const MyRestaurantsPage = () => {
     const handleAnalyticsClick = (restaurantId: number) => () => {
         void navigate(`/my-restaurants/${restaurantId}/analytics`);
     };
-
-    const formatDate = (date: string | Date) =>
-        new Date(date).toLocaleDateString('en-IN', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-        });
 
     if (error) {
         return <ErrorState actionLabel='Retry' onActionClick={handleRetry} />;
@@ -119,7 +115,7 @@ export const MyRestaurantsPage = () => {
                                         alignItems='center'
                                         justifyContent='center'
                                     >
-                                        <StorefrontRoundedIcon fontSize='medium' />
+                                        <StorefrontRounded fontSize='medium' />
                                     </Stack>
 
                                     <Stack flex={1} gap={0.5}>
@@ -141,9 +137,7 @@ export const MyRestaurantsPage = () => {
                                         variant='contained'
                                         color='primary'
                                         fullWidth
-                                        startIcon={
-                                            <RestaurantMenuRoundedIcon />
-                                        }
+                                        startIcon={<RestaurantMenuRounded />}
                                         onClick={handleMenuClick(restaurant.id)}
                                     >
                                         Menu
@@ -152,7 +146,7 @@ export const MyRestaurantsPage = () => {
                                         variant='outlined'
                                         color='primary'
                                         fullWidth
-                                        startIcon={<AnalyticsRoundedIcon />}
+                                        startIcon={<AnalyticsRounded />}
                                         onClick={handleAnalyticsClick(
                                             restaurant.id,
                                         )}

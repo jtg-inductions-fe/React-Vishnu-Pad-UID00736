@@ -1,5 +1,4 @@
-import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
-import ReceiptLongRoundedIcon from '@mui/icons-material/ReceiptLongRounded';
+import { ChevronRightRounded, ReceiptLongRounded } from '@mui/icons-material';
 import {
     Box,
     Card,
@@ -10,19 +9,12 @@ import {
     Typography,
 } from '@mui/material';
 
+import { formatDateTime } from '@utils';
+
 import { OrderCardProps } from './OrderCard.types';
 
 export const OrderCard = ({ order, onClick }: OrderCardProps) => {
-    const formattedDate = new Date(order.created_at).toLocaleDateString(
-        'en-IN',
-        {
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-        },
-    );
+    const formattedDate = formatDateTime(order.created_at);
 
     const itemLabel =
         order.total_items === 1 ? '1 Item' : `${order.total_items} Items`;
@@ -49,10 +41,7 @@ export const OrderCard = ({ order, onClick }: OrderCardProps) => {
                             display: 'flex',
                         }}
                     >
-                        <ReceiptLongRoundedIcon
-                            fontSize='small'
-                            color='action'
-                        />
+                        <ReceiptLongRounded fontSize='small' color='action' />
                     </Box>
 
                     <Stack flex={1} gap={0.2}>
@@ -88,10 +77,7 @@ export const OrderCard = ({ order, onClick }: OrderCardProps) => {
 
                     <Stack direction='row' alignItems='center' gap={0.5}>
                         <Chip label={itemLabel} size='small' />
-                        <ChevronRightRoundedIcon
-                            fontSize='small'
-                            color='action'
-                        />
+                        <ChevronRightRounded fontSize='small' color='action' />
                     </Stack>
                 </Stack>
             </CardActionArea>

@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import { useAuth, useLogout } from 'hooks';
 import { useNavigate } from 'react-router-dom';
 
-import MenuIcon from '@mui/icons-material/Menu';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Menu, ShoppingCart } from '@mui/icons-material';
 import {
     AppBar,
     Avatar,
@@ -92,7 +91,7 @@ export const Header = () => {
                                 '&:hover': { color: 'primary.main' },
                             }}
                         >
-                            <MenuIcon fontSize='inherit' />
+                            <Menu fontSize='inherit' />
                         </IconButton>
                     )}
 
@@ -153,7 +152,7 @@ export const Header = () => {
                             sx={cartButtonStyles}
                         >
                             <Badge badgeContent={cartItemCount} color='error'>
-                                <ShoppingCartIcon />
+                                <ShoppingCart />
                             </Badge>
                         </IconButton>
                     </Tooltip>

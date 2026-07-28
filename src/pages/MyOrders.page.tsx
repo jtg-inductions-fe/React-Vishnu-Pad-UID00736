@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import ReceiptLongRoundedIcon from '@mui/icons-material/ReceiptLongRounded';
+import { ReceiptLongRounded } from '@mui/icons-material';
 import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 
 import { orderApi } from '@api/order.api';
@@ -59,7 +59,7 @@ export const MyOrdersPage = () => {
                     actionLabel='Browse Restaurants'
                     onActionClick={handleBrowseRestaurants}
                     icon={
-                        <ReceiptLongRoundedIcon
+                        <ReceiptLongRounded
                             sx={{ fontSize: 80, color: 'text.disabled' }}
                         />
                     }

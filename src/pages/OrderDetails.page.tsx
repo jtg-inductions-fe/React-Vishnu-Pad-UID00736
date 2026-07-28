@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
 
-import ReceiptLongRoundedIcon from '@mui/icons-material/ReceiptLongRounded';
+import { ReceiptLongRounded } from '@mui/icons-material';
 import {
     Box,
     Card,
@@ -88,7 +88,7 @@ export const OrderDetailsPage = () => {
                 actionLabel='Back to Orders'
                 onActionClick={handleGoBack}
                 icon={
-                    <ReceiptLongRoundedIcon
+                    <ReceiptLongRounded
                         sx={{ fontSize: 80, color: 'text.disabled' }}
                     />
                 }

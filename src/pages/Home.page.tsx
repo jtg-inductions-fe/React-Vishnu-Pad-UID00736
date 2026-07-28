@@ -14,6 +14,7 @@ import { FONT_WEIGHT, ROUTES } from '@constant';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { addToCart, removeFromCart, removeItemCompletely } from '@store/slices';
 import { MenuItem } from '@type';
+import { formatDate } from '@utils';
 
 export const HomePage = () => {
     const navigate = useNavigate();
@@ -63,13 +64,6 @@ export const HomePage = () => {
     const handleRemoveFromCart = (itemId: number) => () => {
         dispatch(removeItemCompletely(itemId));
     };
-
-    const formatDate = (date: string | Date) =>
-        new Date(date).toLocaleDateString('en-IN', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-        });
 
     if (restaurantsError || menuError) {
         return (
