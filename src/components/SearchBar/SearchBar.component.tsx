@@ -3,7 +3,9 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-import { Box, IconButton, InputBase, Paper } from '@mui/material';
+import { Box, IconButton, InputBase, Paper, Tooltip } from '@mui/material';
+
+import { FONT_WEIGHT } from '@constant';
 
 import { SearchBarProps } from './SearchBar.types';
 
@@ -31,7 +33,10 @@ export const SearchBar = ({
         <Box
             component='form'
             onSubmit={handleSearchSubmit}
-            sx={{ width: fullWidth ? '100%' : 'auto', maxWidth: 600 }}
+            sx={{
+                width: fullWidth ? '100%' : 'auto',
+                maxWidth: FONT_WEIGHT.MEDIUM,
+            }}
         >
             <Paper
                 elevation={0}
@@ -61,13 +66,16 @@ export const SearchBar = ({
                     onChange={handleInputChange}
                     inputProps={{ 'aria-label': placeholder }}
                 />
-                <IconButton
-                    type='submit'
-                    sx={{ p: 3, mr: 0.5, color: 'primary.main' }}
-                    aria-label='search'
-                >
-                    <SearchRoundedIcon />
-                </IconButton>
+
+                <Tooltip title='Search' arrow placement='top'>
+                    <IconButton
+                        type='submit'
+                        sx={{ p: 3, mr: 0.5, color: 'primary.main' }}
+                        aria-label='search'
+                    >
+                        <SearchRoundedIcon />
+                    </IconButton>
+                </Tooltip>
             </Paper>
         </Box>
     );

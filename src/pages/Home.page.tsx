@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
-
 import { useNavigate } from 'react-router-dom';
 
-import { Alert, Skeleton, Snackbar, Stack, Typography } from '@mui/material';
+import { Skeleton, Stack, Typography } from '@mui/material';
 
 import FoodPlaceholder from '@assets/images/placeholders/food-placeholder.webp';
 import RestaurantPlaceholder from '@assets/images/placeholders/restaurant-placeholder.webp';
 import { EmptyState, ErrorState } from '@components';
 import { HorizontalSection } from '@components';
-import { ItemCard } from '@components';
+import { MenuItemCard, RestaurantCard } from '@components';
 import { ItemSkeletonLoader } from '@components';
 import { FONT_WEIGHT, ROUTES } from '@constant';
 import { useMenuService } from '@services';
@@ -21,8 +19,6 @@ export const HomePage = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const cartItems = useAppSelector((state) => state.cart.items);
-
-    const [isMenuToastOpen, setIsMenuToastOpen] = useState(false);
 
     const {
         restaurants,
@@ -46,15 +42,7 @@ export const HomePage = () => {
     };
 
     const handleViewAllMenu = () => {
-        setIsMenuToastOpen(true);
-    };
-
-    const handleCloseMenuToast = (
-        _event?: React.SyntheticEvent | Event,
-        reason?: string,
-    ) => {
-        if (reason === 'clickaway') return;
-        setIsMenuToastOpen(false);
+        void navigate(ROUTES.MENU);
     };
 
     const handleAddToCart = (item: MenuItem) => () => {
@@ -136,7 +124,7 @@ export const HomePage = () => {
                     ) : (
                         displayRestaurants.map((restaurant) => (
                             <Stack key={restaurant.id} minWidth={300}>
-                                <ItemCard
+                                <RestaurantCard
                                     title={restaurant.name}
                                     subtitle={`Joined on: ${formatDate(restaurant.created_at)}`}
                                     image={RestaurantPlaceholder}
@@ -177,7 +165,7 @@ export const HomePage = () => {
 
                             return (
                                 <Stack key={item.id} minWidth={280}>
-                                    <ItemCard
+                                    <MenuItemCard
                                         title={item.name}
                                         subtitle={item.category}
                                         price={item.price}
@@ -211,22 +199,6 @@ export const HomePage = () => {
                     )}
                 </HorizontalSection>
             )}
-
-            <Snackbar
-                open={isMenuToastOpen}
-                autoHideDuration={3000}
-                onClose={handleCloseMenuToast}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-            >
-                <Alert
-                    onClose={handleCloseMenuToast}
-                    severity='info'
-                    variant='filled'
-                    sx={{ width: '100%', borderRadius: 2 }}
-                >
-                    Full Menu feature is coming soon!
-                </Alert>
-            </Snackbar>
         </Stack>
     );
 };

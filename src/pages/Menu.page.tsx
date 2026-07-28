@@ -7,8 +7,8 @@ import FoodPlaceholder from '@assets/images/placeholders/food-placeholder.webp';
 import {
     EmptyState,
     ErrorState,
-    ItemCard,
     ItemSkeletonLoader,
+    MenuItemCard,
     SearchBar,
 } from '@components';
 import { FONT_WEIGHT, ROUTES } from '@constant';
@@ -115,7 +115,7 @@ export const MenuPage = () => {
                                 key={item.id}
                                 size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
                             >
-                                <ItemCard
+                                <MenuItemCard
                                     title={item.name}
                                     subtitle={item.category}
                                     price={item.price}

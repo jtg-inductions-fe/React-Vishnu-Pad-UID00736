@@ -16,32 +16,31 @@ import {
 } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 
-import RestaurantPlaceholder from '@assets/images/placeholders/restaurant-placeholder.webp';
+import FoodPlaceholder from '@assets/images/placeholders/food-placeholder.webp';
 import { Image } from '@components';
 import { COLORS, FONT_WEIGHT } from '@constant';
 
-import { ItemCardProps } from './ItemCard.types';
-const FALLBACK_IMAGE = RestaurantPlaceholder;
+import { MenuItemCardProps } from './MenuItemCard.types';
 
-export const ItemCard = ({
+export const MenuItemCard = ({
     title,
     subtitle,
     price,
     rating,
     tag,
     image,
-    cartQuantity = 0,
+    cartQuantity,
     actionLabel,
     onActionClick,
     onIncrement,
     onDecrement,
     onRemove,
-}: ItemCardProps) => {
+}: MenuItemCardProps) => {
     const [imgSrc, setImgSrc] = useState(image);
     const inStock = tag !== 'Out of Stock';
 
     const handleImageError = () => {
-        setImgSrc(FALLBACK_IMAGE);
+        setImgSrc(FoodPlaceholder);
     };
 
     return (
@@ -61,59 +60,50 @@ export const ItemCard = ({
                     }}
                 />
 
-                {tag && (
-                    <Typography
-                        variant='caption'
-                        position='absolute'
-                        top={12}
-                        left={12}
-                        bgcolor={
-                            inStock
-                                ? COLORS.FEEDBACK.SUCCESS
-                                : COLORS.NEUTRAL[800]
-                        }
-                        color={COLORS.PRIMARY.CONTRAST}
-                        px={1.25}
-                        py={0.5}
-                        borderRadius={2}
-                        fontWeight={FONT_WEIGHT.BOLD}
-                        sx={(theme) => ({
-                            backdropFilter: `blur(${theme.spacing(0.5)})`,
-                        })}
-                    >
-                        {tag}
-                    </Typography>
-                )}
+                <Typography
+                    variant='caption'
+                    position='absolute'
+                    top={12}
+                    left={12}
+                    bgcolor={
+                        inStock ? COLORS.FEEDBACK.SUCCESS : COLORS.NEUTRAL[800]
+                    }
+                    color={COLORS.PRIMARY.CONTRAST}
+                    px={1.25}
+                    py={0.5}
+                    borderRadius={2}
+                    fontWeight={FONT_WEIGHT.BOLD}
+                    sx={(theme) => ({
+                        backdropFilter: `blur(${theme.spacing(0.5)})`,
+                    })}
+                >
+                    {tag}
+                </Typography>
 
-                {rating != null && (
-                    <Stack
-                        direction='row'
-                        alignItems='center'
-                        gap={0.5}
-                        position='absolute'
-                        top={12}
-                        right={12}
-                        bgcolor={alpha(COLORS.SECONDARY.DARK, 0.72)}
-                        color={COLORS.SECONDARY.CONTRAST}
-                        px={1.25}
-                        py={0.5}
-                        borderRadius={5}
-                        sx={(theme) => ({
-                            backdropFilter: `blur(${theme.spacing(0.5)})`,
-                        })}
-                    >
-                        <StarRoundedIcon
-                            fontSize='inherit'
-                            sx={{ color: COLORS.FEEDBACK.WARNING }}
-                        />
-                        <Typography
-                            variant='caption'
-                            fontWeight={FONT_WEIGHT.BOLD}
-                        >
-                            {rating}
-                        </Typography>
-                    </Stack>
-                )}
+                <Stack
+                    direction='row'
+                    alignItems='center'
+                    gap={0.5}
+                    position='absolute'
+                    top={12}
+                    right={12}
+                    bgcolor={alpha(COLORS.SECONDARY.DARK, 0.72)}
+                    color={COLORS.SECONDARY.CONTRAST}
+                    px={1.25}
+                    py={0.5}
+                    borderRadius={5}
+                    sx={(theme) => ({
+                        backdropFilter: `blur(${theme.spacing(0.5)})`,
+                    })}
+                >
+                    <StarRoundedIcon
+                        fontSize='inherit'
+                        sx={{ color: COLORS.FEEDBACK.WARNING }}
+                    />
+                    <Typography variant='caption' fontWeight={FONT_WEIGHT.BOLD}>
+                        {rating}
+                    </Typography>
+                </Stack>
             </Box>
 
             <CardContent
@@ -132,22 +122,18 @@ export const ItemCard = ({
                     >
                         {title}
                     </Typography>
-                    {subtitle && (
-                        <Typography variant='body2' noWrap>
-                            {subtitle}
-                        </Typography>
-                    )}
+                    <Typography variant='body2' noWrap>
+                        {subtitle}
+                    </Typography>
                 </Stack>
 
-                {price != null && (
-                    <Typography
-                        variant='h6'
-                        color='primary.main'
-                        fontWeight={FONT_WEIGHT.BOLD}
-                    >
-                        ₹{price}
-                    </Typography>
-                )}
+                <Typography
+                    variant='h6'
+                    color='primary.main'
+                    fontWeight={FONT_WEIGHT.BOLD}
+                >
+                    ₹{price}
+                </Typography>
 
                 <Box flexGrow={1} />
 
@@ -206,34 +192,30 @@ export const ItemCard = ({
                             </Tooltip>
                         </Stack>
 
-                        {onRemove && (
-                            <Tooltip
-                                title='Remove item from cart'
-                                arrow
-                                placement='top'
+                        <Tooltip
+                            title='Remove item from cart'
+                            arrow
+                            placement='top'
+                        >
+                            <IconButton
+                                size='small'
+                                color='error'
+                                onClick={onRemove}
                             >
-                                <IconButton
-                                    size='small'
-                                    color='error'
-                                    onClick={onRemove}
-                                >
-                                    <DeleteOutlineRoundedIcon fontSize='medium' />
-                                </IconButton>
-                            </Tooltip>
-                        )}
+                                <DeleteOutlineRoundedIcon fontSize='medium' />
+                            </IconButton>
+                        </Tooltip>
                     </Stack>
                 ) : (
-                    actionLabel && (
-                        <Button
-                            variant={inStock ? 'contained' : 'outlined'}
-                            color='primary'
-                            disabled={!inStock}
-                            onClick={onActionClick}
-                            fullWidth
-                        >
-                            {inStock ? actionLabel : 'Out of Stock'}
-                        </Button>
-                    )
+                    <Button
+                        variant={inStock ? 'contained' : 'outlined'}
+                        color='primary'
+                        disabled={!inStock}
+                        onClick={onActionClick}
+                        fullWidth
+                    >
+                        {inStock ? actionLabel : 'Out of Stock'}
+                    </Button>
                 )}
             </CardContent>
         </Card>

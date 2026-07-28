@@ -1,7 +1,7 @@
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
-import { IconButton, Stack, Typography } from '@mui/material';
+import { IconButton, Stack, Tooltip, Typography } from '@mui/material';
 
 import { Image } from '@components';
 import { FONT_WEIGHT } from '@constant';
@@ -69,14 +69,21 @@ export const ItemListRow = ({
 
                 {isEditable ? (
                     <Stack direction='row' alignItems='center' gap={1}>
-                        <IconButton
-                            size='small'
-                            onClick={onDecrement}
-                            color='primary'
-                            sx={{ bgcolor: 'action.hover' }}
+                        <Tooltip
+                            title='Decrease quantity'
+                            arrow
+                            placement='top'
                         >
-                            <RemoveRoundedIcon fontSize='small' />
-                        </IconButton>
+                            <IconButton
+                                size='small'
+                                onClick={onDecrement}
+                                color='primary'
+                                sx={{ bgcolor: 'action.hover' }}
+                            >
+                                <RemoveRoundedIcon fontSize='small' />
+                            </IconButton>
+                        </Tooltip>
+
                         <Typography
                             variant='body1'
                             fontWeight={FONT_WEIGHT.MEDIUM}
@@ -85,23 +92,33 @@ export const ItemListRow = ({
                         >
                             {quantity}
                         </Typography>
-                        <IconButton
-                            size='small'
-                            onClick={onIncrement}
-                            color='primary'
-                            sx={{ bgcolor: 'action.hover' }}
+
+                        <Tooltip
+                            title='Increase quantity'
+                            arrow
+                            placement='top'
                         >
-                            <AddRoundedIcon fontSize='small' />
-                        </IconButton>
-                        {onRemove && (
                             <IconButton
                                 size='small'
-                                color='error'
-                                onClick={onRemove}
-                                sx={{ ml: 1 }}
+                                onClick={onIncrement}
+                                color='primary'
+                                sx={{ bgcolor: 'action.hover' }}
                             >
-                                <DeleteOutlineRoundedIcon fontSize='small' />
+                                <AddRoundedIcon fontSize='small' />
                             </IconButton>
+                        </Tooltip>
+
+                        {onRemove && (
+                            <Tooltip title='Remove item' arrow placement='top'>
+                                <IconButton
+                                    size='small'
+                                    color='error'
+                                    onClick={onRemove}
+                                    sx={{ ml: 1 }}
+                                >
+                                    <DeleteOutlineRoundedIcon fontSize='small' />
+                                </IconButton>
+                            </Tooltip>
                         )}
                     </Stack>
                 ) : (

@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
@@ -35,21 +37,6 @@ export const CartPage = () => {
         formState: { errors },
     } = useForm();
 
-    const handleIncrement = (item: MenuItem) => () => {
-        dispatch(addToCart(item));
-        clearErrors('root');
-    };
-
-    const handleDecrement = (itemId: number) => () => {
-        dispatch(removeFromCart(itemId));
-        clearErrors('root');
-    };
-
-    const handleRemove = (itemId: number) => () => {
-        dispatch(removeItemCompletely(itemId));
-        clearErrors('root');
-    };
-
     const totalAmount = cartItems.reduce(
         (acc, item) => acc + Number(item.price) * item.cartQuantity,
         0,
@@ -69,8 +56,8 @@ export const CartPage = () => {
         cartItems.length > 0 ? cartItems[0].restaurant_id : 0;
     const userBalance = Number(user?.balance) || 0;
 
-    const onSubmit = async () => {
-        clearErrors('root');
+    useEffect(() => {
+        if (cartItems.length === 0) return;
 
         const validation = validateCartCheckout({
             cartItems,
@@ -84,6 +71,40 @@ export const CartPage = () => {
                 type: 'manual',
                 message: validation.errorMessage,
             });
+        } else {
+            clearErrors('root');
+        }
+    }, [
+        cartItems,
+        totalAmount,
+        userBalance,
+        hasMultipleRestaurants,
+        setError,
+        clearErrors,
+    ]);
+
+    const handleIncrement = (item: MenuItem) => () => {
+        dispatch(addToCart(item));
+    };
+
+    const handleDecrement = (itemId: number) => () => {
+        dispatch(removeFromCart(itemId));
+    };
+
+    const handleRemove = (itemId: number) => () => {
+        dispatch(removeItemCompletely(itemId));
+    };
+
+    const onSubmit = async () => {
+        // Double check validation before final submission
+        const validation = validateCartCheckout({
+            cartItems,
+            totalAmount,
+            userBalance,
+            hasMultipleRestaurants,
+        });
+
+        if (!validation.isValid) {
             return;
         }
 
@@ -129,6 +150,10 @@ export const CartPage = () => {
         );
     }
 
+    // Kuch bhi invalid hone par ya insufficient balance hone par button disable hona chahiye
+    const isCheckoutDisabled =
+        hasMultipleRestaurants || userBalance < totalAmount;
+
     return (
         <Stack gap={4} px={{ xs: 2, md: 4 }} py={4} maxWidth='xl' mx='auto'>
             <Typography variant='h4' fontWeight={FONT_WEIGHT.BOLD}>
@@ -161,15 +186,11 @@ export const CartPage = () => {
                             totalQuantity={totalQuantity}
                             userBalance={userBalance}
                             isLoggedIn={isAuthenticated}
-                            isActionDisabled={hasMultipleRestaurants}
+                            isActionDisabled={isCheckoutDisabled}
                             actionLabel='Place Order'
                             onActionClick={handleCheckoutActionClick}
                             isLoading={isLoading}
-                            errorMessage={
-                                hasMultipleRestaurants
-                                    ? 'All items must be from the same restaurant.'
-                                    : errors.root?.message
-                            }
+                            errorMessage={errors.root?.message}
                         />
                     </Box>
                 </Grid2>

@@ -14,7 +14,7 @@ import {
     Typography,
 } from '@mui/material';
 
-import { FONT_WEIGHT } from '@constant';
+import { FONT_WEIGHT, ROUTES } from '@constant';
 import { useUserService } from '@services';
 import { useAppDispatch } from '@store/hooks';
 import { logout } from '@store/slices';
@@ -34,7 +34,7 @@ export const DangerZone = ({ user }: { user: User }) => {
 
             toast.success('Account permanently deleted.');
             setIsDeleteDialogOpen(false);
-            void navigate('/');
+            void navigate(ROUTES.HOME);
         } catch (error) {
             toast.error(getErrorMessage(error));
         }
@@ -55,7 +55,7 @@ export const DangerZone = ({ user }: { user: User }) => {
                     color='error.main'
                     mb={1}
                 >
-                    Danger Zone
+                    Delete Account
                 </Typography>
                 <Typography variant='body2' color='text.secondary' mb={3}>
                     This action is permanent. All your data, order history, and

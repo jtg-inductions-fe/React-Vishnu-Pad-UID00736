@@ -7,8 +7,8 @@ import RestaurantPlaceholder from '@assets/images/placeholders/restaurant-placeh
 import {
     EmptyState,
     ErrorState,
-    ItemCard,
     ItemSkeletonLoader,
+    RestaurantCard,
     SearchBar,
 } from '@components';
 import { FONT_WEIGHT, ROUTES } from '@constant';
@@ -93,7 +93,7 @@ export const RestaurantsPage = () => {
                             key={restaurant.id}
                             size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
                         >
-                            <ItemCard
+                            <RestaurantCard
                                 title={restaurant.name}
                                 subtitle={`Joined on: ${formatDate(restaurant.created_at)}`}
                                 image={RestaurantPlaceholder}

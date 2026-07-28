@@ -15,6 +15,7 @@ import {
     IconButton,
     Skeleton,
     Stack,
+    Tooltip,
     Typography,
 } from '@mui/material';
 
@@ -232,20 +233,37 @@ export const MenuManagerPage = () => {
                                         </Typography>
 
                                         <Stack direction='row' gap={1}>
-                                            <IconButton
-                                                size='small'
-                                                color='primary'
-                                                onClick={handleOpenEdit(item)}
+                                            <Tooltip
+                                                title='Edit'
+                                                arrow
+                                                placement='top'
                                             >
-                                                <EditRoundedIcon fontSize='small' />
-                                            </IconButton>
-                                            <IconButton
-                                                size='small'
-                                                color='error'
-                                                onClick={handleDelete(item.id)}
+                                                <IconButton
+                                                    size='small'
+                                                    color='primary'
+                                                    onClick={handleOpenEdit(
+                                                        item,
+                                                    )}
+                                                >
+                                                    <EditRoundedIcon fontSize='small' />
+                                                </IconButton>
+                                            </Tooltip>
+
+                                            <Tooltip
+                                                title='Delete'
+                                                arrow
+                                                placement='top'
                                             >
-                                                <DeleteOutlineRoundedIcon fontSize='small' />
-                                            </IconButton>
+                                                <IconButton
+                                                    size='small'
+                                                    color='error'
+                                                    onClick={handleDelete(
+                                                        item.id,
+                                                    )}
+                                                >
+                                                    <DeleteOutlineRoundedIcon fontSize='small' />
+                                                </IconButton>
+                                            </Tooltip>
                                         </Stack>
                                     </Stack>
                                 </CardContent>

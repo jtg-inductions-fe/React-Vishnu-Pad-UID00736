@@ -37,6 +37,7 @@ export const LoginPage = () => {
     ) => {
         event.preventDefault();
     };
+
     const {
         register,
         handleSubmit,

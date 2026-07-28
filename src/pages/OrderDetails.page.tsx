@@ -2,14 +2,12 @@ import { useState } from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
 
-import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import ReceiptLongRoundedIcon from '@mui/icons-material/ReceiptLongRounded';
 import {
     Box,
     Card,
     CircularProgress,
     Divider,
-    IconButton,
     Stack,
     Typography,
 } from '@mui/material';
@@ -118,17 +116,12 @@ export const OrderDetailsPage = () => {
 
     return (
         <Box sx={{ py: 4, mx: 'auto' }}>
-            <Stack direction='row' alignItems='center' gap={2} mb={4}>
-                <IconButton onClick={handleGoBack} color='inherit'>
-                    <ArrowBackRoundedIcon />
-                </IconButton>
-                <Box>
-                    <Typography variant='h4'>Order #{order.id}</Typography>
-                    <Typography variant='body2'>
-                        Placed on {formattedDate}
-                    </Typography>
-                </Box>
-            </Stack>
+            <Box mb={2}>
+                <Typography variant='h4'>Order #{order.id}</Typography>
+                <Typography variant='body2'>
+                    Placed on {formattedDate}
+                </Typography>
+            </Box>
 
             <Card sx={{ p: 3, mb: 4, bgcolor: 'background.default' }}>
                 <Typography variant='h5' mb={0.5}>
@@ -139,8 +132,13 @@ export const OrderDetailsPage = () => {
                 </Typography>
             </Card>
 
-            <Stack direction={{ md: 'row' }} gap={4} alignItems='flex-start'>
-                <Box flex={1} width='100%'>
+            <Stack
+                direction={{ md: 'row' }}
+                gap={4}
+                alignItems='flex-start'
+                width='100%'
+            >
+                <Box width={{ xs: '100%', md: '60%' }}>
                     <Typography variant='h6' mb={2}>
                         Items Ordered
                     </Typography>
@@ -159,7 +157,12 @@ export const OrderDetailsPage = () => {
                     </Stack>
                 </Box>
 
-                <Box width={{ xs: '100%', md: 350 }}>
+                <Box
+                    width={{ xs: '100%', md: '40%' }}
+                    sx={{
+                        width: { xs: '100%', md: 'calc(40% - 32px)' },
+                    }}
+                >
                     <BillSummary
                         totalAmount={totalAmount}
                         totalQuantity={totalQuantity}

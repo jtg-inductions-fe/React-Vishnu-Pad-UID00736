@@ -2,7 +2,9 @@ export { HorizontalSection } from './HorizontalSection';
 export { ItemSkeletonLoader } from './Skeleton';
 export { Footer } from './Footer';
 export { Image } from './Image';
-export { ItemCard } from './ItemCard';
+export { RestaurantCard } from './RestaurantCard';
+export { MenuItemCard } from './MenuItemCard';
+
 export { ErrorState } from './ErrorState';
 export { EmptyState } from './EmptyState';
 export { SearchBar } from './SearchBar';
