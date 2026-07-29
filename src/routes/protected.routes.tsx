@@ -2,12 +2,12 @@ import type { RouteObject } from 'react-router-dom';
 
 import { ROUTES } from '@constant';
 import AppLayout from '@layouts/App.layout';
-import { AnalyticsPage } from '@pages/Analytics.page';
-import { MenuManagerPage } from '@pages/MenuManager.page';
-import { MyOrdersPage } from '@pages/MyOrders.page';
-import { MyRestaurantsPage } from '@pages/MyRestaurants.pages';
-import { OrderDetailsPage } from '@pages/OrderDetails.page';
-import { ProfilePage } from '@pages/Profile.page';
+import { AnalyticsPage } from '@pages/Analytics';
+import { MenuManagerPage } from '@pages/MenuManager';
+import { MyOrdersPage } from '@pages/MyOrders/MyOrders.page';
+import { MyRestaurantsPage } from '@pages/MyRestaurants';
+import { OrderDetailsPage } from '@pages/OrderDetails';
+import { ProfilePage } from '@pages/Profile';
 
 import ProtectedRoute from './guards/routes.guard';
 

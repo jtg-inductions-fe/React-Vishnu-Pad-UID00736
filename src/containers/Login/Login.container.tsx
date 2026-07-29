@@ -2,16 +2,19 @@ import React from 'react';
 
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { loginRules } from 'validations/auth.validation';
+
+import { Button, Link, Stack, TextField, Typography } from '@mui/material';
 
 import { authApi } from '@api/auth.api';
+import { PasswordInput } from '@components';
 import { ROUTES } from '@constant';
+import { AuthLayout } from '@layouts/Auth.layout';
 import { useAppDispatch } from '@store/hooks';
 import { setCredentials } from '@store/slices';
 import { LoginFormData } from '@type';
 import { getErrorMessage } from '@utils';
-
-import { LoginForm } from './subComponents/LoginForm';
 
 export const LoginContainer = () => {
     const navigate = useNavigate();
@@ -57,11 +60,52 @@ export const LoginContainer = () => {
     };
 
     return (
-        <LoginForm
-            register={register}
-            errors={errors}
-            isLoading={isLoading}
-            onSubmit={onSubmitHandler}
-        />
+        <AuthLayout onSubmit={onSubmitHandler} maxWidth={125}>
+            <Typography variant='h3' align='center' mb={4} p={4}>
+                Login
+            </Typography>
+
+            <Stack gap={4}>
+                <TextField
+                    label='Email'
+                    type='email'
+                    fullWidth
+                    {...register('email', loginRules.email)}
+                    error={!!errors.email}
+                    helperText={errors.email?.message || ''}
+                />
+
+                <PasswordInput
+                    label='Password'
+                    fullWidth
+                    registration={register('password', loginRules.password)}
+                    error={!!errors.password}
+                    helperText={errors.password?.message || ''}
+                />
+
+                <Button
+                    type='submit'
+                    variant='contained'
+                    size='large'
+                    fullWidth
+                    disabled={isLoading}
+                    sx={{ mt: 4 }}
+                >
+                    {isLoading ? 'Signing In...' : 'Sign In'}
+                </Button>
+            </Stack>
+
+            <Typography variant='body2' align='center' mt={6}>
+                Don&apos;t have an account?{' '}
+                <Link
+                    component={RouterLink}
+                    to={ROUTES.REGISTER}
+                    variant='subtitle2'
+                    underline='hover'
+                >
+                    Register here
+                </Link>
+            </Typography>
+        </AuthLayout>
     );
 };

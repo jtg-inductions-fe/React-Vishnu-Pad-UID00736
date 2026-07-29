@@ -7,6 +7,8 @@ import {
     DialogTitle,
 } from '@mui/material';
 
+import { FONT_WEIGHT } from '@constant';
+
 import { ConfirmDialogProps } from './ConfirmDialog.types';
 
 export const ConfirmDialog = ({
@@ -30,7 +32,7 @@ export const ConfirmDialog = ({
             },
         }}
     >
-        <DialogTitle sx={{ fontWeight: 700 }}>{title}</DialogTitle>
+        <DialogTitle sx={{ fontWeight: FONT_WEIGHT.BOLD }}>{title}</DialogTitle>
         <DialogContent>
             <DialogContentText>{description}</DialogContentText>
         </DialogContent>

@@ -7,4 +7,3 @@ export {
 } from './theme.constants';
 export { ROUTES } from './routes.constants';
 export { API_URLS } from './api.constants';
-export { FORM_EDIT_FIELDS, PROFILE_DISPLAY_FIELDS } from './profile.constants';

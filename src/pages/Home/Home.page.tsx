@@ -1,8 +1,7 @@
 import { Stack, Typography } from '@mui/material';
 
 import { FONT_WEIGHT } from '@constant';
-import { MenuContainer } from '@containers';
-import { RestaurantContainer } from '@containers';
+import { MenuListContainer, RestaurantListContainer } from '@containers';
 
 export const HomePage = () => (
     <Stack gap={8} px={{ xs: 2, md: 4 }} py={4}>
@@ -15,8 +14,8 @@ export const HomePage = () => (
             </Typography>
         </Stack>
 
-        <RestaurantContainer layout='horizontal' limit={10} />
+        <RestaurantListContainer layout='horizontal' limit={10} />
 
-        <MenuContainer layout='horizontal' limit={10} />
+        <MenuListContainer layout='horizontal' limit={10} />
     </Stack>
 );

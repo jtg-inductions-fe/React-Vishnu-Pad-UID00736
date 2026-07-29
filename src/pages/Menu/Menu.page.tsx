@@ -4,7 +4,7 @@ import { Box, Stack, Typography } from '@mui/material';
 
 import { SearchBar } from '@components';
 import { FONT_WEIGHT } from '@constant';
-import { MenuContainer } from '@containers';
+import { MenuListContainer } from '@containers';
 
 export const MenuPage = () => {
     const [searchParams] = useSearchParams();
@@ -37,7 +37,10 @@ export const MenuPage = () => {
                 </Box>
             </Stack>
 
-            <MenuContainer layout='grid' restaurantId={restaurantIdNumber} />
+            <MenuListContainer
+                layout='grid'
+                restaurantId={restaurantIdNumber}
+            />
         </Stack>
     );
 };

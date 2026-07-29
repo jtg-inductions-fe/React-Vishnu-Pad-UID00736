@@ -26,7 +26,7 @@ export const ItemListRow = ({
 
     return (
         <Stack
-            direction={{ xs: 'column', sm: 'row' }}
+            direction={{ sm: 'row' }}
             gap={2}
             py={2}
             alignItems='center'

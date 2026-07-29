@@ -2,7 +2,7 @@ import { Box, Stack, Typography } from '@mui/material';
 
 import { SearchBar } from '@components';
 import { FONT_WEIGHT } from '@constant';
-import { RestaurantContainer } from '@containers';
+import { RestaurantListContainer } from '@containers';
 
 export const RestaurantsPage = () => (
     <Stack gap={8} px={{ xs: 2, md: 4 }} py={4}>
@@ -30,6 +30,6 @@ export const RestaurantsPage = () => (
             </Box>
         </Stack>
 
-        <RestaurantContainer layout='grid' />
+        <RestaurantListContainer layout='grid' />
     </Stack>
 );
