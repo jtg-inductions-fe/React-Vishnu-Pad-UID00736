@@ -1,5 +1,5 @@
 import {
-    alpha, // Add alpha import here
+    alpha,
     Card,
     CardContent,
     Skeleton,

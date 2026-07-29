@@ -20,3 +20,4 @@ export { OrderCard } from './OrderCard';
 export { ItemDetailsPopup } from './ItemDetailsPopup';
 export { ConfirmDialog } from './ConfirmDialog';
 export { MenuItemForm } from './MenuItemForm';
+export { PasswordInput } from './PasswordInput';

@@ -22,6 +22,12 @@ export interface RegisterRequest extends BaseUser {
     balance: number;
 }
 
+export interface AuthState {
+    user: User | null;
+    token: string | null;
+    isAuthenticated: boolean;
+}
+
 export interface AuthResponse extends User {
     token: string;
 }

@@ -3,11 +3,11 @@ import type { RouteObject } from 'react-router-dom';
 import { ROUTES } from '@constant';
 import AppLayout from '@layouts/App.layout';
 import { CartPage } from '@pages/Cart.page';
-import { HomePage } from '@pages/Home.page';
-import { LoginPage } from '@pages/Login.page';
-import { MenuPage } from '@pages/Menu.page';
-import { RegisterPage } from '@pages/Register.page';
-import { RestaurantsPage } from '@pages/Restaurant.page';
+import { HomePage } from '@pages/Home';
+import { LoginPage } from '@pages/Login';
+import { MenuPage } from '@pages/Menu';
+import { RegisterPage } from '@pages/Register';
+import { RestaurantsPage } from '@pages/Restaurant';
 
 /**
  * Defines the application's public routes.

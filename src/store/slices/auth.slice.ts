@@ -1,14 +1,8 @@
 import toast from 'react-hot-toast';
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '@type';
+import { AuthState, User } from '@type';
 import { getErrorMessage } from '@utils';
-
-interface AuthState {
-    user: User | null;
-    token: string | null;
-    isAuthenticated: boolean;
-}
 
 const loadUserFromStorage = (): User | null => {
     try {

@@ -1,15 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { MenuItem } from '@type';
-
-export interface CartItem extends MenuItem {
-    cartQuantity: number;
-}
-
-interface CartState {
-    items: CartItem[];
-    totalQuantity: number;
-    totalAmount: number;
-}
+import { CartState } from '@type/cart.types';
 
 const loadState = (): CartState => {
     const serializedState = localStorage.getItem('cartState');

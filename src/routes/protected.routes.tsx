@@ -3,15 +3,13 @@ import type { RouteObject } from 'react-router-dom';
 import { ROUTES } from '@constant';
 import AppLayout from '@layouts/App.layout';
 import { AnalyticsPage } from '@pages/Analytics.page';
+import { MenuManagerPage } from '@pages/MenuManager.page';
 import { MyOrdersPage } from '@pages/MyOrders.page';
+import { MyRestaurantsPage } from '@pages/MyRestaurants.pages';
 import { OrderDetailsPage } from '@pages/OrderDetails.page';
 import { ProfilePage } from '@pages/Profile.page';
 
 import ProtectedRoute from './guards/routes.guard';
-import {
-    MenuManagerPage,
-    MyRestaurantsPage,
-} from '../pages/MyRestaurantsPages';
 
 /**
  * Defines the application's protected routes.

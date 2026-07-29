@@ -11,6 +11,9 @@
             "@constant": ["constant/index"],
             "@constant/*": ["constant/*"],
 
+            "@containers": ["containers/index", "containers"],
+            "@containers/*": ["containers/*"],
+
             "@layouts": ["layouts/index", "layouts"],
             "@layouts/*": ["layouts/*"],
 
@@ -33,6 +36,7 @@
 
             "@utils": ["utils/index", "utils"],
             "@utils/*": ["utils/*"],
+
             "@validations": ["validations/index"],
             "@validations/*": ["validations/*"]
         }
