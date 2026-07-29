@@ -1,4 +1,14 @@
 import {
+    Bar,
+    BarChart,
+    CartesianGrid,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis,
+} from 'recharts';
+
+import {
     Box,
     Card,
     CardContent,
@@ -9,7 +19,6 @@ import {
     Typography,
     useTheme,
 } from '@mui/material';
-import { BarChart } from '@mui/x-charts/BarChart';
 
 import { EmptyState } from '@components';
 import { FONT_WEIGHT } from '@constant';
@@ -71,48 +80,57 @@ export const AnalyticsChart = ({
                     </Box>
                 ) : (
                     <Box height={350} width='100%'>
-                        <BarChart
-                            dataset={data}
-                            xAxis={[
-                                {
-                                    scaleType: 'band',
-                                    dataKey: 'label',
-                                    categoryGapRatio: 0.5,
-                                    barGapRatio: 0.1,
-                                },
-                            ]}
-                            series={[
-                                {
-                                    dataKey: 'value',
-                                    color: theme.palette.primary.main,
-                                },
-                            ]}
-                            grid={{ horizontal: true }}
-                            margin={{
-                                top: 10,
-                                right: 10,
-                                left: 40,
-                                bottom: 25,
-                            }}
-                            sx={{
-                                '& .MuiChartsAxis-line': {
-                                    stroke: 'transparent',
-                                },
-                                '& .MuiChartsAxis-tick': {
-                                    stroke: 'transparent',
-                                },
-
-                                '& .MuiChartsAxis-tickLabel': {
-                                    fill: theme.palette.text.secondary,
-                                    fontSize: 12,
-                                },
-
-                                '& .MuiChartsGrid-line': {
-                                    strokeDasharray: '3 3',
-                                    stroke: theme.palette.divider,
-                                },
-                            }}
-                        />
+                        <ResponsiveContainer width='100%' height='100%'>
+                            <BarChart
+                                data={data}
+                                margin={{
+                                    top: 10,
+                                    right: 10,
+                                    left: -20,
+                                    bottom: 5,
+                                }}
+                            >
+                                <CartesianGrid
+                                    strokeDasharray='3 3'
+                                    vertical={false}
+                                    stroke={theme.palette.divider}
+                                />
+                                <XAxis
+                                    dataKey='label'
+                                    axisLine={false}
+                                    tickLine={false}
+                                    tick={{
+                                        fill: theme.palette.text.secondary,
+                                        fontSize: 12,
+                                    }}
+                                />
+                                <YAxis
+                                    axisLine={false}
+                                    tickLine={false}
+                                    tick={{
+                                        fill: theme.palette.text.secondary,
+                                        fontSize: 12,
+                                    }}
+                                />
+                                <Tooltip
+                                    cursor={{
+                                        fill: theme.palette.action.hover,
+                                    }}
+                                    contentStyle={{
+                                        backgroundColor:
+                                            theme.palette.background.paper,
+                                        border: `1px solid ${theme.palette.divider}`,
+                                        borderRadius: '8px',
+                                    }}
+                                />
+                                <Bar
+                                    dataKey='value'
+                                    fill={theme.palette.primary.main}
+                                    barSize={50}
+                                    radius={[4, 4, 0, 0]}
+                                />
+                            </BarChart>
+                        </ResponsiveContainer>
                     </Box>
                 )}
             </CardContent>
