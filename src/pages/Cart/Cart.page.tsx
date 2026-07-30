@@ -4,7 +4,7 @@ import { CartContainer } from '@containers/Cart';
 
 export const CartPage = () => (
     <Stack>
-        <Typography variant='h4'>Your Cart</Typography>
+        <Typography variant='h3'>Your Cart</Typography>
 
         <CartContainer />
     </Stack>

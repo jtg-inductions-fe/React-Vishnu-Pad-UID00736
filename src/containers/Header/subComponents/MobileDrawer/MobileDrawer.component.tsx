@@ -1,9 +1,11 @@
-import { StyledNavLink } from 'containers/Header/Header.styles';
-
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 
 import { DRAWER_ITEMS } from './MobileDrawer.constants';
-import { activeLinkStyles, CustomDrawer } from './MobileDrawer.styles';
+import {
+    activeLinkStyles,
+    CustomDrawer,
+    StyledMobileNavLink,
+} from './MobileDrawer.styles';
 import { MobileDrawerProps } from './MobileDrawer.types';
 
 export const MobileDrawer = ({
@@ -23,7 +25,7 @@ export const MobileDrawer = ({
         <List sx={{ pt: 2 }}>
             {DRAWER_ITEMS.map(({ label, path, icon: IconComponent }) => (
                 <ListItem disablePadding key={path}>
-                    <StyledNavLink
+                    <StyledMobileNavLink
                         to={path}
                         onClick={handleNavigate(path)}
                         sx={[
@@ -41,7 +43,7 @@ export const MobileDrawer = ({
                             <IconComponent />
                         </ListItemIcon>
                         <ListItemText primary={label} />
-                    </StyledNavLink>
+                    </StyledMobileNavLink>
                 </ListItem>
             ))}
         </List>

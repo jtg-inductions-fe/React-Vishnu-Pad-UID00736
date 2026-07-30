@@ -14,6 +14,7 @@ import {
     Card,
     CardContent,
     Chip,
+    Grid2,
     IconButton,
     Skeleton,
     Stack,
@@ -154,15 +155,16 @@ export const MenuManagerContainer = () => {
             </Stack>
 
             {isLoading ? (
-                <Box
-                    display='grid'
-                    gridTemplateColumns='repeat(auto-fill, minmax(280px, 1fr))'
-                    gap={4}
-                >
+                <Grid2 container spacing={4}>
                     {Array.from({ length: 6 }).map((_, index) => (
-                        <Skeleton key={index} variant='rounded' height={160} />
+                        <Grid2
+                            key={index}
+                            size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
+                        >
+                            <Skeleton variant='rounded' height={160} />
+                        </Grid2>
                     ))}
-                </Box>
+                </Grid2>
             ) : menuData?.items.length === 0 ? (
                 <EmptyState
                     title='No Items Found'
@@ -171,128 +173,131 @@ export const MenuManagerContainer = () => {
                     onActionClick={handleOpenAdd}
                 />
             ) : (
-                <Box
-                    display='grid'
-                    gridTemplateColumns='repeat(auto-fill, minmax(280px, 1fr))'
-                    gap={4}
-                >
+                <Grid2 container spacing={4}>
                     {menuData?.items.map((item) => {
                         const inStock = item.quantity > 0;
 
                         return (
-                            <Card
+                            <Grid2
                                 key={item.id}
-                                sx={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    height: '100%',
-                                }}
+                                size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
                             >
-                                <CardContent
+                                <Card
                                     sx={{
                                         display: 'flex',
                                         flexDirection: 'column',
-                                        gap: 2,
-                                        flexGrow: 1,
-                                        p: 3,
+                                        height: '100%',
                                     }}
                                 >
-                                    <Stack
-                                        direction='row'
-                                        justifyContent='space-between'
-                                        alignItems='flex-start'
-                                        gap={2}
+                                    <CardContent
+                                        sx={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: 2,
+                                            flexGrow: 1,
+                                            p: 3,
+                                        }}
                                     >
-                                        <Stack gap={0.5} flex={1}>
-                                            <Typography
-                                                variant='subtitle1'
-                                                fontWeight={700}
-                                                noWrap
-                                            >
-                                                {item.name}
-                                            </Typography>
-                                            <Typography
-                                                variant='body2'
-                                                color='text.secondary'
-                                                noWrap
-                                            >
-                                                {item.category}
-                                            </Typography>
+                                        <Stack
+                                            direction='row'
+                                            justifyContent='space-between'
+                                            alignItems='flex-start'
+                                            gap={2}
+                                        >
+                                            <Stack gap={0.5} flex={1}>
+                                                <Typography
+                                                    variant='subtitle1'
+                                                    fontWeight={700}
+                                                    noWrap
+                                                >
+                                                    {item.name}
+                                                </Typography>
+
+                                                <Typography
+                                                    variant='body2'
+                                                    color='text.secondary'
+                                                    noWrap
+                                                >
+                                                    {item.category}
+                                                </Typography>
+                                            </Stack>
+
+                                            <Chip
+                                                label={
+                                                    inStock
+                                                        ? 'In Stock'
+                                                        : 'Out of Stock'
+                                                }
+                                                size='small'
+                                                color={
+                                                    inStock
+                                                        ? 'success'
+                                                        : 'default'
+                                                }
+                                                sx={{ fontWeight: 'bold' }}
+                                            />
                                         </Stack>
 
-                                        <Chip
-                                            label={
-                                                inStock
-                                                    ? 'In Stock'
-                                                    : 'Out of Stock'
-                                            }
-                                            size='small'
-                                            color={
-                                                inStock ? 'success' : 'default'
-                                            }
-                                            sx={{ fontWeight: 'bold' }}
-                                        />
-                                    </Stack>
-
-                                    <Typography
-                                        variant='h6'
-                                        color='primary.main'
-                                        fontWeight={700}
-                                    >
-                                        ₹{item.price}
-                                    </Typography>
-
-                                    <Box flexGrow={1} />
-
-                                    <Stack
-                                        direction='row'
-                                        justifyContent='space-between'
-                                        alignItems='center'
-                                        pt={1}
-                                    >
-                                        <Typography variant='caption'>
-                                            Qty: {item.quantity}
+                                        <Typography
+                                            variant='h6'
+                                            color='primary.main'
+                                            fontWeight={700}
+                                        >
+                                            ₹{item.price}
                                         </Typography>
 
-                                        <Stack direction='row' gap={1}>
-                                            <Tooltip
-                                                title='Edit'
-                                                arrow
-                                                placement='top'
-                                            >
-                                                <IconButton
-                                                    size='small'
-                                                    color='primary'
-                                                    onClick={handleOpenEdit(
-                                                        item,
-                                                    )}
-                                                >
-                                                    <EditRounded fontSize='small' />
-                                                </IconButton>
-                                            </Tooltip>
+                                        <Box flexGrow={1} />
 
-                                            <Tooltip
-                                                title='Delete'
-                                                arrow
-                                                placement='top'
-                                            >
-                                                <IconButton
-                                                    size='small'
-                                                    color='error'
-                                                    onClick={handleDeleteClick(
-                                                        item.id,
-                                                    )}
+                                        <Stack
+                                            direction='row'
+                                            justifyContent='space-between'
+                                            alignItems='center'
+                                            pt={1}
+                                        >
+                                            <Typography variant='caption'>
+                                                Qty: {item.quantity}
+                                            </Typography>
+
+                                            <Stack direction='row' gap={1}>
+                                                <Tooltip
+                                                    title='Edit'
+                                                    arrow
+                                                    placement='top'
                                                 >
-                                                    <DeleteOutlineRounded fontSize='small' />
-                                                </IconButton>
-                                            </Tooltip>
+                                                    <IconButton
+                                                        size='small'
+                                                        color='primary'
+                                                        onClick={handleOpenEdit(
+                                                            item,
+                                                        )}
+                                                    >
+                                                        <EditRounded fontSize='small' />
+                                                    </IconButton>
+                                                </Tooltip>
+
+                                                <Tooltip
+                                                    title='Delete'
+                                                    arrow
+                                                    placement='top'
+                                                >
+                                                    <IconButton
+                                                        size='small'
+                                                        color='error'
+                                                        onClick={handleDeleteClick(
+                                                            item.id,
+                                                        )}
+                                                    >
+                                                        <DeleteOutlineRounded fontSize='small' />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </Stack>
                                         </Stack>
-                                    </Stack>
-                                </CardContent>
-                            </Card>
+                                    </CardContent>
+                                </Card>
+                            </Grid2>
                         );
                     })}
-                </Box>
+                </Grid2>
             )}
 
             <MenuItemForm

@@ -1,4 +1,3 @@
-// src/routes/GuestRoute.tsx
 import { useAuth } from 'hooks/useAuth.hook';
 import { Navigate, Outlet } from 'react-router-dom';
 

@@ -8,6 +8,7 @@ import {
     Card,
     CircularProgress,
     Divider,
+    Grid2,
     Stack,
     Typography,
 } from '@mui/material';
@@ -104,7 +105,7 @@ export const OrderDetailsContainer = ({
     const totalAmount = parseFloat(order.total_amount);
 
     return (
-        <Box>
+        <>
             <Box mb={2}>
                 <Typography variant='h4'>Order #{order.id}</Typography>
                 <Typography variant='body2'>
@@ -121,16 +122,12 @@ export const OrderDetailsContainer = ({
                 </Typography>
             </Card>
 
-            <Stack
-                direction={{ md: 'row' }}
-                gap={4}
-                alignItems='flex-start'
-                width='100%'
-            >
-                <Box width={{ xs: '100%', md: '60%' }}>
+            <Grid2 container spacing={4} alignItems='flex-start'>
+                <Grid2 size={{ xs: 12, md: 7 }}>
                     <Typography variant='h6' mb={2}>
                         Items Ordered
                     </Typography>
+
                     <Stack divider={<Divider flexItem />}>
                         {order.items.map((item) => (
                             <ItemListRow
@@ -144,21 +141,16 @@ export const OrderDetailsContainer = ({
                             />
                         ))}
                     </Stack>
-                </Box>
+                </Grid2>
 
-                <Box
-                    width={{ xs: '100%', md: '40%' }}
-                    sx={{
-                        width: { xs: '100%', md: 'calc(40% - 32px)' },
-                    }}
-                >
+                <Grid2 size={{ xs: 12, md: 5 }}>
                     <BillSummary
                         totalAmount={totalAmount}
                         totalQuantity={totalQuantity}
                         isLoggedIn={false}
                     />
-                </Box>
-            </Stack>
+                </Grid2>
+            </Grid2>
 
             <ItemDetailsPopup
                 open={!!selectedItem}
@@ -166,6 +158,6 @@ export const OrderDetailsContainer = ({
                 item={selectedItem}
                 restaurantName={order.restaurant_name}
             />
-        </Box>
+        </>
     );
 };

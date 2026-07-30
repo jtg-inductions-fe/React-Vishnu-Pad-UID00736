@@ -6,10 +6,10 @@ import {
     StorefrontRounded,
 } from '@mui/icons-material';
 import {
-    Box,
     Button,
     Card,
     CardContent,
+    Grid2,
     Skeleton,
     Stack,
     Typography,
@@ -53,15 +53,13 @@ export const MyRestaurantsContainer = () => {
 
     if (isLoading) {
         return (
-            <Box
-                display='grid'
-                gridTemplateColumns='repeat(auto-fill, minmax(320px, 1fr))'
-                gap={4}
-            >
+            <Grid2 container spacing={4}>
                 {Array.from({ length: 3 }).map((_, index) => (
-                    <Skeleton key={index} variant='rounded' height={180} />
+                    <Grid2 key={index} size={{ xs: 12, sm: 6, lg: 4 }}>
+                        <Skeleton variant='rounded' height={180} />
+                    </Grid2>
                 ))}
-            </Box>
+            </Grid2>
         );
     }
 
@@ -77,78 +75,82 @@ export const MyRestaurantsContainer = () => {
     }
 
     return (
-        <Box
-            display='grid'
-            gridTemplateColumns='repeat(auto-fill, minmax(320px, 1fr))'
-            gap={4}
-        >
+        <Grid2 container spacing={4}>
             {restaurants.map((restaurant) => (
-                <Card
-                    key={restaurant.id}
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        height: '100%',
-                    }}
-                >
-                    <CardContent
+                <Grid2 key={restaurant.id} size={{ xs: 12, sm: 6, lg: 4 }}>
+                    <Card
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
-                            gap: 3,
-                            flexGrow: 1,
-                            p: 3,
-                            justifyContent: 'space-between',
+                            height: '100%',
                         }}
                     >
-                        <Stack direction='row' gap={2} alignItems='flex-start'>
+                        <CardContent
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: 3,
+                                flexGrow: 1,
+                                p: 3,
+                                justifyContent: 'space-between',
+                            }}
+                        >
                             <Stack
-                                p={1.5}
-                                borderRadius={2}
-                                bgcolor='primary.main'
-                                color='primary.contrastText'
-                                alignItems='center'
-                                justifyContent='center'
+                                direction='row'
+                                gap={2}
+                                alignItems='flex-start'
                             >
-                                <StorefrontRounded fontSize='medium' />
-                            </Stack>
-
-                            <Stack flex={1} gap={0.5}>
-                                <Typography variant='h5' noWrap>
-                                    {restaurant.name}
-                                </Typography>
-                                <Typography
-                                    variant='caption'
-                                    color='text.secondary'
+                                <Stack
+                                    p={1.5}
+                                    borderRadius={2}
+                                    bgcolor='primary.main'
+                                    color='primary.contrastText'
+                                    alignItems='center'
+                                    justifyContent='center'
                                 >
-                                    Added on {formatDate(restaurant.created_at)}
-                                </Typography>
-                            </Stack>
-                        </Stack>
+                                    <StorefrontRounded fontSize='medium' />
+                                </Stack>
 
-                        <Stack direction={{ sm: 'row' }} gap={2}>
-                            <Button
-                                variant='contained'
-                                color='primary'
-                                fullWidth
-                                startIcon={<RestaurantMenuRounded />}
-                                onClick={handleMenuClick(restaurant.id)}
-                            >
-                                Menu
-                            </Button>
-                            <Button
-                                variant='outlined'
-                                color='primary'
-                                fullWidth
-                                startIcon={<AnalyticsRounded />}
-                                onClick={handleAnalyticsClick(restaurant.id)}
-                            >
-                                Analytics
-                            </Button>
-                        </Stack>
-                    </CardContent>
-                </Card>
+                                <Stack flex={1} gap={0.5}>
+                                    <Typography variant='h5' noWrap>
+                                        {restaurant.name}
+                                    </Typography>
+
+                                    <Typography
+                                        variant='caption'
+                                        color='text.secondary'
+                                    >
+                                        Added on{' '}
+                                        {formatDate(restaurant.created_at)}
+                                    </Typography>
+                                </Stack>
+                            </Stack>
+
+                            <Stack direction={{ sm: 'row' }} gap={2}>
+                                <Button
+                                    variant='contained'
+                                    fullWidth
+                                    startIcon={<RestaurantMenuRounded />}
+                                    onClick={handleMenuClick(restaurant.id)}
+                                >
+                                    Menu
+                                </Button>
+
+                                <Button
+                                    variant='outlined'
+                                    fullWidth
+                                    startIcon={<AnalyticsRounded />}
+                                    onClick={handleAnalyticsClick(
+                                        restaurant.id,
+                                    )}
+                                >
+                                    Analytics
+                                </Button>
+                            </Stack>
+                        </CardContent>
+                    </Card>
+                </Grid2>
             ))}
-        </Box>
+        </Grid2>
     );
 };

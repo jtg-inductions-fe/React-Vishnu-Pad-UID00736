@@ -38,7 +38,6 @@ export const ProfileContainer = () => {
     const { useUpdateUserProfileMutation, useDeleteUserProfileMutation } =
         userApi;
 
-    // 1. Teeno Actions ke liye Alag-Alag Mutation Hooks / Instances
     const [updateProfile, { isLoading: isUpdatingProfile }] =
         useUpdateUserProfileMutation();
     const [updateWallet, { isLoading: isUpdatingWallet }] =
@@ -46,7 +45,6 @@ export const ProfileContainer = () => {
     const [deleteProfile, { isLoading: isDeletingAccount }] =
         useDeleteUserProfileMutation();
 
-    // 2. Ek common flag jo check karega ki koi bhi background action chal raha hai ya nahi
     const isAnyActionInProgress =
         isUpdatingProfile || isUpdatingWallet || isDeletingAccount;
 

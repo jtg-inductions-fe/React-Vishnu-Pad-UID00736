@@ -4,7 +4,7 @@ import { MyOrdersContainer } from '@containers';
 
 export const MyOrdersPage = () => (
     <Stack gap={4}>
-        <Typography variant='h4' mb={3}>
+        <Typography variant='h3' mb={3}>
             My Orders
         </Typography>
 
