@@ -32,7 +32,7 @@ export const EmptyState = ({
             {title}
         </Typography>
 
-        <Typography variant='body1' color='text.secondary' maxWidth={400}>
+        <Typography variant='body1' color='text.secondary' maxWidth={300}>
             {description}
         </Typography>
 
