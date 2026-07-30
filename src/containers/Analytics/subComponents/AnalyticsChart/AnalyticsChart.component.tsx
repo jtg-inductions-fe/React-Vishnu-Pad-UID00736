@@ -21,7 +21,6 @@ import {
 } from '@mui/material';
 
 import { EmptyState } from '@components';
-import { FONT_WEIGHT } from '@constant';
 
 import { AnalyticsChartProps } from './AnalyticsChart.types';
 
@@ -43,9 +42,7 @@ export const AnalyticsChart = ({
                     gap={2}
                     mb={4}
                 >
-                    <Typography variant='h6' fontWeight={FONT_WEIGHT.BOLD}>
-                        Performance Overview
-                    </Typography>
+                    <Typography variant='h6'>Performance Overview</Typography>
                     <ToggleButtonGroup
                         color='primary'
                         value={activeTab}

@@ -11,7 +11,6 @@ import {
 } from '@mui/material';
 
 import { EmptyState } from '@components';
-import { FONT_WEIGHT } from '@constant';
 
 import { AnalyticsTableProps } from './AnalyticsTable.types';
 
@@ -35,9 +34,7 @@ export const AnalyticsTable = <T,>({
                     alignItems='center'
                     mb={3}
                 >
-                    <Typography variant='h6' fontWeight={FONT_WEIGHT.BOLD}>
-                        {title}
-                    </Typography>
+                    <Typography variant='h6'>{title}</Typography>
 
                     <Button
                         variant='text'

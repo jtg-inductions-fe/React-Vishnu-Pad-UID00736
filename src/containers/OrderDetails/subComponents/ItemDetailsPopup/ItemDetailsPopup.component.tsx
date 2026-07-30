@@ -55,9 +55,7 @@ export const ItemDetailsPopup = ({
                     alignItems: 'center',
                 }}
             >
-                <Typography variant='h6' fontWeight={FONT_WEIGHT.BOLD}>
-                    Item Details
-                </Typography>
+                <Typography variant='h6'>Item Details</Typography>
                 <IconButton
                     aria-label='close'
                     onClick={onClose}

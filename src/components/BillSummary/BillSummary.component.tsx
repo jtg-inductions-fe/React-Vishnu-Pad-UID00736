@@ -39,7 +39,7 @@ export const BillSummary = ({
             borderRadius={2}
             bgcolor='background.paper'
         >
-            <Typography variant='h6' fontWeight={FONT_WEIGHT.BOLD} mb={3}>
+            <Typography variant='h6' mb={3}>
                 Bill Summary
             </Typography>
 
@@ -62,10 +62,8 @@ export const BillSummary = ({
                 </Stack>
                 <Divider />
                 <Stack direction='row' justifyContent='space-between'>
-                    <Typography variant='h6' fontWeight={FONT_WEIGHT.BOLD}>
-                        Grand Total
-                    </Typography>
-                    <Typography variant='h6' fontWeight={FONT_WEIGHT.BOLD}>
+                    <Typography variant='h6'>Grand Total</Typography>
+                    <Typography variant='h6'>
                         ₹{totalAmount.toFixed(2)}
                     </Typography>
                 </Stack>

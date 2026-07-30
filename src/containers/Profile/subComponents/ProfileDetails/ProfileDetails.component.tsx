@@ -40,9 +40,7 @@ export const ProfileDetails = ({
             alignItems='center'
             mb={4}
         >
-            <Typography variant='h6' fontWeight={FONT_WEIGHT.BOLD}>
-                Profile Information
-            </Typography>
+            <Typography variant='h6'>Profile Information</Typography>
             {!isEditing && (
                 <Button
                     variant='outlined'
@@ -71,9 +69,7 @@ export const ProfileDetails = ({
                         {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
                     </Avatar>
                     <Box>
-                        <Typography variant='h5' fontWeight={FONT_WEIGHT.BOLD}>
-                            {user.name}
-                        </Typography>
+                        <Typography variant='h5'>{user.name}</Typography>
                         <Typography variant='body1' color='text.secondary'>
                             {user.email}
                         </Typography>

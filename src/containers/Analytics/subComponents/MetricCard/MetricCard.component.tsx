@@ -35,9 +35,7 @@ export const MetricCard = ({
                     {isLoading ? (
                         <Skeleton variant='text' width={80} height={40} />
                     ) : (
-                        <Typography variant='h4' fontWeight={FONT_WEIGHT.BOLD}>
-                            {value}
-                        </Typography>
+                        <Typography variant='h4'>{value}</Typography>
                     )}
                 </Stack>
                 {icon && (

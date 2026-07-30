@@ -2,8 +2,6 @@ import { Children, useEffect, useRef, useState } from 'react';
 
 import { Box, Button, Stack, Typography } from '@mui/material';
 
-import { FONT_WEIGHT } from '@constant';
-
 import { HorizontalSectionProps } from './HorizontalSection.types';
 import { ScrollButton } from './subComponent';
 
@@ -55,9 +53,7 @@ export const HorizontalSection = ({
                 alignItems='center'
                 gap={2}
             >
-                <Typography variant='h5' fontWeight={FONT_WEIGHT.BOLD}>
-                    {title}
-                </Typography>
+                <Typography variant='h5'>{title}</Typography>
 
                 {onViewAll && Children.count(children) > 0 && (
                     <Button variant='text' color='primary' onClick={onViewAll}>
