@@ -17,6 +17,7 @@ import {
 
 import { restaurantApi } from '@api/restaurant.api';
 import { EmptyState, ErrorState } from '@components';
+import { ROUTES } from '@constant';
 import { formatDate } from '@utils/common.utils';
 
 export const MyRestaurantsContainer = () => {
@@ -35,15 +36,15 @@ export const MyRestaurantsContainer = () => {
     };
 
     const handleRegisterClick = () => {
-        void navigate('/my-restaurants/new');
+        void navigate(`/${ROUTES.MY_RESTAURANTS}/new`);
     };
 
     const handleMenuClick = (restaurantId: number) => () => {
-        void navigate(`/my-restaurants/${restaurantId}/menu`);
+        void navigate(`/${ROUTES.MY_RESTAURANTS}/${restaurantId}/menu`);
     };
 
     const handleAnalyticsClick = (restaurantId: number) => () => {
-        void navigate(`/my-restaurants/${restaurantId}/analytics`);
+        void navigate(`/${ROUTES.MY_RESTAURANTS}/${restaurantId}/analytics`);
     };
 
     if (error) {
