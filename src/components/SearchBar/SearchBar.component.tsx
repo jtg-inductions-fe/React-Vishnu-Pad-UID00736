@@ -22,9 +22,7 @@ export const SearchBar = ({
     const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (searchValue.trim()) {
-            toast('Coming soon in future updates! ', {
-                icon: '👀',
-            });
+            toast('Coming soon in future updates! ');
             setSearchValue('');
         }
     };

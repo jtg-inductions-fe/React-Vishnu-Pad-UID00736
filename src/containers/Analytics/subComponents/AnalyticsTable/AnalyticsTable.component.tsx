@@ -1,5 +1,8 @@
+import toast from 'react-hot-toast';
+
 import {
     Box,
+    Button,
     Card,
     CardContent,
     Skeleton,
@@ -18,40 +21,69 @@ export const AnalyticsTable = <T,>({
     isLoading,
     emptyMessage,
     renderItem,
-}: AnalyticsTableProps<T>) => (
-    <Card variant='outlined' sx={{ height: '100%', borderRadius: 2 }}>
-        <CardContent>
-            <Typography variant='h6' fontWeight={FONT_WEIGHT.BOLD} mb={3}>
-                {title}
-            </Typography>
+}: AnalyticsTableProps<T>) => {
+    const handleViewAllClick = () => {
+        toast('coming soon');
+    };
 
-            {isLoading ? (
-                <Stack gap={2}>
-                    {Array.from({ length: 4 }).map((_, index) => (
-                        <Skeleton key={index} variant='rounded' height={70} />
-                    ))}
+    return (
+        <Card variant='outlined' sx={{ height: '100%', borderRadius: 2 }}>
+            <CardContent>
+                <Stack
+                    direction='row'
+                    justifyContent='space-between'
+                    alignItems='center'
+                    mb={3}
+                >
+                    <Typography variant='h6' fontWeight={FONT_WEIGHT.BOLD}>
+                        {title}
+                    </Typography>
+
+                    <Button
+                        variant='text'
+                        size='small'
+                        onClick={handleViewAllClick}
+                        sx={{ textTransform: 'none' }}
+                    >
+                        View All
+                    </Button>
                 </Stack>
-            ) : !data || data.length === 0 ? (
-                <Box py={4}>
-                    <EmptyState title='No Data' description={emptyMessage} />
-                </Box>
-            ) : (
-                <Stack gap={2}>
-                    {data.map((item, index) => (
-                        <Box
-                            key={index}
-                            sx={{
-                                p: 1.5,
-                                border: '1px solid',
-                                borderColor: 'divider',
-                                borderRadius: 1.5,
-                            }}
-                        >
-                            {renderItem(item, index)}
-                        </Box>
-                    ))}
-                </Stack>
-            )}
-        </CardContent>
-    </Card>
-);
+
+                {isLoading ? (
+                    <Stack gap={2}>
+                        {Array.from({ length: 4 }).map((_, index) => (
+                            <Skeleton
+                                key={index}
+                                variant='rounded'
+                                height={70}
+                            />
+                        ))}
+                    </Stack>
+                ) : !data || data.length === 0 ? (
+                    <Box py={4}>
+                        <EmptyState
+                            title='No Data'
+                            description={emptyMessage}
+                        />
+                    </Box>
+                ) : (
+                    <Stack gap={2}>
+                        {data.map((item, index) => (
+                            <Box
+                                key={index}
+                                sx={{
+                                    p: 1.5,
+                                    border: '1px solid',
+                                    borderColor: 'divider',
+                                    borderRadius: 1.5,
+                                }}
+                            >
+                                {renderItem(item, index)}
+                            </Box>
+                        ))}
+                    </Stack>
+                )}
+            </CardContent>
+        </Card>
+    );
+};
