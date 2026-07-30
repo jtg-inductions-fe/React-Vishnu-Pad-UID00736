@@ -2,20 +2,21 @@ import React from 'react';
 
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { registerRules } from 'validations/auth.validation';
 
-import { Button, Link, Stack, TextField, Typography } from '@mui/material';
+import { Button, Stack, TextField, Typography, useTheme } from '@mui/material';
 
 import { authApi } from '@api/auth.api';
 import { PasswordInput } from '@components';
 import { ROUTES } from '@constant/routes.constants';
 import { AuthLayout } from '@layouts/Auth.layout';
 import { RegisterFormData } from '@type';
-import { getErrorMessage } from '@utils';
+import { getErrorMessage } from '@utils/errorHandler.util';
 
 export const RegisterContainer = () => {
     const navigate = useNavigate();
+    const theme = useTheme();
     const { useRegisterMutation } = authApi;
 
     const [registerUser, { isLoading }] = useRegisterMutation();
@@ -122,10 +123,18 @@ export const RegisterContainer = () => {
             <Typography variant='body2' align='center' mt={6}>
                 Already have an account?{' '}
                 <Link
-                    component={RouterLink}
                     to={ROUTES.LOGIN}
-                    variant='subtitle2'
-                    underline='hover'
+                    style={{
+                        ...theme.typography.subtitle2,
+                        color: theme.palette.primary.main,
+                        textDecoration: 'none',
+                    }}
+                    onMouseEnter={(e) =>
+                        (e.currentTarget.style.textDecoration = 'underline')
+                    }
+                    onMouseLeave={(e) =>
+                        (e.currentTarget.style.textDecoration = 'none')
+                    }
                 >
                     Login here
                 </Link>

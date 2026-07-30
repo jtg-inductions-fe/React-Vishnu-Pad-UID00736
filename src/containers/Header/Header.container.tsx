@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useAuth, useLogout } from 'hooks';
+import { useAuth } from 'hooks';
 import { useNavigate } from 'react-router-dom';
 
 import { Menu, ShoppingCart } from '@mui/icons-material';
@@ -37,8 +37,7 @@ export const Header = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-    const { user, isAuthenticated, isOwner } = useAuth();
-    const executeLogout = useLogout();
+    const { user, isAuthenticated, isOwner, logout } = useAuth();
     const cartItemCount = useAppSelector((state) => state.cart.totalQuantity);
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -61,7 +60,7 @@ export const Header = () => {
     };
 
     const handleLogoutClick = () => {
-        void executeLogout();
+        void logout();
         handleMenuClose();
     };
 

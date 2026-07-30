@@ -9,10 +9,11 @@ import { MenuPage } from '@pages/Menu';
 import { RegisterPage } from '@pages/Register';
 import { RestaurantsPage } from '@pages/Restaurant';
 
+import GuestRoute from './guards/routes.guest';
+
 /**
  * Defines the application's public routes.
  */
-
 export const publicRoutes: RouteObject[] = [
     {
         element: <AppLayout />,
@@ -33,13 +34,19 @@ export const publicRoutes: RouteObject[] = [
                 path: ROUTES.MY_CART,
                 element: <CartPage />,
             },
+
             {
-                path: ROUTES.LOGIN,
-                element: <LoginPage />,
-            },
-            {
-                path: ROUTES.REGISTER,
-                element: <RegisterPage />,
+                element: <GuestRoute />,
+                children: [
+                    {
+                        path: ROUTES.LOGIN,
+                        element: <LoginPage />,
+                    },
+                    {
+                        path: ROUTES.REGISTER,
+                        element: <RegisterPage />,
+                    },
+                ],
             },
         ],
     },

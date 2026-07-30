@@ -24,7 +24,7 @@ import {
 import { menuApi } from '@api/menu.api';
 import { ConfirmDialog, EmptyState, ErrorState } from '@components';
 import { MenuItem } from '@type';
-import { getErrorMessage } from '@utils';
+import { getErrorMessage } from '@utils/errorHandler.util';
 import { MenuItemFormData } from '@validations/menuItem.validation';
 
 import { MenuItemForm } from './subComponents';

@@ -4,7 +4,7 @@ import { API_URLS } from '@constant/api.constants';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { logout, setCredentials } from '@store/slices';
 import { User } from '@type';
-import { getErrorMessage } from '@utils';
+import { getErrorMessage } from '@utils/errorHandler.util';
 
 import { baseApi } from './base.api';
 

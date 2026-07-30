@@ -2,14 +2,14 @@ import { Stack, Tooltip, Typography } from '@mui/material';
 
 import { FONT_WEIGHT } from '@constant';
 
-import { AnalyticsRowItemProps } from './AnalyticsRowItem.types';
+import { AnalyticsTableItemProps } from './AnalyticsTableItem.types';
 
-export const AnalyticsRowItem = ({
+export const AnalyticsTableItem = ({
     title,
     subtitle,
     value,
     tooltip,
-}: AnalyticsRowItemProps) => {
+}: AnalyticsTableItemProps) => {
     const valueElement = (
         <Typography
             variant='subtitle2'

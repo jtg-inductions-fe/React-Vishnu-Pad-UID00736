@@ -2,7 +2,7 @@ import toast from 'react-hot-toast';
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthState, User } from '@type';
-import { getErrorMessage } from '@utils';
+import { getErrorMessage } from '@utils/errorHandler.util';
 
 const loadUserFromStorage = (): User | null => {
     try {

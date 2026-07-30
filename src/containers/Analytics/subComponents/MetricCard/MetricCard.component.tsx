@@ -28,7 +28,7 @@ export const MetricCard = ({
                     <Typography
                         variant='subtitle2'
                         color='text.secondary'
-                        fontWeight={FONT_WEIGHT.BOLD}
+                        fontWeight={FONT_WEIGHT.LIGHT}
                     >
                         {title.toUpperCase()}
                     </Typography>

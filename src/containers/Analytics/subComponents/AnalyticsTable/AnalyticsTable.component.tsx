@@ -10,15 +10,15 @@ import {
 import { EmptyState } from '@components';
 import { FONT_WEIGHT } from '@constant';
 
-import { AnalyticsListColumnProps } from './AnalyticsListColumn.types';
+import { AnalyticsTableProps } from './AnalyticsTable.types';
 
-export const AnalyticsListColumn = <T,>({
+export const AnalyticsTable = <T,>({
     title,
     data,
     isLoading,
     emptyMessage,
     renderItem,
-}: AnalyticsListColumnProps<T>) => (
+}: AnalyticsTableProps<T>) => (
     <Card variant='outlined' sx={{ height: '100%', borderRadius: 2 }}>
         <CardContent>
             <Typography variant='h6' fontWeight={FONT_WEIGHT.BOLD} mb={3}>

@@ -15,7 +15,7 @@ import {
 import { orderApi } from '@api/order.api';
 import { EmptyState, ErrorState } from '@components';
 import { ROUTES } from '@constant';
-import { formatDateTime } from '@utils';
+import { formatDateTime } from '@utils/common.utils';
 
 export const MyOrdersContainer = () => {
     const navigate = useNavigate();

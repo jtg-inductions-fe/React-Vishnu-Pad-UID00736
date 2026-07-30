@@ -9,6 +9,7 @@ export interface ProfileDetailsProps {
     isUpdating: boolean;
     register: UseFormRegister<ProfileFormData>;
     errors: FieldErrors<ProfileFormData>;
+    isDisabled?: boolean;
     onEnableEdit: () => void;
     onCancelEdit: () => void;
     onSubmitForm: React.FormEventHandler<HTMLFormElement>;

@@ -2,10 +2,10 @@ import React from 'react';
 
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginRules } from 'validations/auth.validation';
 
-import { Button, Link, Stack, TextField, Typography } from '@mui/material';
+import { Button, Stack, TextField, Typography, useTheme } from '@mui/material';
 
 import { authApi } from '@api/auth.api';
 import { PasswordInput } from '@components';
@@ -14,11 +14,12 @@ import { AuthLayout } from '@layouts/Auth.layout';
 import { useAppDispatch } from '@store/hooks';
 import { setCredentials } from '@store/slices';
 import { LoginFormData } from '@type';
-import { getErrorMessage } from '@utils';
+import { getErrorMessage } from '@utils/errorHandler.util';
 
 export const LoginContainer = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const theme = useTheme();
 
     const { useLoginMutation } = authApi;
     const [loginUser, { isLoading }] = useLoginMutation();
@@ -98,10 +99,18 @@ export const LoginContainer = () => {
             <Typography variant='body2' align='center' mt={6}>
                 Don&apos;t have an account?{' '}
                 <Link
-                    component={RouterLink}
                     to={ROUTES.REGISTER}
-                    variant='subtitle2'
-                    underline='hover'
+                    style={{
+                        ...theme.typography.subtitle2,
+                        color: theme.palette.primary.main,
+                        textDecoration: 'none',
+                    }}
+                    onMouseEnter={(e) =>
+                        (e.currentTarget.style.textDecoration = 'underline')
+                    }
+                    onMouseLeave={(e) =>
+                        (e.currentTarget.style.textDecoration = 'none')
+                    }
                 >
                     Register here
                 </Link>

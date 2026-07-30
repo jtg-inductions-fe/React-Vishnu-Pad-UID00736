@@ -4,7 +4,7 @@ import { FONT_WEIGHT } from '@constant';
 import { AnalyticsContainer } from '@containers';
 
 export const AnalyticsPage = () => (
-    <Stack gap={4} px={{ xs: 2, md: 4 }} py={4}>
+    <Stack>
         <Stack gap={0.5}>
             <Typography variant='h4' fontWeight={FONT_WEIGHT.BOLD}>
                 Analytics Dashboard

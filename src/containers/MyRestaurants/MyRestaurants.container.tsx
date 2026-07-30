@@ -17,7 +17,7 @@ import {
 
 import { restaurantApi } from '@api/restaurant.api';
 import { EmptyState, ErrorState } from '@components';
-import { formatDate } from '@utils';
+import { formatDate } from '@utils/common.utils';
 
 export const MyRestaurantsContainer = () => {
     const navigate = useNavigate();

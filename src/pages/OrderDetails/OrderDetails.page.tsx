@@ -8,7 +8,7 @@ export const OrderDetailsPage = () => {
     const { orderId } = useParams<{ orderId: string }>();
 
     return (
-        <Box sx={{ py: 4, px: { xs: 2, md: 4 }, maxWidth: 'xl', mx: 'auto' }}>
+        <Box>
             <OrderDetailsContainer orderId={Number(orderId)} />
         </Box>
     );

@@ -12,4 +12,4 @@ export { MyOrdersContainer } from './MyOrders';
 export { OrderDetailsContainer } from './OrderDetails';
 export { MyRestaurantsContainer } from './MyRestaurants';
 export { AnalyticsContainer } from './Analytics';
-export { MenuManagerContainer } from './MenuManagerPage';
+export { MenuManagerContainer } from './MenuManager';

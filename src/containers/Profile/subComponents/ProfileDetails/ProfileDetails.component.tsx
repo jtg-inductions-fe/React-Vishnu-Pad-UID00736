@@ -21,6 +21,7 @@ export const ProfileDetails = ({
     isEditing,
     isUpdating,
     register,
+    isDisabled,
     errors,
     onEnableEdit,
     onCancelEdit,
@@ -126,7 +127,7 @@ export const ProfileDetails = ({
                         color='inherit'
                         size='large'
                         onClick={onCancelEdit}
-                        disabled={isUpdating}
+                        disabled={isDisabled || isUpdating}
                     >
                         Cancel
                     </Button>
@@ -135,7 +136,7 @@ export const ProfileDetails = ({
                         variant='contained'
                         color='primary'
                         size='large'
-                        disabled={isUpdating}
+                        disabled={isDisabled || isUpdating}
                         disableElevation
                     >
                         {isUpdating ? 'Saving...' : 'Save Changes'}

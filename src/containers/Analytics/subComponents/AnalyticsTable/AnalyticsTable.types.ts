@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export interface AnalyticsListColumnProps<T> {
+export interface AnalyticsTableProps<T> {
     title: string;
     data?: T[];
     isLoading?: boolean;

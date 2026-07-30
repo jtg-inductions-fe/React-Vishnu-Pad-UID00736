@@ -16,7 +16,7 @@ import { orderApi } from '@api/order.api';
 import { FoodPlaceholder } from '@assets/images';
 import { BillSummary, EmptyState, ErrorState, ItemListRow } from '@components';
 import { OrderItemDetailResponse } from '@type/order.types';
-import { formatDateTime } from '@utils';
+import { formatDateTime } from '@utils/common.utils';
 
 import { OrderDetailsContainerProps } from './OrderDetails.types';
 import { ItemDetailsPopup } from './subComponents';

@@ -1,6 +1,6 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
-import { ApiErrorResponse } from './errorHandler.types';
+import { ApiErrorResponse } from '../types/errorHandler.types';
 
 export const getErrorMessage = (err: unknown): string => {
     if (err && typeof err === 'object' && 'status' in err) {

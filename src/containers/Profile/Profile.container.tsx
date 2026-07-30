@@ -18,7 +18,7 @@ import { ConfirmDialog } from '@components';
 import { FONT_WEIGHT, ROUTES } from '@constant';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { logout, updateUser } from '@store/slices';
-import { getErrorMessage } from '@utils';
+import { getErrorMessage } from '@utils/errorHandler.util';
 import {
     ProfileFormData,
     WALLET_VALIDATION_RULES,
@@ -38,10 +38,17 @@ export const ProfileContainer = () => {
     const { useUpdateUserProfileMutation, useDeleteUserProfileMutation } =
         userApi;
 
+    // 1. Teeno Actions ke liye Alag-Alag Mutation Hooks / Instances
     const [updateProfile, { isLoading: isUpdatingProfile }] =
+        useUpdateUserProfileMutation();
+    const [updateWallet, { isLoading: isUpdatingWallet }] =
         useUpdateUserProfileMutation();
     const [deleteProfile, { isLoading: isDeletingAccount }] =
         useDeleteUserProfileMutation();
+
+    // 2. Ek common flag jo check karega ki koi bhi background action chal raha hai ya nahi
+    const isAnyActionInProgress =
+        isUpdatingProfile || isUpdatingWallet || isDeletingAccount;
 
     const {
         register: registerProfile,
@@ -109,7 +116,7 @@ export const ProfileContainer = () => {
         const amountNumber = Number(data.amount);
         try {
             const newBalance = Number(user.balance) + amountNumber;
-            const updatedUser = await updateProfile({
+            const updatedUser = await updateWallet({
                 id: user.id,
                 data: { balance: newBalance.toString() },
             }).unwrap();
@@ -162,6 +169,7 @@ export const ProfileContainer = () => {
                         user={user}
                         isEditing={isEditingProfile}
                         isUpdating={isUpdatingProfile}
+                        isDisabled={isAnyActionInProgress}
                         register={registerProfile}
                         errors={profileErrors}
                         onEnableEdit={handleEnableEdit}
@@ -199,9 +207,12 @@ export const ProfileContainer = () => {
                                     variant='contained'
                                     color='error'
                                     disableElevation
+                                    disabled={isAnyActionInProgress}
                                     onClick={handleOpenDeleteDialog}
                                 >
-                                    Delete Account
+                                    {isDeletingAccount
+                                        ? 'Processing...'
+                                        : 'Delete Account'}
                                 </Button>
                             </Box>
                         </Box>
@@ -255,6 +266,7 @@ export const ProfileContainer = () => {
                             size='small'
                             placeholder='Add Amount (₹)'
                             type='number'
+                            disabled={isAnyActionInProgress}
                             {...registerWallet(
                                 'amount',
                                 WALLET_VALIDATION_RULES,
@@ -265,10 +277,10 @@ export const ProfileContainer = () => {
                         <Button
                             type='submit'
                             variant='outlined'
-                            disabled={isUpdatingProfile}
+                            disabled={isAnyActionInProgress}
                             disableElevation
                         >
-                            {isUpdatingProfile ? 'Processing...' : 'Top-Up'}
+                            {isUpdatingWallet ? 'Processing...' : 'Top-Up'}
                         </Button>
                     </Stack>
                 </Box>

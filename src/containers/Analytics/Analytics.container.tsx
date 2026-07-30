@@ -3,16 +3,14 @@ import { useAnalyticsDashboard } from 'hooks';
 import { FormControl, Grid2, MenuItem, Select, Stack } from '@mui/material';
 
 import { Restaurant } from '@type';
+import { MenuItemStat, TopCustomerStat } from '@type/analytics.types';
+import { OrderDetailsResponse } from '@type/order.types';
 
-import {
-    getMetricCardsConfig,
-    renderCustomerRow,
-    renderMenuRow,
-    renderOrderRow,
-} from './Config';
+import { getMetricCardsConfig } from './Analytics.config';
 import {
     AnalyticsChart,
-    AnalyticsListColumn,
+    AnalyticsTable,
+    AnalyticsTableItem,
     MetricCard,
 } from './subComponents';
 
@@ -46,6 +44,30 @@ export const AnalyticsContainer = () => {
         totalRestaurants: restaurantsData?.length || 0,
         isLoading: isDashboardLoading,
     });
+
+    const renderCustomerRow = (item: TopCustomerStat) => (
+        <AnalyticsTableItem
+            title={item.customer_name}
+            subtitle={item.email}
+            value={`${item.total_orders} Orders`}
+        />
+    );
+
+    const renderMenuRow = (item: MenuItemStat) => (
+        <AnalyticsTableItem
+            title={item.item_name}
+            value={`${item.order_count}x`}
+            tooltip={`Ordered ${item.order_count} times`}
+        />
+    );
+
+    const renderOrderRow = (item: OrderDetailsResponse) => (
+        <AnalyticsTableItem
+            title={`Order #${item.id}`}
+            subtitle={new Date(item.created_at).toLocaleDateString()}
+            value={`₹${item.total_amount}`}
+        />
+    );
 
     return (
         <Stack gap={4}>
@@ -87,7 +109,7 @@ export const AnalyticsContainer = () => {
 
             <Grid2 container spacing={3}>
                 <Grid2 size={{ xs: 12, md: 4 }}>
-                    <AnalyticsListColumn
+                    <AnalyticsTable
                         title='Top Customers'
                         data={topCustomers?.slice(0, 10)}
                         isLoading={isLoadingCustomers}
@@ -96,7 +118,7 @@ export const AnalyticsContainer = () => {
                     />
                 </Grid2>
                 <Grid2 size={{ xs: 12, md: 4 }}>
-                    <AnalyticsListColumn
+                    <AnalyticsTable
                         title='Top Menu Items'
                         data={menuStats?.slice(0, 10)}
                         isLoading={isLoadingMenu}
@@ -105,7 +127,7 @@ export const AnalyticsContainer = () => {
                     />
                 </Grid2>
                 <Grid2 size={{ xs: 12, md: 4 }}>
-                    <AnalyticsListColumn
+                    <AnalyticsTable
                         title='Recent Orders'
                         data={orders?.slice(0, 10)}
                         isLoading={isLoadingOrders}

@@ -9,7 +9,7 @@ import { menuApi } from '@api/menu.api';
 import { restaurantApi } from '@api/restaurant.api';
 import { ROUTES } from '@constant';
 import { ChartTab } from '@containers/Analytics/subComponents/AnalyticsChart';
-import { getErrorMessage } from '@utils';
+import { getErrorMessage } from '@utils/errorHandler.util';
 
 export const useAnalyticsDashboard = () => {
     const { restaurantId } = useParams<{ restaurantId?: string }>();

@@ -18,7 +18,7 @@ import {
     removeItemCompletely,
 } from '@store/slices';
 import { CartItem } from '@type/cart.types';
-import { getErrorMessage } from '@utils/ErrorHandler';
+import { getErrorMessage } from '@utils/errorHandler.util';
 import { validateCartCheckout } from '@validations/order.validation';
 
 export const CartContainer = () => {

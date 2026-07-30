@@ -13,7 +13,7 @@ import {
     RestaurantCard,
 } from '@components';
 import { ROUTES } from '@constant';
-import { formatDate } from '@utils';
+import { formatDate } from '@utils/common.utils';
 
 import { RestaurantContainerProps } from './RestaurantList.types';
 

@@ -1,4 +1,4 @@
-export interface GetMetricCardsConfigProps {
+export interface MetricCardsConfigProps {
     totalCustomers: number;
     totalOrders: number;
     totalMenuItems: number;

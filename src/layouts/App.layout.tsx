@@ -19,11 +19,11 @@ const AppLayout = () => {
 
     const { useGetUserProfileQuery } = userApi;
 
-    const { isFetching } = useGetUserProfileQuery(queryId, {
+    const { isLoading } = useGetUserProfileQuery(queryId, {
         skip: !isAuthenticated || !user?.id || !token,
     });
 
-    if (isAuthenticated && isFetching) {
+    if (isAuthenticated && isLoading) {
         return (
             <Stack
                 height='100vh'
@@ -34,7 +34,7 @@ const AppLayout = () => {
             >
                 <CircularProgress color='primary' />
                 <Typography variant='h6' color='text.secondary'>
-                    Verifying Session...
+                    Loading...
                 </Typography>
             </Stack>
         );

@@ -49,7 +49,7 @@ export const typographyStyle = (theme: Theme): TypographyOptions => ({
 
     h3: {
         fontSize: typographyUtil.pxToRem(TYPOGRAPHY.H3.MOBILE),
-        fontWeight: FONT_WEIGHT.MEDIUM,
+        fontWeight: FONT_WEIGHT.BOLD,
         lineHeight: TYPOGRAPHY.H3.LINE_HEIGHT,
         letterSpacing: TYPOGRAPHY.H3.LETTER_SPACING,
         color: COLORS.SECONDARY.MAIN,
@@ -71,7 +71,7 @@ export const typographyStyle = (theme: Theme): TypographyOptions => ({
 
     h5: {
         fontSize: typographyUtil.pxToRem(TYPOGRAPHY.H5.MOBILE),
-        fontWeight: FONT_WEIGHT.MEDIUM,
+        fontWeight: FONT_WEIGHT.BOLD,
         lineHeight: TYPOGRAPHY.H5.LINE_HEIGHT,
         letterSpacing: TYPOGRAPHY.H5.LETTER_SPACING,
         color: COLORS.SECONDARY.MAIN,
@@ -82,7 +82,7 @@ export const typographyStyle = (theme: Theme): TypographyOptions => ({
 
     h6: {
         fontSize: typographyUtil.pxToRem(TYPOGRAPHY.H6.MOBILE),
-        fontWeight: FONT_WEIGHT.MEDIUM,
+        fontWeight: FONT_WEIGHT.BOLD,
         lineHeight: TYPOGRAPHY.H6.LINE_HEIGHT,
         letterSpacing: TYPOGRAPHY.H6.LETTER_SPACING,
         color: COLORS.SECONDARY.MAIN,

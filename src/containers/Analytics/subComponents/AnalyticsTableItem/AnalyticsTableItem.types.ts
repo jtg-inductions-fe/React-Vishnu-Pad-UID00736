@@ -1,4 +1,4 @@
-export interface AnalyticsRowItemProps {
+export interface AnalyticsTableItemProps {
     title: string;
     subtitle?: string;
     value: string | number;
