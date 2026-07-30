@@ -43,7 +43,7 @@ export const AnalyticsTable = <T,>({
                         variant='text'
                         size='small'
                         onClick={handleViewAllClick}
-                        sx={{ textTransform: 'none' }}
+                        sx={{ py: 2, px: 4, textTransform: 'none' }}
                     >
                         View All
                     </Button>
