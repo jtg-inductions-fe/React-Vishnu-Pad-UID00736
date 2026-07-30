@@ -1,7 +1,6 @@
 import { Drawer } from '@mui/material';
-import { alpha, styled, Theme } from '@mui/material/styles';
+import { alpha, styled } from '@mui/material/styles';
 
-import { FONT_WEIGHT } from '@constant';
 import { StyledNavLink } from '@containers/Header/Header.styles';
 
 export const CustomDrawer = styled(Drawer)(({ theme }) => ({
@@ -12,22 +11,6 @@ export const CustomDrawer = styled(Drawer)(({ theme }) => ({
         height: `calc(100% - ${theme.spacing(16)})`,
     },
 }));
-
-export const activeLinkStyles = {
-    '&.active': {
-        backgroundColor: (theme: Theme) =>
-            alpha(theme.palette.primary.main, 0.08),
-        color: 'primary.main',
-        fontWeight: FONT_WEIGHT.REGULAR,
-        '&:hover': {
-            backgroundColor: (theme: Theme) =>
-                alpha(theme.palette.primary.main, 0.12),
-        },
-        '& .MuiListItemIcon-root': {
-            color: 'primary.main',
-        },
-    },
-};
 
 export const StyledMobileNavLink = styled(StyledNavLink)(({ theme }) => ({
     display: 'flex',
